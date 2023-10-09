@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'neox-ui-root',
+  selector: 'n-auth-root',
   template: '<router-outlet></router-outlet>',
 })
 export class AppComponent {}

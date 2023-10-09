@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@neox-ui/libs/shared/data-access-user": [
+        "libs/shared/data-access-user/src/index.ts"
+      ],
       "auth/Module": ["apps/auth/src/app/remote-entry/entry.module.ts"]
     }
   },

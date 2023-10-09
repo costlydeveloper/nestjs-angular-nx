@@ -2,24 +2,30 @@
   "name": "team-link",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "neox-ui",
+  "prefix": "neox-tl",
   "sourceRoot": "apps/team-link/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:webpack-browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/team-link",
         "index": "apps/team-link/src/index.html",
         "main": "apps/team-link/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/team-link/tsconfig.app.json",
         "assets": [
           "apps/team-link/src/favicon.ico",
           "apps/team-link/src/assets"
         ],
-        "styles": ["apps/team-link/src/styles.scss"],
+        "styles": [
+          "apps/team-link/src/styles.scss"
+        ],
         "scripts": [],
         "customWebpackConfig": {
           "path": "apps/team-link/webpack.config.js"
@@ -79,7 +85,9 @@
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
         "lintFilePatterns": [
           "apps/team-link/**/*.ts",
@@ -89,7 +97,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/team-link/jest.config.ts",
         "passWithNoTests": true
