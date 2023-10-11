@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '@neox-ui/libs/shared/data-access-user';
+import { AuthenticationService } from '@neox-ui/shared/auth';
 import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
-  selector: 'n-tl-root',
+  selector: 'ox-tl-root',
   template: `
     <div class="dashboard-nav">Admin Dashboard</div>
     <div *ngIf="isLoggedIn$ | async; else signIn">
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   isLoggedIn$ = this.userService.isUserLoggedIn$;
 
   constructor(
-    private userService: UserService,
+    private userService: AuthenticationService,
     private router: Router,
   ) {}
 

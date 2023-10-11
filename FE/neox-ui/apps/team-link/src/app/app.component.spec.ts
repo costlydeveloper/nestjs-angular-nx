@@ -1,18 +1,11 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
-import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule.withRoutes([
-          { path: '', component: NxWelcomeComponent },
-        ]),
-      ],
-      declarations: [AppComponent, NxWelcomeComponent],
+      declarations: [AppComponent],
     }).compileComponents();
   });
 
@@ -25,7 +18,7 @@ describe('AppComponent', () => {
   it(`should have as title 'team-link'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('team-link');
+    expect(app).toEqual('team-link');
   });
 
   it('should render title', fakeAsync(() => {
@@ -36,7 +29,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Welcome team-link'
+      'Welcome team-link',
     );
   }));
 });

@@ -5,6 +5,9 @@
   "prefix": "neox-tl",
   "sourceRoot": "apps/team-link/src",
   "tags": [],
+  "implicitDependencies": [
+    "auth"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/angular:webpack-browser",
