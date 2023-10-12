@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from '@neox-ui/shared/auth';
+import { AuthenticationService } from '@neox-ui/data-access/shared';
 
 @Component({
   selector: 'ox-auth-login-entry',

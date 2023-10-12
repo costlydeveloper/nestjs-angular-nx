@@ -1,26 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '@neox-ui/shared/auth';
+import { AuthenticationService } from '@neox-ui/data-access/shared';
 import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'ox-tl-root',
-  template: `
-    <div class="dashboard-nav">Admin Dashboard</div>
-    <div *ngIf="isLoggedIn$ | async; else signIn">
-      You are authenticated so you can see this content.
-    </div>
-    <ng-template #signIn>
-      <router-outlet></router-outlet>
-    </ng-template>
-  `,
+  templateUrl: 'app.component.html',
 })
 export class AppComponent implements OnInit {
-  isLoggedIn$ = this.userService.isUserLoggedIn$;
+  isLoggedIn$ = this.authenticationService.isUserLoggedIn$;
 
   constructor(
-    private userService: AuthenticationService,
-    private router: Router,
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -36,5 +28,9 @@ export class AppComponent implements OnInit {
           }
         });
       });
+  }
+
+  logout(): void {
+    this.authenticationService.logout();
   }
 }

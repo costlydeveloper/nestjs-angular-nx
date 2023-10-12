@@ -8,7 +8,7 @@ const TOKEN_KEY = 'token';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  private isUserLoggedIn = new BehaviorSubject(false);
+  private isUserLoggedIn = new BehaviorSubject(!!this.getToken());
   isUserLoggedIn$ = this.isUserLoggedIn.asObservable();
   public authApiService = inject(AuthApiService);
 
@@ -18,11 +18,11 @@ export class AuthenticationService {
         this.setToken(resp.accessToken);
         this.isUserLoggedIn.next(true);
       }
-      console.log('resp', resp.accessToken);
     });
   }
 
   logout() {
+    this.removeToken();
     this.isUserLoggedIn.next(false);
   }
 
