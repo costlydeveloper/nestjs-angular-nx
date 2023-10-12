@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AuthenticationService } from '@neox-ui/data-access/shared';
 
 @Component({
-  selector: 'ox-auth-login-entry',
+  selector: 'nxauth-login-entry',
   templateUrl: 'entry.component.html',
 })
 export class RemoteEntryComponent {

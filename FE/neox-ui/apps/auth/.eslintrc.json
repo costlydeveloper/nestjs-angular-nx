@@ -19,7 +19,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "ox-auth",
+            "prefix": "nxauth",
             "style": "camelCase"
           }
         ],
@@ -27,7 +27,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "ox-auth",
+            "prefix": "nxauth",
             "style": "kebab-case"
           }
         ]

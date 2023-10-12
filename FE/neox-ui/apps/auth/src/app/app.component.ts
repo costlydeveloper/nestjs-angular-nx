@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ox-auth-root',
+  selector: 'nxauth-root',
   template: '<router-outlet></router-outlet>',
 })
 export class AppComponent {}
