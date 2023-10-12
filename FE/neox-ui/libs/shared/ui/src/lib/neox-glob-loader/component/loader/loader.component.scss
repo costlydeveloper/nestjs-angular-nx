@@ -1,0 +1,81 @@
+.loader {
+  align-content: center;
+  align-items: center;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+
+  .bottom,
+  .top {
+    align-content: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    top: 0;
+    width: 300px;
+  }
+
+  .top {
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-name: spinner;
+    animation-timing-function: cubic-bezier(0.42, 0.15, 0.43, 0.88);
+    margin-bottom: 30px;
+    transform-style: preserve-3d;
+  }
+
+  .loader-element {
+    border: 5px solid #2e3e82;
+    border-radius: 100%;
+    margin: calc(5px * 2);
+
+    &:nth-child(1) {
+      animation: preloader 0.6s ease-in-out alternate infinite;
+    }
+
+    &:nth-child(2) {
+      animation: preloader 0.6s ease-in-out alternate 0.2s infinite;
+    }
+
+    &:nth-child(3) {
+      animation: preloader 0.6s ease-in-out alternate 0.4s infinite;
+    }
+  }
+}
+
+@keyframes preloader {
+  100% {
+    transform: scale(2);
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+
+  25% {
+    transform: rotateY(-20deg);
+  }
+
+  70% {
+    transform: rotateX(-180deg) rotateY(-180deg);
+  }
+
+  85% {
+    transform: rotateX(-80deg) rotateY(-80deg);
+  }
+  100% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+}
