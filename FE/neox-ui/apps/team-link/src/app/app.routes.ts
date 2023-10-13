@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 import { accessGuard } from '@neox-ui/shared/utils';
 import { APP_ROUTE } from '@neox-ui/team-link/shared';
 import { loadRemoteModule } from '@nx/angular/mf';
-import { AppLayoutComponent } from './app-ayout/containers/app-layout/app-layout.component';
+import { AppLayoutComponent } from './app-layout/containers/app-layout/app-layout.component';
 
 export const appRoutes: Route[] = [
   {
