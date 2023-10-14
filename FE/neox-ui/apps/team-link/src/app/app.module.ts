@@ -9,6 +9,8 @@ import { UserMenuComponent } from './app-layout/components/user-menu/user-menu.c
 import { AppLayoutComponent } from './app-layout/containers/app-layout/app-layout.component';
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
+import { HttpClientModule } from '@angular/common/http';
+import { TranslocoRootModule } from './transloco-root.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { appRoutes } from './app.routes';
     AuthApiModule,
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
     SharedUtilsModule,
+    HttpClientModule,
+    TranslocoRootModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

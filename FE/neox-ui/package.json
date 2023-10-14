@@ -2,7 +2,10 @@
   "name": "@neox-ui/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "team-link:extract-translations": "./node_modules/.bin/transloco-keys-manager extract --project team-link --output ./assets/i18n --file-format json --langs en hr --sort --marker _",
+    "team-link:find-translations": "./node_modules/.bin/transloco-keys-manager find --project team-link --translations-path ./assets/i18n --file-format json"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~16.2.0",
@@ -28,6 +31,7 @@
     "@angular/cli": "~16.2.0",
     "@angular/compiler-cli": "~16.2.0",
     "@angular/language-service": "~16.2.0",
+    "@ngneat/transloco-keys-manager": "^3.8.0",
     "@nx/cypress": "16.10.0",
     "@nx/eslint-plugin": "16.10.0",
     "@nx/jest": "16.10.0",
