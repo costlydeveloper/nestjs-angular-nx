@@ -1,0 +1,7 @@
+{
+  "extends": "neox-ui/libs/shared/ui/tsconfig.lib.json",
+  "compilerOptions": {
+    "declarationMap": false
+  },
+  "angularCompilerOptions": {}
+}

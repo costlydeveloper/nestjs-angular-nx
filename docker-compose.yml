@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+
+  # DATABASE
+  mysql-db:
+    container_name: neox-db
+    image: mysql:5.7
+    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
+    # (this is just an example, not intended to be a production configuration)
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: $DATABASE_PASS
+    ports:
+      - $DATABASE_PORT_DOCKER_EXPOSE:$DATABASE_PORT
+    volumes:
+      - mysql-volume:/var/lib/mysql:rw
+      - ./mysql-db:/docker-entrypoint-initdb.d/
+    networks:
+      - default
+
+  # BACKEND APP
+  backend-app:
+    container_name: neox-api
+    #depends_on:
+    #  - mysql-db
+    build: neox-ap
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - $API_PORT_DOCKER_EXPOSE:$API_PORT
+    environment:
+      - DATABASE_HOST=$DATABASE_HOST
+      - DATABASE_USER=$DATABASE_USER
+      - DATABASE_PASS=$DATABASE_PASS
+      - DATABASE_NAME=$DATABASE_NAME
+      - DATABASE_PORT=$DATABASE_PORT_DOCKER_EXPOSE
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./neox-api:/app
+      - /app/node_modules
+    networks:
+      - default
+
+volumes:
+  mysql-volume:

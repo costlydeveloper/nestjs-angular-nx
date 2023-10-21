@@ -1,0 +1,12 @@
+{
+  "extends": "neox-ui/apps/team-link/tsconfig.json",
+  "include": [
+    "src/**/*.ts"
+  ],
+  "compilerOptions": {
+    "types": [
+      "jest",
+      "node"
+    ]
+  }
+}
