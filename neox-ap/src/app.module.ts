@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { EnvConfigModule } from './config/env-config/env-config.module';
 import { EnvConfigService } from './config/env-config/env-config.service';
+import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -14,8 +15,8 @@ import { UsersModule } from './users/users.module';
     ConfigModule.forRoot({
       envFilePath: ['./../.env'],
       /*  envFilePath: !process.env.NODE_ENV
-				? '.env.dev'
-				: `.env.dev.${process.env.NODE_ENV}`,*/
+							? '.env.dev'
+							: `.env.dev.${process.env.NODE_ENV}`,*/
     }),
     TypeOrmModule.forRootAsync({
       imports: [EnvConfigModule],
@@ -30,18 +31,18 @@ import { UsersModule } from './users/users.module';
         username: configService.get('DATABASE_USER'),
         password: configService.get('DATABASE_PASS'),
         database: configService.get('DATABASE_NAME'),
-        entities: [],
-        synchronize: false,
+        entities: [User],
+        synchronize: true,
       }),
     }),
   ],
 
   /*
-																								*  host: configService.get<IDatabaseConfig>('database')!.host,
-																									  port: configService.get<IDatabaseConfig>('database')!.port,
-																									  username: configService.get<IDatabaseConfig>('database')!.username,
-																									  password: configService.get<IDatabaseConfig>('database')!.password,
-																									  database: configService.get<IDatabaseConfig>('database')!.mainDbName,*/
+																									*  host: configService.get<IDatabaseConfig>('database')!.host,
+																										  port: configService.get<IDatabaseConfig>('database')!.port,
+																										  username: configService.get<IDatabaseConfig>('database')!.username,
+																										  password: configService.get<IDatabaseConfig>('database')!.password,
+																										  database: configService.get<IDatabaseConfig>('database')!.mainDbName,*/
   providers: [AppService],
 })
 export class AppModule {}

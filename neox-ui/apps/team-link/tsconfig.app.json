@@ -1,5 +1,5 @@
 {
-  "extends": "neox-ui/apps/team-link/tsconfig.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "types": [],
