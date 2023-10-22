@@ -10,42 +10,23 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": "./",
     "paths": {
-      "@neox-ui/data-access/auth": [
-        "libs/data-access/auth/src/index.ts"
-      ],
-      "@neox-ui/data-access/shared": [
-        "libs/data-access/shared/src/index.ts"
-      ],
+      "@neox-ui/data-access/auth": ["libs/data-access/auth/src/index.ts"],
+      "@neox-ui/data-access/shared": ["libs/data-access/shared/src/index.ts"],
       "@neox-ui/data-access/team-link": [
         "libs/data-access/team-link/src/index.ts"
       ],
-      "@neox-ui/shared/common": [
-        "libs/shared/common/src/index.ts"
-      ],
-      "@neox-ui/shared/ui": [
-        "libs/shared/ui/src/index.ts"
-      ],
-      "@neox-ui/shared/utils": [
-        "libs/shared/utils/src/index.ts"
-      ],
-      "@neox-ui/team-link/shared": [
-        "libs/team-link/shared/src/index.ts"
-      ],
-      "auth/Module": [
-        "apps/auth/src/app/remote-entry/entry.module.ts"
-      ]
+      "@neox-ui/platform": ["libs/shared/platform/src/index.ts"],
+      "@neox-ui/shared/common": ["libs/shared/common/src/index.ts"],
+      "@neox-ui/shared/ui": ["libs/shared/ui/src/index.ts"],
+      "@neox-ui/shared/utils": ["libs/shared/utils/src/index.ts"],
+      "@neox-ui/team-link/shared": ["libs/team-link/shared/src/index.ts"],
+      "auth/Module": ["apps/auth/src/app/remote-entry/entry.module.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

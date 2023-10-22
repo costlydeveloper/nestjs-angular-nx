@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { RestApiHelper } from '@neox-ui/data-access/shared';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,17 +8,18 @@ import { Observable } from 'rxjs';
 })
 export class AuthApiService {
   public http = inject(HttpClient);
+  public apiHelper = inject(RestApiHelper);
 
   login(
     username: string,
-    password: string,
+    password: string
   ): Observable<{ accessToken: string }> {
     return this.http.post<{ accessToken: string }>(
-      'http://localhost:3000/auth/login',
+      this.apiHelper.getApiUrl() + '/auth/login',
       {
         username,
         password,
-      },
+      }
     );
   }
 }
