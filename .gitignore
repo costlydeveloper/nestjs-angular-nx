@@ -1,3 +1,3 @@
 .idea
-package.json
 .env*.local
+/requests/*
