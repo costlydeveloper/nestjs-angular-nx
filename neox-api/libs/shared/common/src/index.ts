@@ -1,2 +1,2 @@
 export * from './lib/common.module';
-export * from './lib/entity';
+export * from './lib/base';

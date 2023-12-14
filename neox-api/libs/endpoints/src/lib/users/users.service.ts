@@ -2,14 +2,14 @@ import { encodePassword, Nullable } from '@neox-api/shared/utils';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from './dtos';
 import { IUser, User } from './user.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private readonly usersRepository: Repository<IUser>
+    private readonly usersRepository: Repository<IUser>,
   ) {}
 
   create(createUserDto: CreateUserDto): Promise<User> {

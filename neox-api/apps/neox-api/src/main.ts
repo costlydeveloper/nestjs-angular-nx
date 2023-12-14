@@ -4,7 +4,7 @@
  */
 
 import fastifyHelmet from '@fastify/helmet';
-import { Logger } from '@nestjs/common';
+import {Logger, ValidationPipe} from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
   FastifyAdapter,
@@ -23,6 +23,7 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter()
   );
+  app.useGlobalPipes(new ValidationPipe());
 
   const port = 3000; // +configService.get('API_PORT')!;
   const globalPrefix = 'api';
