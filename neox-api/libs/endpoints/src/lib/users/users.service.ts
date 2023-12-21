@@ -2,7 +2,7 @@ import { encodePassword, Nullable } from '@neox-api/shared/utils';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from './dtos';
+import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
 import { IUser, User } from './user.entity';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class UsersService {
     private readonly usersRepository: Repository<IUser>,
   ) {}
 
-  create(createUserDto: CreateUserDto): Promise<User> {
+  create(createUserDto: AuthCredentialsDto): Promise<User> {
     const password = encodePassword(createUserDto.password);
     const newUser = new User();
     newUser.username = createUserDto.username;
@@ -26,7 +26,7 @@ export class UsersService {
   }
 
   findOne(username: string): Promise<Nullable<IUser>> {
-    return this.usersRepository.findOneBy({ username: username });
+    return this.usersRepository.findOneBy({ username });
   }
 
   async remove(id: string): Promise<void> {

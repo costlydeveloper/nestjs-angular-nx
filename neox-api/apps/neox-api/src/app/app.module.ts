@@ -1,13 +1,11 @@
-import { User, UsersModule } from '@neox-api/endpoints';
-import { AuthModule } from '@neox-api/security';
+import { EndpointsModule, User } from '@neox-api/endpoints';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 
 @Module({
   imports: [
-    AuthModule,
-    UsersModule,
+    EndpointsModule,
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'mysql',
@@ -21,7 +19,6 @@ import { AppService } from './app.service';
       }),
     }),
   ],
-  controllers: [],
   providers: [AppService],
 })
 export class AppModule {}
