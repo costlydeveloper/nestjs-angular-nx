@@ -10,6 +10,13 @@ export interface IUser extends IBaseEntity {
   isActive: boolean;
 }
 
+export type IUserOmitPassword = Omit<IUser, 'password'>;
+
+export interface IUserIdentifier {
+  id: string;
+  password: string;
+}
+
 @Entity()
 export class User extends BaseEntity {
   @Column({ type: 'varchar', nullable: true })
@@ -19,11 +26,11 @@ export class User extends BaseEntity {
   lastName: Nullable<string> = null;
 
   @Column()
-  password: string | undefined;
+  password!: string;
 
   @Column()
-  username: string | undefined;
+  username!: string;
 
   @Column({ default: true })
-  isActive: boolean | undefined;
+  isActive!: boolean;
 }

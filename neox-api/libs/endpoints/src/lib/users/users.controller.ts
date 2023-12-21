@@ -1,25 +1,29 @@
-import { Nullable, Public } from '@neox-api/shared/utils';
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Post,
-} from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { Nullable, Serialize } from '@neox-api/shared/utils';
+
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { ApiBearerAuth, ApiBody, ApiResponse } from '@nestjs/swagger';
+import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
+import { CreateUserDto, UserDto } from './dtos';
 import { IUser, User } from './user.entity';
 import { UsersService } from './users.service';
 
 @Controller('users')
+@Serialize(UserDto)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @ApiBody({
+    type: CreateUserDto,
+    description: 'Json structure for user object',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'The record has been successfully created.',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   @Post()
-  @Public()
-  create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(createUserDto);
+  create(@Body() authCredentialsDto: AuthCredentialsDto): Promise<User> {
+    return this.usersService.create(authCredentialsDto);
   }
 
   @Get()
@@ -27,9 +31,10 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: string): Promise<Nullable<IUser>> {
-    return this.usersService.findOne(id);
+  @Get(':username')
+  @ApiBearerAuth() // swagger
+  findOne(@Param('username') username: string): Promise<Nullable<IUser>> {
+    return this.usersService.findOne(username);
   }
 
   @Delete(':id')
