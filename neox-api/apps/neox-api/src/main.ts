@@ -4,9 +4,12 @@
  */
 
 import fastifyHelmet from '@fastify/helmet';
-import { TransformInterceptor } from '@neox-api/shared/utils';
-import { Logger, ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import {
+  ClassSerializerInterceptor,
+  Logger,
+  ValidationPipe,
+} from '@nestjs/common';
+import { NestFactory, Reflector } from '@nestjs/core';
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -24,7 +27,7 @@ async function bootstrap() {
   const globalPrefix = 'api';
 
   app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalInterceptors(new TransformInterceptor());
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.setGlobalPrefix(globalPrefix);
 
   // region *** Swagger ***
@@ -46,8 +49,8 @@ async function bootstrap() {
     .build();
 
   /*  const options: SwaggerDocumentOptions = {
-					operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
-				  };*/
+							  operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
+							};*/
   const document = SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup('api', app, document, {
