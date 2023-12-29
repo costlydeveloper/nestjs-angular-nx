@@ -23,7 +23,14 @@
       },
       "configurations": {
         "development": {},
-        "production": {}
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/platform/src/lib/environment/global/environment.ts",
+              "with": "libs/shared/platform/src/lib/environment/global/environment.prod.ts"
+            }
+          ]
+        }
       }
     },
     "serve": {
