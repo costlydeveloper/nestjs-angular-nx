@@ -4,17 +4,14 @@
  */
 
 import fastifyHelmet from '@fastify/helmet';
+import { TransformInterceptor } from '@neox-api/shared/utils';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import {
-  DocumentBuilder,
-  SwaggerDocumentOptions,
-  SwaggerModule,
-} from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app/app.module';
 
@@ -23,11 +20,13 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter(),
   );
-  app.useGlobalPipes(new ValidationPipe());
-
   const port = 3000; // +configService.get('API_PORT')!;
   const globalPrefix = 'api';
+
+  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalInterceptors(new TransformInterceptor());
   app.setGlobalPrefix(globalPrefix);
+
   // region *** Swagger ***
 
   const config = new DocumentBuilder()
@@ -47,8 +46,8 @@ async function bootstrap() {
     .build();
 
   /*  const options: SwaggerDocumentOptions = {
-				  operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
-				};*/
+					operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
+				  };*/
   const document = SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup('api', app, document, {
