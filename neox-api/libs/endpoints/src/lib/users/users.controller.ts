@@ -4,7 +4,7 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiResponse } from '@nestjs/swagger';
 import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
 import { CreateUserDto, UserDto } from './dtos';
-import { IUser, User } from './user.entity';
+import { IUser, IUserOmitPassword, User } from './user.entity';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -22,7 +22,9 @@ export class UsersController {
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @Post()
-  create(@Body() authCredentialsDto: AuthCredentialsDto): Promise<User> {
+  create(
+    @Body() authCredentialsDto: AuthCredentialsDto,
+  ): Promise<IUserOmitPassword> {
     return this.usersService.create(authCredentialsDto);
   }
 

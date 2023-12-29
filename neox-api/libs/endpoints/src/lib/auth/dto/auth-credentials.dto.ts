@@ -7,10 +7,10 @@ export class AuthCredentialsDto {
   username!: string;
 
   @IsString()
-  /*@MinLength(8)
-											@MaxLength(32)
-											@Matches(PASSWORD_REGEXP, {
-											  message: MESSAGE.VALIDATION.WEAK_PASSWORD,
-											})*/
+  /*  @MinLength(8)
+				@MaxLength(32)
+				@Matches(PASSWORD_REGEXP, {
+				  message: MESSAGE.VALIDATION.WEAK_PASSWORD,
+				})*/
   password!: string;
 }

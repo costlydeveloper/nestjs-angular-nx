@@ -18,7 +18,7 @@ export interface IUserIdentifier {
 }
 
 @Entity()
-export class User extends BaseEntity {
+export class User extends BaseEntity implements IUser {
   @Column({ type: 'varchar', nullable: true })
   firstName: Nullable<string> = null;
 
@@ -28,7 +28,7 @@ export class User extends BaseEntity {
   @Column()
   password!: string;
 
-  @Column()
+  @Column({ unique: true })
   username!: string;
 
   @Column({ default: true })

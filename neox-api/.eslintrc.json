@@ -26,6 +26,7 @@
                 "sourceTag": "type:app",
                 "onlyDependOnLibsWithTags": [
                   "type:feature",
+                  "type:platform",
                   "type:util"
                 ]
               },
@@ -33,6 +34,7 @@
                 "sourceTag": "type:feature",
                 "onlyDependOnLibsWithTags": [
                   "type:feature",
+                  "type:platform",
                   "type:util"
                 ]
               },

@@ -1,22 +1,26 @@
 import { EndpointsModule, User } from '@neox-api/endpoints';
+import { environmentGlobal } from '@neox-api/platform';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataSourceOptions } from 'typeorm';
 import { AppService } from './app.service';
 
 @Module({
   imports: [
     EndpointsModule,
     TypeOrmModule.forRootAsync({
-      useFactory: () => ({
-        type: 'mysql',
-        host: '127.0.0.1',
-        port: 3306,
-        username: 'root',
-        password: '3007',
-        database: 'main_db',
-        entities: [User],
-        synchronize: true,
-      }),
+      useFactory: () => {
+        return {
+          type: environmentGlobal.database.type,
+          host: environmentGlobal.database.host,
+          port: environmentGlobal.database.port,
+          username: environmentGlobal.database.username,
+          password: environmentGlobal.database.password,
+          database: environmentGlobal.database.database,
+          synchronize: !environmentGlobal.production,
+          entities: [User],
+        } as DataSourceOptions;
+      },
     }),
   ],
   providers: [AppService],
