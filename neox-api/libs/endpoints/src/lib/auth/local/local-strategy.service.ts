@@ -27,7 +27,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     username: string,
     password: string,
   ): Promise<Nullable<IUserOmitPassword>> {
-    const storedUser = await this.usersService.findOne(username);
+    const storedUser = await this.usersService.findByUsername(username);
     if (storedUser && comparePasswords(password, storedUser.password)) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...userWithoutPassword } = storedUser;
