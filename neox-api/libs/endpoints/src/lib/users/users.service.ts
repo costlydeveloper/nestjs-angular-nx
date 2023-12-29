@@ -1,22 +1,26 @@
-import { DbErrorHandler, MESSAGE } from '@neox-api/shared/common';
+import {
+  BaseEntityService,
+  DbErrorHandler,
+  MESSAGE,
+} from '@neox-api/shared/common';
 import { encodePassword, Nullable } from '@neox-api/shared/utils';
 import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
 import { IUser, IUserOmitPassword, User } from './user.entity';
+import { UsersRepository } from './users-repository.service';
 
 @Injectable()
-export class UsersService {
+export class UsersService extends BaseEntityService<IUser> {
   constructor(
-    @InjectRepository(User)
-    private readonly usersRepository: Repository<IUser>,
+    private readonly usersRepository: UsersRepository,
     private readonly dbErrHandler: DbErrorHandler,
-  ) {}
+  ) {
+    super(usersRepository);
+  }
 
   async create(createUserDto: AuthCredentialsDto): Promise<IUserOmitPassword> {
     const newUser = new User();
@@ -37,15 +41,7 @@ export class UsersService {
     }
   }
 
-  async findAll(): Promise<User[]> {
-    return this.usersRepository.find();
-  }
-
-  findOne(username: string): Promise<Nullable<IUser>> {
+  findByUsername(username: string): Promise<Nullable<IUser>> {
     return this.usersRepository.findOneBy({ username });
-  }
-
-  async remove(id: string): Promise<void> {
-    await this.usersRepository.delete(id);
   }
 }

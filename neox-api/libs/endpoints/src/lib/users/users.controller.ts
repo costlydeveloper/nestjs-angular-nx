@@ -1,16 +1,19 @@
-import { Nullable, Serialize } from '@neox-api/shared/utils';
+import { BaseController } from '@neox-api/shared/common';
+import { Serialize } from '@neox-api/shared/utils';
 
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiResponse } from '@nestjs/swagger';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { ApiBody, ApiResponse } from '@nestjs/swagger';
 import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
-import { CreateUserDto, UserDto } from './dtos';
-import { IUser, IUserOmitPassword, User } from './user.entity';
+import { CreateUserDto, UserDto } from './dto';
+import { IUser, IUserOmitPassword } from './user.entity';
 import { UsersService } from './users.service';
 
 @Controller('users')
 @Serialize(UserDto)
-export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+export class UsersController extends BaseController<IUser> {
+  constructor(private readonly usersService: UsersService) {
+    super(usersService);
+  }
 
   @ApiBody({
     type: CreateUserDto,
@@ -29,18 +32,13 @@ export class UsersController {
   }
 
   @Get()
-  findAll(): Promise<User[]> {
+  findAll(): Promise<IUser[]> {
     return this.usersService.findAll();
   }
 
-  @Get(':username')
-  @ApiBearerAuth() // swagger
-  findOne(@Param('username') username: string): Promise<Nullable<IUser>> {
-    return this.usersService.findOne(username);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string): Promise<void> {
-    return this.usersService.remove(id);
-  }
+  /*  @Get(':username')
+		@ApiBearerAuth() // swagger
+		findOne(@Param('username') username: string): Promise<Nullable<IUser>> {
+		  return this.usersService.findByUsername(username);
+		}*/
 }

@@ -1,6 +1,7 @@
 import { BaseEntity, IBaseEntity } from '@neox-api/shared/common';
 import { Nullable } from '@neox-api/shared/utils';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
+import { Task } from '../tasks';
 
 export interface IUser extends IBaseEntity {
   firstName: Nullable<string>;
@@ -33,4 +34,7 @@ export class User extends BaseEntity implements IUser {
 
   @Column({ default: true })
   isActive!: boolean;
+
+  @OneToMany((_type) => Task, (task) => task.user, { eager: true })
+  tasks!: Task[];
 }

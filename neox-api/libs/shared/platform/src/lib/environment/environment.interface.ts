@@ -9,5 +9,6 @@ export interface IEnvironmentGlobal {
     username: string;
     password: string;
     database: string;
+    autoloadEntities: boolean;
   };
 }

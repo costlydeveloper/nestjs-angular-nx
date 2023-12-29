@@ -1,2 +1,2 @@
-export * from './lib/users';
+export * from './lib/exposed-entities';
 export * from './lib/endpoints.module';
