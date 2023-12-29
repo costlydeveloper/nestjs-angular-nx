@@ -1,3 +1,4 @@
+import { DbErrorHandlerModule } from '@neox-api/shared/common';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
@@ -5,8 +6,8 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
-  providers: [UsersService],
+  imports: [DbErrorHandlerModule, TypeOrmModule.forFeature([User])],
+  providers: [UsersService, DbErrorHandlerModule],
   controllers: [UsersController],
   exports: [UsersService],
 })

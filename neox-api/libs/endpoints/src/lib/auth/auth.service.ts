@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { IUser, IUserOmitPassword, UsersService } from '../users';
+import { IUserOmitPassword, UsersService } from '../users';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { IJwtPayload } from './jwt/jwt-payload.interface';
 
@@ -23,7 +23,9 @@ export class AuthService {
     };
   }
 
-  async signUp(authCredentialsDto: AuthCredentialsDto): Promise<IUser> {
+  async signUp(
+    authCredentialsDto: AuthCredentialsDto,
+  ): Promise<IUserOmitPassword> {
     return this.usersService.create(authCredentialsDto);
   }
 }
