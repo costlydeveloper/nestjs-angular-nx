@@ -1,4 +1,4 @@
-import { EndpointsModule, User } from '@neox-api/endpoints';
+import { EndpointsModule, ExposedEntities } from '@neox-api/endpoints';
 import { environmentGlobal } from '@neox-api/platform';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -18,7 +18,8 @@ import { AppService } from './app.service';
           password: environmentGlobal.database.password,
           database: environmentGlobal.database.database,
           synchronize: !environmentGlobal.production,
-          entities: [User],
+          autoloadEntities: environmentGlobal.database.autoloadEntities,
+          entities: ExposedEntities,
         } as DataSourceOptions;
       },
     }),
