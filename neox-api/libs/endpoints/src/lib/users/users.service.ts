@@ -6,15 +6,15 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
 import { IUser, IUserOmitPassword, User } from './user.entity';
+import { UsersRepository } from './users-repository.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private readonly usersRepository: Repository<IUser>,
+    private readonly usersRepository: UsersRepository,
     private readonly dbErrHandler: DbErrorHandler,
   ) {}
 

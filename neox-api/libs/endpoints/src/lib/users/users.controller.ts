@@ -3,7 +3,7 @@ import { Nullable, Serialize } from '@neox-api/shared/utils';
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiResponse } from '@nestjs/swagger';
 import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
-import { CreateUserDto, UserDto } from './dtos';
+import { CreateUserDto, UserDto } from './dto';
 import { IUser, IUserOmitPassword, User } from './user.entity';
 import { UsersService } from './users.service';
 
