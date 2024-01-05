@@ -10,36 +10,18 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@neox-api/endpoints": [
-        "libs/endpoints/src/index.ts"
-      ],
-      "@neox-api/platform": [
-        "libs/shared/platform/src/index.ts"
-      ],
-      "@neox-api/security": [
-        "libs/security/src/index.ts"
-      ],
-      "@neox-api/shared/common": [
-        "libs/shared/common/src/index.ts"
-      ],
-      "@neox-api/shared/utils": [
-        "libs/shared/utils/src/index.ts"
-      ],
-      "@neox-api/shared/platform": [
-        "libs/shared/platform/src/index.ts"
-      ]
+      "@neox-api/endpoints": ["libs/endpoints/src/index.ts"],
+      "@neox-api/platform": ["libs/shared/platform/src/index.ts"],
+      "@neox-api/security": ["libs/security/src/index.ts"],
+      "@neox-api/shared/common": ["libs/shared/common/src/index.ts"],
+      "@neox-api/shared/platform": ["libs/shared/platform/src/index.ts"],
+      "@neox-api/shared/utils": ["libs/shared/utils/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

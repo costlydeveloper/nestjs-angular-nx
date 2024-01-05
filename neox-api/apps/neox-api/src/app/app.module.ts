@@ -1,5 +1,6 @@
 import { EndpointsModule, ExposedEntities } from '@neox-api/endpoints';
 import { environmentGlobal } from '@neox-api/platform';
+import { LoggerModule } from '@neox-api/shared/utils';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSourceOptions } from 'typeorm';
@@ -7,6 +8,7 @@ import { AppService } from './app.service';
 
 @Module({
   imports: [
+    LoggerModule,
     EndpointsModule,
     TypeOrmModule.forRootAsync({
       useFactory: () => {
