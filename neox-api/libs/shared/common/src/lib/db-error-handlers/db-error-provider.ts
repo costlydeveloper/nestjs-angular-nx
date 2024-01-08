@@ -1,5 +1,6 @@
 import { environmentGlobal } from '@neox-api/platform';
 import { Provider } from '@nestjs/common';
+import { MESSAGE } from '../messages';
 import { mysqlErrors } from './types/mysql';
 import { PostgresErrors } from './types/postgres';
 import { IDbError } from './types/type.interface';
@@ -18,7 +19,7 @@ export const DatabaseErrorsProvider: Provider = {
         break;
 
       default:
-        throw new Error('Nepodržan tip baze podataka');
+        throw new Error(MESSAGE.ERROR.UNSUPPORTED_DATABASE_TYPE);
     }
     return errorType;
   },
