@@ -1,5 +1,5 @@
-import { jwtConstants } from '@neox-api/security';
 import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
@@ -15,9 +15,14 @@ import { LocalStrategy } from './local/local-strategy.service';
   imports: [
     UsersModule,
     PassportModule.register({ session: true }),
-    JwtModule.register({
-      secret: jwtConstants.secret, // todo bjenicek move to env
-      signOptions: { expiresIn: '10h' },
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get('JWT_SECRET'),
+        signOptions: {
+          expiresIn: 3600,
+        },
+      }),
     }),
   ],
   providers: [

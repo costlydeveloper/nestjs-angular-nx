@@ -40,12 +40,12 @@ export class TasksController extends BaseController<ITask> {
   }
 
   /*  @Get('/:id')
-		getTaskById(
-		  @Param('id') id: string,
-		  @CurrentUser() user: User,
-		): Promise<Task> {
-		  return this.tasksService.getTaskById(id, user);
-		}*/
+				getTaskById(
+				  @Param('id') id: string,
+				  @CurrentUser() user: User,
+				): Promise<Task> {
+				  return this.tasksService.getTaskById(id, user);
+				}*/
 
   @Post()
   createTask(
@@ -61,14 +61,14 @@ export class TasksController extends BaseController<ITask> {
   }
 
   /*
-	  @Delete('/:id')
-	  deleteTask(
-		@Param('id') id: string,
-		@CurrentUser() user: User,
-	  ): Promise<void> {
-		return this.tasksService.deleteTask(id, user);
-	  }
-	*/
+			  @Delete('/:id')
+			  deleteTask(
+				@Param('id') id: string,
+				@CurrentUser() user: User,
+			  ): Promise<void> {
+				return this.tasksService.deleteTask(id, user);
+			  }
+			*/
 
   @Patch('/:id/status')
   updateTaskStatus(
