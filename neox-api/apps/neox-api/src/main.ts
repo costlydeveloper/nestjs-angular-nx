@@ -8,6 +8,7 @@ import {
   Logger,
   ValidationPipe,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory, Reflector } from '@nestjs/core';
 import {
   FastifyAdapter,
@@ -18,16 +19,22 @@ import { Logger as PinoLogger, LoggerErrorInterceptor } from 'nestjs-pino';
 
 import { AppModule } from './app/app.module';
 
+declare const module: any;
+
 async function bootstrap() {
   //const logger = new Logger('22', 'aseasd');
-  const port = 3000; // +configService.get('API_PORT')!;
+
   const globalPrefix = 'api';
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
     { bufferLogs: true },
   );
+  const configService = app.get(ConfigService);
+  // console.log('configService main', configService);
+  const port = configService.get('PORT');
 
+  process.env.abc = configService.get('database');
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.setGlobalPrefix(globalPrefix);
@@ -42,7 +49,7 @@ async function bootstrap() {
     .setDescription('The API description')
     .setVersion('1.0')
     .addTag('tag')
-    .addServer('http://localhost:3000/', 'Local environment')
+    .addServer(`http://localhost:${port}/`, 'Local environment')
     .addBearerAuth({
       type: 'http',
       scheme: 'bearer',
@@ -54,8 +61,8 @@ async function bootstrap() {
     .build();
 
   /*  const options: SwaggerDocumentOptions = {
-																	operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
-																  };*/
+																			operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
+																		  };*/
   const document = SwaggerModule.createDocument(app, swaggerConfig);
 
   SwaggerModule.setup('api', app, document, {
@@ -84,6 +91,11 @@ async function bootstrap() {
       'NestApplication',
     );
   });
+  // This is necessary to make the hot-reload work with Docker
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 }
 
 bootstrap();

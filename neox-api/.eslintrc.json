@@ -27,6 +27,7 @@
                 "onlyDependOnLibsWithTags": [
                   "type:feature",
                   "type:platform",
+                  "type:config",
                   "type:util"
                 ]
               },
@@ -42,6 +43,12 @@
                 "sourceTag": "type:util",
                 "onlyDependOnLibsWithTags": [
                   "type:util"
+                ]
+              },
+              {
+                "sourceTag": "type:config",
+                "onlyDependOnLibsWithTags": [
+                  "type:config"
                 ]
               }
             ]
