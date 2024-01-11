@@ -28,7 +28,8 @@
                   "type:feature",
                   "type:platform",
                   "type:config",
-                  "type:util"
+                  "type:util",
+                  "type:db"
                 ]
               },
               {
@@ -43,6 +44,13 @@
                 "sourceTag": "type:util",
                 "onlyDependOnLibsWithTags": [
                   "type:util"
+                ]
+              },
+              {
+                "sourceTag": "type:db",
+                "onlyDependOnLibsWithTags": [
+                  "type:config",
+                  "scope:endpoints"
                 ]
               },
               {

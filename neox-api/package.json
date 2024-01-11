@@ -4,9 +4,15 @@
   "license": "MIT",
   "scripts": {
     "start:dev:docker": "nx build neox-api --webpack --webpackPath webpack-hmr.config.js --watch",
-    "start": "STAGE=dev nx s neox-api",
-    "build": "nx build neox-api",
-    "start:prod": "nx build neox-api; STAGE=prod node dist/apps/neox-api/main.js"
+    "start": "NX_NO_CLOUD=true nx s neox-api",
+    "build": "NX_NO_CLOUD=true nx build neox-api",
+    "start:prod": "NX_NO_CLOUD=true nx build neox-api; node dist/apps/neox-api/main.js",
+    "migration:generate": "NX_NO_CLOUD=true nx run db:migration:generate",
+    "migration:run": "NX_NO_CLOUD=true nx run db:migration:run",
+    "migration:revert": "NX_NO_CLOUD=true nx run db:migration:revert",
+    "migration:show": "NX_NO_CLOUD=true nx run db:migration:show",
+    "schema:log": "NX_NO_CLOUD=true nx run db:schema:log",
+    "schema:sync": "NX_NO_CLOUD=true nx run db:schema:sync"
   },
   "dependencies": {
     "@fastify/swagger": "^8.12.1",

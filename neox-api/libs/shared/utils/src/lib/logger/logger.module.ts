@@ -11,11 +11,11 @@ import { LoggerModule as PinoLogger } from 'nestjs-pino';
         }),
         autoLogging: false,
         transport: {
-          target: 'pino-pretty',
-          //target: './pino-pretty-transport',
+          //target: 'pino-pretty',
+          target: `${__dirname}/../../../pino-pretty-transport.js`,
           options: {
             colorizeObjects: true,
-            messageFormat: '[{context}] {msg} ',
+            messageFormat: '{context}{msg} ',
             singleLine: true,
           },
         },

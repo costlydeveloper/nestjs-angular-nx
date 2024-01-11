@@ -30,5 +30,29 @@ services:
       - docker-network
     logging: *default-logging
 
+  # BACKEND APP
+  backend-app:
+    container_name: neox-backend
+    # depends_on:
+    # - postgres_db
+    build: neox-api
+    restart: unless-stopped
+    ports:
+      - ${BACKEND_PORT_DOCKER}:${BACKEND_PORT}
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_PORT=${DB_PORT_DOCKER}
+      - JWT_SECRET=${JWT_SECRET}
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./neox-api:/app
+      - /app/node_modules
+    networks:
+      - default
+
 volumes:
   db-data:
