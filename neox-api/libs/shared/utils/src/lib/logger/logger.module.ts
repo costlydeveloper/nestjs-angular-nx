@@ -4,7 +4,7 @@ import { LoggerModule as PinoLogger } from 'nestjs-pino';
 @Module({
   imports: [
     PinoLogger.forRoot({
-      forRoutes: ['tasks'], // Dodaj ovu opciju kako bi omogućio samo za određene rute
+      forRoutes: ['*'], // Dodaj ovu opciju kako bi omogućio samo za određene rute
       pinoHttp: {
         customProps: (req, res) => ({
           context: 'HTTP',

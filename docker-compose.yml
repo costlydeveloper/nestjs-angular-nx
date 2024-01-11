@@ -1,42 +1,51 @@
 version: "3.8"
 
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: 100m
+    max-file: 100
+
+networks:
+  docker-network:
+    driver: bridge
+
 services:
 
   # DATABASE
-  mysql-db:
+  postgres_db:
     container_name: neox-db
-    image: mysql:5.7
-    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
-    # (this is just an example, not intended to be a production configuration)
-    command: --default-authentication-plugin=mysql_native_password
-    restart: unless-stopped
-    env_file: .env
-    environment:
-      MYSQL_ROOT_PASSWORD: $DATABASE_PASS
+    image: bitnami/postgresql:latest
+    platform: linux/amd64
     ports:
-      - $DATABASE_PORT_DOCKER_EXPOSE:$DATABASE_PORT
+      - ${DB_PORT_DOCKER}:${DB_PORT}
+    restart: always
     volumes:
-      - mysql-volume:/var/lib/mysql:rw
-      - ./mysql-db:/docker-entrypoint-initdb.d/
+      - db-data:/bitnami/postgresql
+    environment:
+      - POSTGRESQL_DATABASE=${DB_DATABASE}
+      - POSTGRESQL_USERNAME=${DB_USERNAME}
+      - POSTGRESQL_PASSWORD=${DB_PASSWORD}
     networks:
-      - default
+      - docker-network
+    logging: *default-logging
 
   # BACKEND APP
   backend-app:
-    container_name: neox-api
-    #depends_on:
-    #  - mysql-db
-    build: neox-ap
+    container_name: neox-backend
+    # depends_on:
+    # - postgres_db
+    build: neox-api
     restart: unless-stopped
-    env_file: .env
     ports:
-      - $API_PORT_DOCKER_EXPOSE:$API_PORT
+      - ${BACKEND_PORT_DOCKER}:${BACKEND_PORT}
     environment:
-      - DATABASE_HOST=$DATABASE_HOST
-      - DATABASE_USER=$DATABASE_USER
-      - DATABASE_PASS=$DATABASE_PASS
-      - DATABASE_NAME=$DATABASE_NAME
-      - DATABASE_PORT=$DATABASE_PORT_DOCKER_EXPOSE
+      - DB_HOST=${DB_HOST}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_PORT=${DB_PORT_DOCKER}
+      - JWT_SECRET=${JWT_SECRET}
     stdin_open: true
     tty: true
     volumes:
@@ -46,4 +55,4 @@ services:
       - default
 
 volumes:
-  mysql-volume:
+  db-data:

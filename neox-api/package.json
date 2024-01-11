@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "start:dev:docker": "nx build neox-api --webpack --webpackPath webpack-hmr.config.js --watch",
     "start": "STAGE=dev nx s neox-api",
     "build": "nx build neox-api",
     "start:prod": "nx build neox-api; STAGE=prod node dist/apps/neox-api/main.js"
@@ -33,19 +34,20 @@
     "pg": "^8.11.3",
     "pino-http": "^8.6.1",
     "pino-pretty": "10.2.3",
-    "reflect-metadata": "^0.1.12 || ^0.2.1",
+    "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
-    "typeorm": "^0.3.17"
+    "typeorm": "^0.3.19"
   },
   "devDependencies": {
+    "@nrwl/cli": "15.9.3",
     "@fastify/helmet": "^11.1.1",
     "@fastify/static": "^6.12.0",
     "@nestjs/cli": "^10.2.1",
     "@nestjs/schematics": "^10.0.3",
     "@nestjs/testing": "^10.2.10",
     "@nx/eslint": "17.2.8",
-    "@nx/eslint-plugin": "^17.2.8",
+    "@nx/eslint-plugin": "17.2.4",
     "@nx/jest": "17.2.8",
     "@nx/js": "17.2.8",
     "@nx/nest": "17.2.8",
@@ -61,7 +63,7 @@
     "@types/passport-local": "^1.0.38",
     "@types/supertest": "^2.0.16",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
-    "@typescript-eslint/parser": "5.62.0",
+    "@typescript-eslint/parser": "6.9.1",
     "eslint": "~8.55.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.0.1",
