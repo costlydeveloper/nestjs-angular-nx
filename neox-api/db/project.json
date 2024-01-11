@@ -1,0 +1,92 @@
+{
+  "name": "db",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "db/src",
+  "projectType": "library",
+  "targets": {
+    "build-migration-config": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "babelUpwardRootMode": true,
+        "webpackConfig": "db/webpack.config.js",
+        "outputPath": "db/datasource-dist",
+        "main": "db/src/lib/typeorm-datasource.ts",
+        "tsConfig": "db/tsconfig.lib.json"
+      }
+    },
+    "migration:generate": {
+      "executor": "nx:run-commands",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "cwd": "db",
+        "commands": [
+          "typeorm -d datasource-dist/main.js migration:generate migrations/migration"
+        ]
+      },
+      "dependsOn": ["build-migration-config"]
+    },
+    "migration:run": {
+      "executor": "nx:run-commands",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "cwd": "db/datasource-dist",
+        "commands": [
+          "npx typeorm-ts-node-esm -d ./main.js migration:run"
+        ]
+      },
+      "dependsOn": ["build-migration-config"]
+    },
+    "migration:revert": {
+      "executor": "nx:run-commands",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "cwd": "db/datasource-dist",
+        "commands": [
+          "typeorm -d ./main.js migration:revert"
+        ]
+      },
+      "dependsOn": ["build-migration-config"]
+    },
+    "migration:show": {
+      "executor": "nx:run-commands",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "cwd": "db/datasource-dist",
+        "commands": [
+          "npx typeorm-ts-node-esm -d ./main.js migration:show"
+        ]
+      },
+      "dependsOn": ["build-migration-config"]
+    },
+    "schema:sync": {
+      "executor": "nx:run-commands",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "cwd": "db/datasource-dist",
+        "commands": [
+          "npx typeorm-ts-node-esm -d ./main.js schema:sync"
+        ]
+      },
+      "dependsOn": ["build-migration-config"]
+    },
+    "schema:log": {
+      "executor": "nx:run-commands",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "cwd": "db/datasource-dist",
+        "commands": [
+          "npx typeorm-ts-node-esm -d ./main.js schema:log"
+        ]
+      },
+      "dependsOn": ["build-migration-config"]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": ["type:db"]
+}

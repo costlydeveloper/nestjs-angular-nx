@@ -71,41 +71,6 @@
     "docker-build": {
       "dependsOn": ["build"],
       "command": "docker build -f apps/neox-api/Dockerfile . -t neox-api"
-    },
-    "build-migration-config": {
-      "executor": "@nx/webpack:webpack",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "target": "node",
-        "compiler": "tsc",
-        "babelUpwardRootMode": true,
-        "webpackConfig": "apps/neox-api/webpack.config.js",
-        "outputPath": "dist/apps/typeorm-migration",
-        "main": "apps/neox-api/src/app/typeorm-datasource.ts",
-        "tsConfig": "apps/neox-api/tsconfig.app.json"
-      }
-    },
-    "typeorm-generate-migrations": {
-      "executor": "nx:run-commands",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "cwd": "apps/neox-api",
-        "commands": [
-          "typeorm -d ../../dist/apps/typeorm-migration/main.js migration:generate ./db/migrations/%npm_config_name%"
-        ]
-      },
-      "dependsOn": ["build-migration-config"]
-    },
-    "typeorm-run-migrations": {
-      "executor": "nx:run-commands",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "cwd": "apps/neox-api",
-        "commands": [
-          "typeorm -d ../../dist/apps/typeorm-migration/main.js migration:run"
-        ]
-      },
-      "dependsOn": ["build-migration-config"]
     }
   },
   "tags": ["scope:neox-api", "type:app"]
