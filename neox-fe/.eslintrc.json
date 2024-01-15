@@ -1,0 +1,81 @@
+{
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.ts"],
+      "extends": [
+        "plugin:@nx/angular",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "teamLink",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "tl",
+            "style": "kebab-case"
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@nx/angular-template"],
+      "rules": {}
+    }
+  ],
+  "extends": ["./.eslintrc.base.json"],
+  "rules": {
+    "@nx/enforce-module-boundaries": [
+      "error",
+      {
+        "enforceBuildableLibDependency": true,
+        "allowCircularSelfDependency": false,
+        "allow": [],
+        "depConstraints": [
+          {
+            "sourceTag": "type:app",
+            "onlyDependOnLibsWithTags": [
+              "type:feature",
+              "type:config"
+            ]
+          },
+          {
+            "sourceTag": "type:feature",
+            "onlyDependOnLibsWithTags": [
+              "type:util"
+            ]
+          },
+          {
+            "sourceTag": "type:util",
+            "onlyDependOnLibsWithTags": [
+              "type:util"
+            ]
+          },
+          {
+            "sourceTag": "type:config",
+            "onlyDependOnLibsWithTags": [
+              "type:config"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
