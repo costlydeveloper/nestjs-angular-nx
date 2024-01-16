@@ -36,6 +36,7 @@ export class AuthenticationService {
   logout() {
     this.removeToken();
     this.isUserLoggedIn.next(false);
+    this.router.navigateByUrl('/');
   }
 
   getToken() {

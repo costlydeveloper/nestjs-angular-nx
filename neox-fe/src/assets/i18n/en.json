@@ -3,7 +3,7 @@
   "auth.yourEmail": "Your email",
   "auth.password": "Password",
   "auth.rememberMe": "Remember me",
-  "auth.forgotPassword": "Remember me",
+  "auth.forgotPassword": "Forgot Password",
   "auth.dontHaveAnAccountYet": "Don’t have an account yet?",
   "auth.signIn": "Sign in",
   "auth.signUp": "Sign up",

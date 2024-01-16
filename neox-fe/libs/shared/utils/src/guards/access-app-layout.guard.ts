@@ -5,7 +5,7 @@ import { AuthenticationService } from '@team-link/data-access-shared';
 
 import { firstValueFrom } from 'rxjs';
 
-export const accessAppLayoutGuard: CanActivateFn = async (route, state) => {
+export const accessAppLayoutGuard: CanActivateFn = async (route) => {
   const requiresLogin = route.data[ROUTE_DATA.REQUIRES_LOGIN] || false;
 
   if (requiresLogin) {
