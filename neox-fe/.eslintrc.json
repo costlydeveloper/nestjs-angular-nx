@@ -53,7 +53,9 @@
             "sourceTag": "type:app",
             "onlyDependOnLibsWithTags": [
               "type:feature",
-              "type:config"
+              "type:config",
+              "scope:shared"
+
             ]
           },
           {
