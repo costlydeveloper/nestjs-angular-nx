@@ -10,6 +10,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { User } from '../users';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
@@ -18,6 +19,8 @@ import { ITask, Task } from './task.entity';
 import { TasksService } from './tasks.service';
 
 @Controller('tasks')
+@ApiBearerAuth()
+@ApiTags('Tasks')
 export class TasksController extends BaseController<ITask> {
   private logger = new Logger('TasksController');
 

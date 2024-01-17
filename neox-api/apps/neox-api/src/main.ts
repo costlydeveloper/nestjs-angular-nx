@@ -3,6 +3,7 @@
  * This is only a minimal backend to get started.
  */
 import fastifyHelmet from '@fastify/helmet';
+import { swaggerConfig } from '@neox-api/config';
 import {
   ClassSerializerInterceptor,
   Logger,
@@ -14,7 +15,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
 import { Logger as PinoLogger, LoggerErrorInterceptor } from 'nestjs-pino';
 
 import { AppModule } from './app/app.module';
@@ -22,8 +23,6 @@ import { AppModule } from './app/app.module';
 declare const module: any;
 
 async function bootstrap() {
-  //const logger = new Logger('22', 'aseasd');
-
   const globalPrefix = 'api';
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
@@ -31,46 +30,16 @@ async function bootstrap() {
     { bufferLogs: true },
   );
   const configService = app.get(ConfigService);
-  // console.log('configService main', configService);
   const port = configService.get('PORT');
 
   process.env.abc = configService.get('database');
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  app.useGlobalInterceptors(new LoggerErrorInterceptor());
   app.setGlobalPrefix(globalPrefix);
   app.useLogger(app.get(PinoLogger));
-  app.useGlobalInterceptors(new LoggerErrorInterceptor());
   app.enableCors();
-
-  // region *** Swagger ***
-
-  const swaggerConfig = new DocumentBuilder()
-    .setTitle('Neox API')
-    .setDescription('The API description')
-    .setVersion('1.0')
-    .addTag('tag')
-    .addServer(`http://localhost:${port}/`, 'Local environment')
-    .addBearerAuth({
-      type: 'http',
-      scheme: 'bearer',
-      bearerFormat: 'JWT',
-      name: 'JWT',
-      description: 'Enter JWT token',
-      in: 'header',
-    })
-    .build();
-
-  /*  const options: SwaggerDocumentOptions = {
-																			operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
-																		  };*/
-  const document = SwaggerModule.createDocument(app, swaggerConfig);
-
-  SwaggerModule.setup('api', app, document, {
-    swaggerOptions: {
-      persistAuthorization: true, // this
-    },
-  });
-  // endregion
+  swaggerConfig(app, port);
 
   await app.register(fastifyHelmet, {
     contentSecurityPolicy: {
@@ -83,14 +52,13 @@ async function bootstrap() {
     },
   });
 
-  // const configService = app.get(EnvConfigService);
-
   await app.listen(port, '0.0.0.0').then(() => {
     Logger.log(
       `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
       'NestApplication',
     );
   });
+
   // This is necessary to make the hot-reload work with Docker
   if (module.hot) {
     module.hot.accept();
