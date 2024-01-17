@@ -20,6 +20,9 @@
       "@team-link/dashboard": ["libs/features/views/dashboard/src/index.ts"],
       "@team-link/data-access": ["libs/data-access/src/index.ts"],
       "@team-link/data-access-shared": ["libs/data-access/shared/src/index.ts"],
+      "@team-link/form-controls": [
+        "libs/core-components/form-controls/src/index.ts"
+      ],
       "@team-link/utils": ["libs/shared/utils/src/index.ts"]
     }
   },

@@ -12,6 +12,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import {
   ConfirmBoxConfigModule,
+  DialogConfigModule,
+  NgxAwesomePopupModule,
   ToastNotificationConfigModule,
 } from '@costlydeveloper/ngx-awesome-popup';
 import { provideTransloco } from '@ngneat/transloco';
@@ -40,6 +42,8 @@ export const appConfig: ApplicationConfig = {
       },
       loader: TranslocoHttpLoader,
     }),
+    importProvidersFrom(NgxAwesomePopupModule.forRoot()),
+    importProvidersFrom(DialogConfigModule.forRoot()),
     importProvidersFrom(ConfirmBoxConfigModule.forRoot()),
     importProvidersFrom(ToastNotificationConfigModule.forRoot()),
   ],
