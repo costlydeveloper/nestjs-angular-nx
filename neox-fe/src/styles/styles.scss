@@ -1,8 +1,7 @@
-@import "node_modules/@costlydeveloper/ngx-awesome-popup/styles/theme";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import 'ngx-awesome-popup-theme/theme';
 /* You can add global styles to this file, and also import other style files */
 
 html,
