@@ -1,0 +1,5 @@
+<ng-container [formGroup]="form">
+  @for (formControl of dynamicFormControls; track formControl.id) {
+  <fc-dynamic-form-control [debug]="debug" [dynamicFormControl]="formControl" />
+  }
+</ng-container>

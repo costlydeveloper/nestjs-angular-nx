@@ -41,6 +41,6 @@ export class AppComponent implements OnInit {
     });
 
     // Simply open the popup
-    newToastNotification.openToastNotification$();
+    // newToastNotification.openToastNotification$();
   }
 }
