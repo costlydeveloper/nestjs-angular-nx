@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { UserMenuComponent } from '../user-menu/user-menu.component';
 
 @Component({
-  selector: 'nxt-header',
+  selector: 'tl-header',
   standalone: true,
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],

@@ -9,6 +9,7 @@ body {
   height: 100%;
 }
 body {
+  @apply bg-white text-black dark:bg-gray-800 dark:text-white;
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }

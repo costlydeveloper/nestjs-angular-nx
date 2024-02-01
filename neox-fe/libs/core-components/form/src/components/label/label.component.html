@@ -1,0 +1,8 @@
+<label
+  *ngIf="config.showLabel"
+  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+  [for]="config.id"
+  >@if (config.required) {
+  <span class="text-red-500 text-sm">*</span>
+  } {{ config.name }}</label
+>

@@ -4,7 +4,7 @@ import { TranslocoPipe } from '@ngneat/transloco';
 import { AuthenticationService } from '@team-link/data-access-shared';
 
 @Component({
-  selector: 'nxt-user-menu',
+  selector: 'tl-user-menu',
   standalone: true,
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.scss'],
