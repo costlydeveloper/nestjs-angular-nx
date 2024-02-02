@@ -6,6 +6,7 @@ import {
   FormGeneratorComponent,
   IDynamicFormControl,
   IErrorAssociation,
+  IFormLayout,
   InputType,
 } from '@team-link/form-controls';
 
@@ -17,6 +18,11 @@ import {
   styleUrl: './play-form.component.scss',
 })
 export class PlayFormComponent {
+  formLayout: IFormLayout = {
+    girdCols: 12,
+    gap: 5,
+    colSpan: [[`col-span-2`, `col-span-9`]],
+  };
   formGeneratorConfig: IDynamicFormControl[] = [
     {
       id: 'email',
