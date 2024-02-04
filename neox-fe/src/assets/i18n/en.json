@@ -1,11 +1,14 @@
 {
   "auth.header.signIn": "Sign in to your account",
-  "auth.yourEmail": "Your email",
-  "auth.password": "Password",
+  "auth.label.email": "Your email",
+  "auth.placeholder.email": "Enter valid email address",
+  "auth.label.password": "Password",
+  "auth.placeholder.password": "Enter password",
   "auth.rememberMe": "Remember me",
   "auth.forgotPassword": "Forgot Password",
   "auth.dontHaveAnAccountYet": "Don’t have an account yet?",
   "auth.signIn": "Sign in",
   "auth.signUp": "Sign up",
-  "header.userMenu.signOut": "Sign out"
+  "header.userMenu.signOut": "Sign out",
+  "error.form.fieldIsRequired": "Field is required!"
 }
