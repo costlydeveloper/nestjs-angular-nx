@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@team-link/auth": ["libs/features/views/auth/src/index.ts"],
+      "@team-link/button": ["libs/core-components/button/src/index.ts"],
       "@team-link/config": ["libs/shared/config/src/index.ts"],
       "@team-link/dashboard": ["libs/features/views/dashboard/src/index.ts"],
       "@team-link/data-access": ["libs/data-access/src/index.ts"],

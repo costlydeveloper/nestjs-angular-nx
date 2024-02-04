@@ -1,0 +1,8 @@
+<button
+  [ngClass]="{ 'read-only-colors': disabled }"
+  [class]="buildButtonCssString"
+  (click)="buttonClick.emit($event)"
+  [disabled]="disabled"
+>
+  <ng-content></ng-content>
+</button>

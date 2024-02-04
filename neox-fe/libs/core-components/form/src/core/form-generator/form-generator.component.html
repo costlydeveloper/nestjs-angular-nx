@@ -1,7 +1,7 @@
 <ng-container [formGroup]="form">
   @if (layoutData.length){ @for (layoutRow of layoutData; track layoutRow) {
   <div
-    class="grid p-4 grid-flow-row grid-auto-rows-auto grid-cols-{{
+    class="grid grid-flow-row grid-auto-rows-auto grid-cols-{{
       layoutConfig.girdCols
     }}  gap-{{ layoutConfig.gap }}"
   >
@@ -21,12 +21,12 @@
   </div>
   } } @else {
   <div
-    class="grid p-4 grid-flow-row grid-auto-rows-auto grid-cols-{{
+    class="grid grid-flow-row grid-auto-rows-auto grid-cols-{{
       layoutConfig.girdCols
     }}  gap-{{ layoutConfig.gap }}"
   >
     @for (formControl of dynamicFormControls; track formControl.id) {
-    <div class="p-4 rounded-md">
+    <div class="py-4 rounded-md">
       <fc-dynamic-form-control
         [debug]="debug"
         [dynamicFormControl]="formControl"

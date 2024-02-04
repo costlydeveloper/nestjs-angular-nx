@@ -18,7 +18,9 @@ import { Subscription } from 'rxjs';
 import { DEFAULT_FORM_LAYOUT } from '../../config/default-form-layout';
 import {
   ColSpanItem,
+  FormControlStatus,
   IDynamicFormControl,
+  IFormCompactOutput,
   IFormLayout,
 } from '../../dependencies';
 import { DynamicFormControlComponent } from '../dynamic-form-control/dynamic-form-control.component';
@@ -49,7 +51,8 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
 
   // region *** I / O ***
 
-  @Output() formEmitter = new EventEmitter<FormGroup>();
+  @Output() formGroupEmitter = new EventEmitter<FormGroup>();
+  @Output() formCompactEmitter = new EventEmitter<IFormCompactOutput>();
 
   _layoutConfig: IFormLayout = DEFAULT_FORM_LAYOUT;
   @Input({ required: false })
@@ -77,6 +80,7 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
 
   layoutData: [number | null, ColSpanItem, string?][][] = [];
 
+  formOutput!: IFormCompactOutput;
   form!: FormGroup;
   subscriptions: Subscription = new Subscription();
   constructor(private fb: NonNullableFormBuilder) {
@@ -86,8 +90,11 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.add(
       this.form.valueChanges.subscribe(() => {
-        this.formEmitter.emit(this.form);
-      })
+        this.formGroupEmitter.emit(this.form);
+        const status: FormControlStatus = this.form.status as FormControlStatus;
+        this.formOutput = { status, value: this.form.value };
+        this.formCompactEmitter.emit(this.formOutput);
+      }),
     );
   }
 
@@ -98,11 +105,11 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
   setupFormFields(dynamicFormFields: IDynamicFormControl[]) {
     dynamicFormFields.forEach((formItem: IDynamicFormControl) => {
       const fieldValidators = formItem?.validators?.map(
-        (validatorError) => validatorError.validator
+        (validatorError) => validatorError.validator,
       );
       const formControl = this.fb.control(
         formItem.value || '',
-        fieldValidators
+        fieldValidators,
       );
       this.form.addControl(formItem.id, formControl);
     });
