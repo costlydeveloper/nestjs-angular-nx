@@ -75,6 +75,11 @@
             "onlyDependOnLibsWithTags": [
               "type:config"
             ]
+          }, {
+            "sourceTag": "scope:dev",
+            "onlyDependOnLibsWithTags": [
+              "*"
+            ]
           }
         ]
       }

@@ -1,6 +1,10 @@
 import { Route } from '@angular/router';
 import { APP_ROUTE } from '@team-link/config';
-import { accessAppLayoutGuard, accessAuthGuard } from '@team-link/utils';
+import {
+  accessAppLayoutGuard,
+  accessAuthGuard,
+  accessDevOnlyGuard,
+} from '@team-link/utils';
 import { AppLayoutComponent } from './app-layout/containers/app-layout/app-layout.component';
 
 export const appRoutes: Route[] = [
@@ -27,8 +31,9 @@ export const appRoutes: Route[] = [
       },
       {
         path: APP_ROUTE.PLAYGROUND,
+        canActivate: [accessDevOnlyGuard],
         loadChildren: () =>
-          import('@team-link/playground').then((m) => m.playgroundRoutes),
+          import('@team-link/dev-playground').then((m) => m.playgroundRoutes),
       },
     ],
   },

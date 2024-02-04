@@ -27,10 +27,10 @@ export class PlayFormComponent {
     {
       id: 'email',
       label: {
-        name: 'Email',
+        name: 'auth.label.email',
       },
-      placeholder: 'ss',
-      titleAtt: 'title',
+      placeholder: 'auth.placeholder.email',
+      titleAtt: 'auth.placeholder.email',
       type: DynamicControlTypeEnum.INPUT_TEXT,
       controlConfig: {
         inputType: InputType.EMAIL,
@@ -38,36 +38,10 @@ export class PlayFormComponent {
       validators: [
         {
           validator: Validators.required,
-          errorMessage: 'Field is required!',
           errorAssociation: IErrorAssociation.REQUIRED,
         },
         {
           validator: Validators.minLength(3),
-          errorMessage: 'You need to select at least 3 movies',
-          errorAssociation: IErrorAssociation.MINLENGTH,
-        },
-      ],
-    },
-    {
-      id: 'email2',
-      label: {
-        name: 'Email',
-      },
-      placeholder: 'ss',
-      titleAtt: 'title',
-      type: DynamicControlTypeEnum.INPUT_TEXT,
-      controlConfig: {
-        inputType: InputType.EMAIL,
-      },
-      validators: [
-        {
-          validator: Validators.required,
-          errorMessage: 'Field is required!',
-          errorAssociation: IErrorAssociation.REQUIRED,
-        },
-        {
-          validator: Validators.minLength(3),
-          errorMessage: 'You need to select at least 3 movies',
           errorAssociation: IErrorAssociation.MINLENGTH,
         },
       ],
