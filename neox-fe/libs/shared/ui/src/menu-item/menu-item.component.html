@@ -1,0 +1,64 @@
+<li routerLinkActive #itemRla="routerLinkActive" class="mb-2">
+  @if(menuType(menuItem).route){
+  <button
+    [routerLink]="menuItem.route"
+    [ngClass]="itemRla.isActive ? 'orange' : 'purple'"
+  >
+    {{ menuType(menuItem).translateString | transloco }}
+  </button>
+  } @else {
+  <button [ngClass]="rla.isActive ? 'green' : 'yellow'">
+    {{ menuType(menuItem).translateString | transloco }}
+  </button>
+  <div
+    routerLinkActive
+    #rla="routerLinkActive"
+    [ngClass]="rla.isActive ? 'blue' : 'violet'"
+  >
+    <ul class="space-y-2 text-sm">
+      @for (childMenuItem of menuType(menuItem).child; track menuItem.id) {
+      @if(menuType(childMenuItem).isVisible){
+      <li>
+        <a
+          [routerLink]="[childMenuItem.route]"
+          [routerLinkActiveOptions]="{ exact: false }"
+          routerLinkActive="active"
+          class="rounded"
+        >
+          {{ menuType(childMenuItem).translateString | transloco }}
+        </a>
+      </li>
+      } }
+    </ul>
+  </div>
+  }
+</li>
+<!--<li class="collapsible" (click)="menuItem.isCollapsed = !menuItem.isCollapsed">
+  <div [hidden]="menuItem.isCollapsed">
+    {{ menuType(menuItem).translateString | transloco }}
+  </div>
+</li>-->
+
+<!--
+<li
+  routerLinkActive
+  #itemRla="routerLinkActive"
+  class="mb-1"
+  [attr.id]="'menu-group-' + menuItem.id"
+>
+  @if(menuType(menuItem).route){
+  <button
+    *ngIf="menuItem.route"
+    [routerLink]="menuItem.route"
+    [ngClass]="itemRla.isActive ? 'is-active' : 'collapsed'"
+    class="btn btn-toggle collapse"
+    data-bs-toggle="collapse"
+    [attr.data-bs-target]="'#collapse-' + menuItem.id"
+  >
+    <app-icon class="button-belicon" [icon]="menuItem?.icon"></app-icon>
+    {{ menuItem.translateString | translate }}
+  </button>
+  {{ menuType(menuItem).translateString | transloco }}
+  }
+</li>
+-->
