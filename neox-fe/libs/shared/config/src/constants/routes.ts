@@ -11,6 +11,7 @@ export const AUTH_ROUTE = {
 
 export const PLAYGROUND_ROUTE = {
   FORM: 'form',
+  LIST: 'list',
 };
 
 export const APP_LOGGED_ROUTE_DEFAULT = APP_ROUTE.DASHBOARD;

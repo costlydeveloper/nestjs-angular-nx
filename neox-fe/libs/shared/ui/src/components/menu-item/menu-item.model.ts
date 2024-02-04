@@ -11,7 +11,7 @@ export interface IMenuItem {
 }
 export class MenuItem implements IMenuItem {
   id = generateRandomString();
-  isCollapsed = false;
+  isCollapsed = true;
   child: IMenuItem[] = [];
 
   constructor(

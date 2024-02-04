@@ -2,6 +2,7 @@
   "app.menu.dashboard": "Dashboard",
   "app.menu.dev": "Dev",
   "app.menu.dev.formGenerator": "Form Generator",
+  "app.menu.dev.listGenerator": "List Generator",
   "auth.header.signIn": "Sign in to your account",
   "auth.label.email": "Your email",
   "auth.placeholder.email": "Enter valid email address",
