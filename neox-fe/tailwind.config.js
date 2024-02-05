@@ -1,5 +1,6 @@
 const { createGlobPatternsForDependencies } = require('@nx/angular/tailwind');
 const { join } = require('path');
+const { createThemes } = require('tw-colors');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -7,6 +8,7 @@ module.exports = {
     join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -62,5 +64,29 @@ module.exports = {
       ],
     },
   },
-  plugins: [],
+  plugins: [
+    createThemes(
+      {
+        light: {
+          primary: 'steelblue',
+          secondary: 'darkblue',
+          brand: '#F3F3F3',
+        },
+        dark: {
+          primary: 'turquoise',
+          secondary: 'tomato',
+          brand: '#4A4A4A',
+        },
+        forest: {
+          primary: '#2A9D8F',
+          secondary: '#E9C46A',
+          brand: '#264653',
+        },
+      },
+      {
+        defaultTheme: 'light', // 'light' | 'dark'
+        strict: true,
+      },
+    ),
+  ],
 };

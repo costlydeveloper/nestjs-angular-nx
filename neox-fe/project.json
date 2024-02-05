@@ -25,6 +25,16 @@
       },
       "configurations": {
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/config/src/environment/global/environment.ts",
+              "with": "libs/shared/config/src/environment/global/environment.prod.ts"
+            },
+            {
+              "replace": "libs/shared/helper/src/tree-shakable/tree-shakable.ts",
+              "with": "libs/shared/helper/src/tree-shakable/tree-shakable.prod.ts"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",

@@ -1,10 +1,7 @@
 import { Route } from '@angular/router';
 import { APP_ROUTE } from '@team-link/config';
-import {
-  accessAppLayoutGuard,
-  accessAuthGuard,
-  accessDevOnlyGuard,
-} from '@team-link/utils';
+import { treeShakablePlaygroundRoutes } from '@team-link/helper';
+import { accessAppLayoutGuard, accessAuthGuard } from '@team-link/utils';
 import { AppLayoutComponent } from './app-layout/containers/app-layout/app-layout.component';
 
 export const appRoutes: Route[] = [
@@ -29,16 +26,12 @@ export const appRoutes: Route[] = [
         loadChildren: () =>
           import('@team-link/dashboard').then((m) => m.dashboardRoutes),
       },
-      {
-        path: APP_ROUTE.PLAYGROUND,
-        canActivate: [accessDevOnlyGuard],
-        loadChildren: () =>
-          import('@team-link/dev-playground').then((m) => m.playgroundRoutes),
-      },
+      treeShakablePlaygroundRoutes,
     ],
   },
   {
     path: '**',
-    loadChildren: () => import('@team-link/auth').then((m) => m.authRoutes),
+    loadComponent: () =>
+      import('@team-link/ui').then((c) => c.NotFoundComponent),
   },
 ];

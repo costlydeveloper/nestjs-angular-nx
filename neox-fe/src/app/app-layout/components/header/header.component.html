@@ -38,6 +38,11 @@
           >
         </a>
       </div>
+      <!--todo create better theme switcher-->
+      <a class="cursor-pointer" (click)="themeService.changeTheme()">
+        {{ themeService.isDarkEnable ? 'LIGHT' : 'DARK' }}
+      </a>
+
       <div class="flex items-center">
         <div class="flex items-center ml-3">
           <div>

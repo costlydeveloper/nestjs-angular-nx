@@ -88,12 +88,12 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.emmitFormOutput();
+    this.formGroupEmitter.emit(this.form);
     this.subscriptions.add(
       this.form.valueChanges.subscribe(() => {
         this.formGroupEmitter.emit(this.form);
-        const status: FormControlStatus = this.form.status as FormControlStatus;
-        this.formOutput = { status, value: this.form.value };
-        this.formCompactEmitter.emit(this.formOutput);
+        this.emmitFormOutput();
       }),
     );
   }
@@ -102,6 +102,11 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  emmitFormOutput() {
+    const status: FormControlStatus = this.form.status as FormControlStatus;
+    this.formOutput = { status, value: this.form.value };
+    this.formCompactEmitter.emit(this.formOutput);
+  }
   setupFormFields(dynamicFormFields: IDynamicFormControl[]) {
     dynamicFormFields.forEach((formItem: IDynamicFormControl) => {
       const fieldValidators = formItem?.validators?.map(
