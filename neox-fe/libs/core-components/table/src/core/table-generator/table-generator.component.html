@@ -1,0 +1,24 @@
+<p-table [value]="tableData()" [tableStyle]="{ 'min-width': '50rem' }">
+  <ng-template pTemplate="header">
+    <tr>
+      @for (column of columnArray();track column){
+      <th>{{ column.header }}</th>
+      }
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item>
+    <tr>
+      @for (column of columnArray();track column){
+      <td>
+        @switch (column.columnType){ @case (columnTypeEnum.STRING) {
+        <field-string [column]="column" [item]="item" />
+        } @case (columnTypeEnum.DATE) {
+        <field-date [column]="column" [item]="item" />
+        }@case (columnTypeEnum.NUMBER) {
+        <field-number [column]="column" [item]="item" />
+        } }
+      </td>
+      }
+    </tr>
+  </ng-template>
+</p-table>
