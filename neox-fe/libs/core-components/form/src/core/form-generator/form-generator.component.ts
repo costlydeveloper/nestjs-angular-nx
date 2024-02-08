@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
-  Input,
+  inject,
+  input,
   OnDestroy,
   OnInit,
   Output,
+  signal,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -35,18 +38,10 @@ import { DynamicFormControlComponent } from '../dynamic-form-control/dynamic-for
 })
 export class FormGeneratorComponent implements OnInit, OnDestroy {
   // region *** Debug ***
-  _debug = false;
-  @Input({ required: false })
-  set debug(val: boolean) {
-    if (environmentGlobal.production) {
-      this._debug = false;
-    } else {
-      this._debug = val;
-    }
-  }
-  get debug() {
-    return this._debug;
-  }
+  debug = input<boolean, boolean>(false, {
+    transform: (value: boolean) =>
+      environmentGlobal.production ? false : value,
+  });
   // endregion
 
   // region *** I / O ***
@@ -54,35 +49,33 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
   @Output() formGroupEmitter = new EventEmitter<FormGroup>();
   @Output() formCompactEmitter = new EventEmitter<IFormCompactOutput>();
 
-  _layoutConfig: IFormLayout = DEFAULT_FORM_LAYOUT;
-  @Input({ required: false })
-  set layoutConfig(val: IFormLayout) {
-    this._layoutConfig = {
-      ...DEFAULT_FORM_LAYOUT,
-      ...val,
-    };
-  }
-  get layoutConfig() {
-    return this._layoutConfig;
-  }
+  layoutConfig = input<IFormLayout, IFormLayout>(DEFAULT_FORM_LAYOUT, {
+    transform: (value) => {
+      return {
+        ...DEFAULT_FORM_LAYOUT,
+        ...value,
+      };
+    },
+  });
 
-  _dynamicFormControls!: IDynamicFormControl[];
-  @Input({ required: true })
-  set dynamicFormControls(val: IDynamicFormControl[]) {
-    this._dynamicFormControls = val;
-    this.setupFormFields(val);
-    this.mapLayoutData();
-  }
-  get dynamicFormControls() {
-    return this._dynamicFormControls;
-  }
-  // endregion
+  dynamicFormControls = input.required<
+    IDynamicFormControl[],
+    IDynamicFormControl[]
+  >({
+    transform: (value) => {
+      this.setupFormFields(value);
+      this.mapLayoutData();
+      return value;
+    },
+  });
 
-  layoutData: [number | null, ColSpanItem, string?][][] = [];
+  //layoutData: [number | null, ColSpanItem, string?][][] = [];
+  layoutData = signal<[number | null, ColSpanItem, string?][][]>([]);
 
   formOutput!: IFormCompactOutput;
   form!: FormGroup;
   subscriptions: Subscription = new Subscription();
+  cd = inject(ChangeDetectorRef);
   constructor(private fb: NonNullableFormBuilder) {
     this.form = this.fb.group({});
   }
@@ -121,12 +114,12 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
   }
 
   mapLayoutData() {
-    if (this.layoutConfig.colSpan) {
-      const rows = this.layoutConfig.colSpan.length;
+    if (this.layoutConfig().colSpan) {
+      const rows = this.layoutConfig().colSpan!.length;
       let nestedIndex = -1; // used to match with index of dynamic form control list
       for (let i = 0; i < rows; i++) {
-        this.layoutData.push([]); // creates clone with nested [] for further mapping
-        this.layoutData[i] = this.layoutConfig.colSpan[i].map((item) => {
+        this.layoutData.update((array) => [...array, []]); // creates clone with nested [] for further mapping
+        this.layoutData()[i] = this.layoutConfig().colSpan![i].map((item) => {
           if (item.startsWith('empty-')) {
             // for empty annotation it adds thirds item for css
             return [null, item, item.replace('empty-', 'col-span-')];
