@@ -32,6 +32,6 @@ export const appRoutes: Route[] = [
   {
     path: '**',
     loadComponent: () =>
-      import('@team-link/ui').then((c) => c.NotFoundComponent),
+      import('@team-link/errors').then((c) => c.NotFoundComponent),
   },
 ];

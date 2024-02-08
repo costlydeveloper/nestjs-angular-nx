@@ -25,6 +25,7 @@
       },
       "configurations": {
         "production": {
+          "sourceMap": false,
           "fileReplacements": [
             {
               "replace": "libs/shared/config/src/environment/global/environment.ts",

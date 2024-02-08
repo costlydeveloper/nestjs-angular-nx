@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@ngneat/transloco';
 import { ButtonComponent } from '@team-link/button';
 import { APP_ROUTE, AUTH_ROUTE } from '@team-link/config';
-import { AuthenticationService } from '@team-link/data-access-shared';
+import { AuthenticationService } from '@team-link/data-access';
 import {
   FormControlStatus,
   FormGeneratorComponent,

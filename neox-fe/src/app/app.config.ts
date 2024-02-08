@@ -17,7 +17,7 @@ import {
   ToastNotificationConfigModule,
 } from '@costlydeveloper/ngx-awesome-popup';
 import { provideTransloco } from '@ngneat/transloco';
-import { JwtInterceptor } from '@team-link/data-access-shared';
+import { JwtInterceptor } from '@team-link/data-access';
 import { appRoutes } from './app.routes';
 import { TranslocoHttpLoader } from './transloco-loader';
 

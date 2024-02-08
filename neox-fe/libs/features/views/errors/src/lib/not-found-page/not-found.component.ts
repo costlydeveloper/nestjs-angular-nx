@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ui-not-found',
+  selector: 'tl-not-found',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './not-found.component.html',

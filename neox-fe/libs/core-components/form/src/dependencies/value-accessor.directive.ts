@@ -23,8 +23,6 @@ export class ValueAccessorDirective<T>
   readonly value = this.valueSubject.asObservable();
   readonly disabled = this.disabledSubject.asObservable();
 
-  constructor() {}
-
   ngOnDestroy(): void {
     this.valueSubject.complete();
     this.disabledSubject.complete();
