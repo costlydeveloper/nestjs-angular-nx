@@ -1,5 +1,4 @@
 <ng-container [formGroup]="form">
-  {{ layoutData().length }}
   @if (layoutData().length){ @for (layoutRow of layoutData(); track layoutRow) {
   <div
     class="grid grid-flow-row grid-auto-rows-auto grid-cols-{{

@@ -2,8 +2,6 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
-  computed,
-  effect,
   EventEmitter,
   inject,
   input,
@@ -40,13 +38,10 @@ import { DynamicFormControlComponent } from '../dynamic-form-control/dynamic-for
 })
 export class FormGeneratorComponent implements OnInit, OnDestroy {
   // region *** Debug ***
-  _debug = input<boolean>(false, {
-    alias: 'debug',
+  debug = input<boolean, boolean>(false, {
+    transform: (value: boolean) =>
+      environmentGlobal.production ? false : value,
   });
-
-  debug = computed<boolean>(() =>
-    environmentGlobal.production ? false : this._debug(),
-  );
   // endregion
 
   // region *** I / O ***
@@ -54,33 +49,25 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
   @Output() formGroupEmitter = new EventEmitter<FormGroup>();
   @Output() formCompactEmitter = new EventEmitter<IFormCompactOutput>();
 
-  _layoutConfig = input<IFormLayout>(DEFAULT_FORM_LAYOUT, {
-    alias: 'layoutConfig',
-  });
-
-  layoutConfig = computed<IFormLayout>(() => {
-    return {
-      ...DEFAULT_FORM_LAYOUT,
-      ...this._layoutConfig(),
-    };
-  });
-
-  _dynamicFormControls = input.required<IDynamicFormControl[]>({
-    alias: 'dynamicFormControls',
-  });
-  dynamicFormControls = computed<IDynamicFormControl[]>(() => {
-    this.setupFormFields(this._dynamicFormControls());
-
-    return this._dynamicFormControls();
-  });
-
-  test = effect(
-    () => {
-      this.mapLayoutData();
-      this.dynamicFormControls();
+  layoutConfig = input<IFormLayout, IFormLayout>(DEFAULT_FORM_LAYOUT, {
+    transform: (value) => {
+      return {
+        ...DEFAULT_FORM_LAYOUT,
+        ...value,
+      };
     },
-    { allowSignalWrites: true },
-  );
+  });
+
+  dynamicFormControls = input.required<
+    IDynamicFormControl[],
+    IDynamicFormControl[]
+  >({
+    transform: (value) => {
+      this.setupFormFields(value);
+      this.mapLayoutData();
+      return value;
+    },
+  });
 
   //layoutData: [number | null, ColSpanItem, string?][][] = [];
   layoutData = signal<[number | null, ColSpanItem, string?][][]>([]);
@@ -132,8 +119,6 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
       let nestedIndex = -1; // used to match with index of dynamic form control list
       for (let i = 0; i < rows; i++) {
         this.layoutData.update((array) => [...array, []]); // creates clone with nested [] for further mapping
-
-        // this.layoutData.push([]); // creates clone with nested [] for further mapping
         this.layoutData()[i] = this.layoutConfig().colSpan![i].map((item) => {
           if (item.startsWith('empty-')) {
             // for empty annotation it adds thirds item for css
