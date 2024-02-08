@@ -1,19 +1,20 @@
 <ng-container [formGroup]="form">
-  @if (layoutData.length){ @for (layoutRow of layoutData; track layoutRow) {
+  {{ layoutData().length }}
+  @if (layoutData().length){ @for (layoutRow of layoutData(); track layoutRow) {
   <div
     class="grid grid-flow-row grid-auto-rows-auto grid-cols-{{
-      layoutConfig.girdCols
-    }}  gap-{{ layoutConfig.gap }}"
+      layoutConfig().girdCols
+    }}  gap-{{ layoutConfig().gap }}"
   >
     @for (layoutCol of layoutRow; track layoutCol) { @if
     (layoutCol[1].startsWith('empty-')){
     <div class="{{ layoutCol[2] }} p-4 rounded-md"></div>
     } @else {
     <div class="{{ layoutCol[1] }} p-4 rounded-md">
-      @if(dynamicFormControls.length > layoutCol[0]!){
+      @if(dynamicFormControls().length > layoutCol[0]!){
       <fc-dynamic-form-control
-        [debug]="debug"
-        [dynamicFormControl]="dynamicFormControls[layoutCol[0]!]"
+        [debug]="debug()"
+        [dynamicFormControl]="dynamicFormControls()[layoutCol[0]!]"
       />
       }
     </div>
@@ -22,13 +23,13 @@
   } } @else {
   <div
     class="grid grid-flow-row grid-auto-rows-auto grid-cols-{{
-      layoutConfig.girdCols
-    }}  gap-{{ layoutConfig.gap }}"
+      layoutConfig().girdCols
+    }}  gap-{{ layoutConfig().gap }}"
   >
-    @for (formControl of dynamicFormControls; track formControl.id) {
+    @for (formControl of dynamicFormControls(); track formControl.id) {
     <div class="py-4 rounded-md">
       <fc-dynamic-form-control
-        [debug]="debug"
+        [debug]="debug()"
         [dynamicFormControl]="formControl"
       />
     </div>
