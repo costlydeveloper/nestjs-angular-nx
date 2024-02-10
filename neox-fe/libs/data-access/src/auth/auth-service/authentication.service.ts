@@ -20,7 +20,7 @@ export class AuthenticationService {
       .login(username, password)
       .pipe(
         catchError((err) => {
-          alert(err.message);
+          this.errorCase(err.message);
           throw err;
         }),
       )
@@ -41,6 +41,10 @@ export class AuthenticationService {
 
   getToken() {
     return localStorage.getItem(TOKEN_KEY);
+  }
+
+  errorCase(err: string): void {
+    alert(err);
   }
 
   private setToken(token: string) {

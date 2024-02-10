@@ -27,6 +27,7 @@
       "@team-link/helper": ["libs/shared/helper/src/index.ts"],
       "@team-link/playground": ["libs/features/views/playground/src/index.ts"],
       "@team-link/table": ["libs/core-components/table/src/index.ts"],
+      "@team-link/test": ["libs/shared/test/src/index.ts"],
       "@team-link/ui": ["libs/shared/ui/src/index.ts"],
       "@team-link/utils": ["libs/shared/utils/src/index.ts"]
     }

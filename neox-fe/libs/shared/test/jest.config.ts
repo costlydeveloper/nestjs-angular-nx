@@ -1,10 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'form-controls',
+  displayName: 'test',
   preset: '../../../jest.preset.js',
-
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../coverage/libs/core-components/form',
+  coverageDirectory: '../../../coverage/libs/shared/test',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
@@ -14,9 +13,7 @@ export default {
       },
     ],
   },
-  transformIgnorePatterns: [
-    'node_modules/(?!.*\\.mjs$|@ngneat/transloco|flat)',
-  ],
+  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',
