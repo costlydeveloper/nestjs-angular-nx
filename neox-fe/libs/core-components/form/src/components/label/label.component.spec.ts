@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { getTestTranslocoModule } from '@team-link/test';
 import { LabelComponent } from './label.component';
@@ -29,8 +28,9 @@ describe('LabelComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(LabelComponent);
+    fixture.componentRef.setInput('config', inputConfig);
     component = fixture.componentInstance;
-    component.config = signal(inputConfig) as any;
+    // component.config = signal(inputConfig) as any;
 
     fixture.detectChanges();
   });
@@ -45,7 +45,7 @@ describe('LabelComponent', () => {
     expect(labelElement).toBeTruthy();
     expect(labelElement.textContent).toContain(labelName);
     expect(labelElement.innerHTML).toContain(
-      '<span class="text-red-500 text-sm">*</span>',
+      '<span class="text-red-500 text-sm">*</span>'
     );
     expect(labelElement.getAttribute('for')).toEqual(labelId);
   });

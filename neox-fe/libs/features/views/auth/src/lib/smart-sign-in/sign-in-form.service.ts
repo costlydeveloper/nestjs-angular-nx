@@ -5,7 +5,7 @@ import {
   IDynamicFormControl,
   IErrorAssociation,
   InputType,
-} from '@team-link/form-controls';
+} from '@team-link/form-generator';
 
 export interface ISignInForm {
   email: string;

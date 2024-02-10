@@ -23,7 +23,7 @@
       "@team-link/data-access-shared": ["libs/data-access/shared/src/index.ts"],
       "@team-link/dev-playground": ["libs/dev-playground/src/index.ts"],
       "@team-link/errors": ["libs/features/views/errors/src/index.ts"],
-      "@team-link/form-controls": ["libs/core-components/form/src/index.ts"],
+      "@team-link/form-generator": ["libs/core-components/form/src/index.ts"],
       "@team-link/helper": ["libs/shared/helper/src/index.ts"],
       "@team-link/playground": ["libs/features/views/playground/src/index.ts"],
       "@team-link/table": ["libs/core-components/table/src/index.ts"],

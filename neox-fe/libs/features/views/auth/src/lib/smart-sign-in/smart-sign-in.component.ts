@@ -10,7 +10,7 @@ import {
   FormControlStatus,
   FormGeneratorComponent,
   IFormCompactOutput,
-} from '@team-link/form-controls';
+} from '@team-link/form-generator';
 import { ISignInForm, SignInFormService } from './sign-in-form.service';
 
 @Component({
