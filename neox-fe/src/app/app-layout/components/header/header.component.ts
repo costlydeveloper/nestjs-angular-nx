@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { ThemeService } from '@team-link/helper';
 import { UserMenuComponent } from '../user-menu/user-menu.component';
 
@@ -9,6 +9,7 @@ import { UserMenuComponent } from '../user-menu/user-menu.component';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   imports: [UserMenuComponent, NgIf],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent {
   isProfileMenuOpen = false;
