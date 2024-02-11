@@ -120,18 +120,18 @@ module.exports = {
         },
       },
       {
-        defaultTheme: {
-          /**
+        /*   defaultTheme: {
+          /!**
            * when `@media (prefers-color-scheme: light)` is matched,
            * the default theme is the "light" theme
-           */
+           *!/
           light: 'light',
-          /**
+          /!**
            * when `@media (prefers-color-scheme: dark)` is matched,
            * the default theme is the "dark" theme
-           */
+           *!/
           dark: 'dark',
-        },
+        },*/
         strict: true,
       }
     ),
