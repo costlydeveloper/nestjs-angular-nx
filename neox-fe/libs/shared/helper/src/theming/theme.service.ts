@@ -7,8 +7,7 @@ type ThemeType = 'light' | 'dark';
   providedIn: 'root',
 })
 export class ThemeService {
-  isDarkEnable = true;
-  currentTheme: ThemeType = 'dark';
+  private currentTheme!: ThemeType;
   private renderer: Renderer2;
 
   constructor(
@@ -17,7 +16,8 @@ export class ThemeService {
     @Inject(WINDOW) private window: Window
   ) {
     this.renderer = rendererFactory.createRenderer(null, null);
-    this.changeTheme(this.getSystemDefaultTheme());
+    this.currentTheme = this.getSystemDefaultTheme();
+    this.changeTheme(this.currentTheme);
   }
 
   private applyTheme(theme: string) {
@@ -35,13 +35,16 @@ export class ThemeService {
     return prefersDarkMode ? 'dark' : 'light';
   }
 
-  changeTheme(theme?: ThemeType) {
+  public changeTheme(theme?: ThemeType) {
     const newTheme =
       theme ?? (this.currentTheme === 'light' ? 'dark' : 'light');
 
     this.removeTheme(this.currentTheme);
     this.applyTheme(newTheme);
     this.currentTheme = newTheme;
-    this.isDarkEnable = newTheme === 'dark';
+  }
+
+  public getCurrentTheme(): ThemeType {
+    return this.currentTheme;
   }
 }
