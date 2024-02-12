@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   inject,
@@ -37,6 +36,9 @@ import { DynamicFormControlComponent } from '../dynamic-form-control/dynamic-for
   encapsulation: ViewEncapsulation.None,
 })
 export class FormGeneratorComponent implements OnInit, OnDestroy {
+  @Output() formGroupEmitter = new EventEmitter<FormGroup>();
+  @Output() formCompactEmitter = new EventEmitter<IFormCompactOutput>();
+
   // region *** Debug ***
   debug = input<boolean, boolean>(false, {
     transform: (value: boolean) =>
@@ -45,10 +47,6 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
   // endregion
 
   // region *** I / O ***
-
-  @Output() formGroupEmitter = new EventEmitter<FormGroup>();
-  @Output() formCompactEmitter = new EventEmitter<IFormCompactOutput>();
-
   layoutConfig = input<IFormLayout, IFormLayout>(DEFAULT_FORM_LAYOUT, {
     transform: (value) => {
       return {
@@ -69,14 +67,13 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
     },
   });
 
-  //layoutData: [number | null, ColSpanItem, string?][][] = [];
   layoutData = signal<[number | null, ColSpanItem, string?][][]>([]);
 
-  formOutput!: IFormCompactOutput;
   form!: FormGroup;
-  subscriptions: Subscription = new Subscription();
-  cd = inject(ChangeDetectorRef);
-  constructor(private fb: NonNullableFormBuilder) {
+  formOutput!: IFormCompactOutput;
+  private subscriptions: Subscription = new Subscription();
+  private fb = inject(NonNullableFormBuilder);
+  constructor() {
     this.form = this.fb.group({});
   }
 
@@ -87,7 +84,7 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
       this.form.valueChanges.subscribe(() => {
         this.formGroupEmitter.emit(this.form);
         this.emmitFormOutput();
-      }),
+      })
     );
   }
 
@@ -103,11 +100,11 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
   setupFormFields(dynamicFormFields: IDynamicFormControl[]) {
     dynamicFormFields.forEach((formItem: IDynamicFormControl) => {
       const fieldValidators = formItem?.validators?.map(
-        (validatorError) => validatorError.validator,
+        (validatorError) => validatorError.validator
       );
       const formControl = this.fb.control(
         formItem.value || '',
-        fieldValidators,
+        fieldValidators
       );
       this.form.addControl(formItem.id, formControl);
     });

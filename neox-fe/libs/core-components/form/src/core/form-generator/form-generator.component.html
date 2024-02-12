@@ -1,9 +1,9 @@
 <ng-container [formGroup]="form">
   @if (layoutData().length){ @for (layoutRow of layoutData(); track layoutRow) {
   <div
-    class="grid grid-flow-row grid-auto-rows-auto grid-cols-{{
-      layoutConfig().girdCols
-    }}  gap-{{ layoutConfig().gap }}"
+    class="grid grid-flow-row grid-cols-{{ layoutConfig().girdCols }}  gap-{{
+      layoutConfig().gap
+    }}"
   >
     @for (layoutCol of layoutRow; track layoutCol) { @if
     (layoutCol[1].startsWith('empty-')){
