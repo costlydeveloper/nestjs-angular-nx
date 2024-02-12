@@ -24,5 +24,7 @@ export class MenuItemComponent {
 
   menuType = (item: IMenuItem): IMenuItem => item;
 
-  collapseOtherItems() {}
+  collapseOtherItems() {
+    // todo create collapse other menu items on click
+  }
 }

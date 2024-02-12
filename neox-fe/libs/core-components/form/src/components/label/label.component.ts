@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { TranslocoPipe } from '@ngneat/transloco';
 import { ILabel } from './label.model';
 
@@ -10,5 +10,5 @@ import { ILabel } from './label.model';
   templateUrl: './label.component.html',
 })
 export class LabelComponent {
-  @Input({ required: true }) config!: ILabel;
+  config = input.required<ILabel>();
 }

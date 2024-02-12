@@ -10,6 +10,6 @@
     [attr.placeholder]="config.placeholder | transloco"
     [value]="valueAccessor.value | async"
     (keyup)="onControlChange($event)"
-    (focus)="onControlFocus($event)"
+    (focus)="onControlFocus()"
   />
 </div>

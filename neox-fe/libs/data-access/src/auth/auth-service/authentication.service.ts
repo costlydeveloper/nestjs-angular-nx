@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { APP_LOGGED_ROUTE_DEFAULT } from '@team-link/config';
-import { AuthApiService } from '@team-link/data-access';
 import { BehaviorSubject, catchError } from 'rxjs';
+import { AuthApiService } from '../../index';
 
 const TOKEN_KEY = 'loginToken';
 
@@ -20,9 +20,9 @@ export class AuthenticationService {
       .login(username, password)
       .pipe(
         catchError((err) => {
-          alert(err.message);
+          this.errorCase(err.message);
           throw err;
-        })
+        }),
       )
       .subscribe((resp) => {
         if (resp?.accessToken) {
@@ -43,11 +43,15 @@ export class AuthenticationService {
     return localStorage.getItem(TOKEN_KEY);
   }
 
-  setToken(token: string) {
+  errorCase(err: string): void {
+    alert(err);
+  }
+
+  private setToken(token: string) {
     return localStorage.setItem(TOKEN_KEY, token);
   }
 
-  removeToken() {
+  private removeToken() {
     return localStorage.removeItem(TOKEN_KEY);
   }
 }

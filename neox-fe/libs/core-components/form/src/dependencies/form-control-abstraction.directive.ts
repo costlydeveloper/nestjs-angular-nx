@@ -20,7 +20,7 @@ export abstract class FormControlAbstractionDirective<ValueType, ConfigType> {
       id: this.uniqueId,
       required: !!val.validators?.find(
         (validatorError) =>
-          validatorError.errorAssociation === IErrorAssociation.REQUIRED
+          validatorError.errorAssociation === IErrorAssociation.REQUIRED,
       ),
     });
     // populate config with default values
@@ -54,11 +54,11 @@ export abstract class FormControlAbstractionDirective<ValueType, ConfigType> {
 
   abstract getControlConfig(val: IDynamicFormControl): ConfigType;
 
-  onControlFocus(event: Event) {
+  onControlFocus() {
     this.focused = true;
     this.valueAccessor.touchedChange(true);
   }
-  onControlBlur(event: Event) {
+  onControlBlur() {
     this.focused = false;
     this.valueAccessor.touchedChange(true);
   }

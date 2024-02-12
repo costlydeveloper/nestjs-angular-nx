@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ColumnTypeEnum, ITableGeneratorColumn } from '@team-link/table';
-import { TableGeneratorComponent } from '../../../../core-components/table/src/core/table-generator/table-generator.component';
+import {
+  ColumnTypeEnum,
+  ITableGeneratorColumn,
+  TableGeneratorComponent,
+} from '@team-link/table';
 
 @Component({
   selector: 'tl-play-list',

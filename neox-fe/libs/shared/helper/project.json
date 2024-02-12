@@ -2,7 +2,7 @@
   "name": "helper",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/helper/src",
-  "prefix": "team-link",
+  "prefix": "tl",
   "tags": ["scope:shared"],
   "projectType": "library",
   "targets": {

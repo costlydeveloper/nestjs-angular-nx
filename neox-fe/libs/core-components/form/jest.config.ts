@@ -1,7 +1,8 @@
 /* eslint-disable */
 export default {
-  displayName: 'form-controls',
+  displayName: 'form-generator',
   preset: '../../../jest.preset.js',
+
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: '../../../coverage/libs/core-components/form',
   transform: {
@@ -13,7 +14,9 @@ export default {
       },
     ],
   },
-  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+  transformIgnorePatterns: [
+    'node_modules/(?!.*\\.mjs$|@ngneat/transloco|flat)',
+  ],
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',

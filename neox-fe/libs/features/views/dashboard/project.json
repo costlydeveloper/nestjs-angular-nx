@@ -2,7 +2,7 @@
   "name": "dashboard",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/features/views/dashboard/src",
-  "prefix": "team-link",
+  "prefix": "tl",
   "tags": ["type:feature"],
   "projectType": "library",
   "targets": {

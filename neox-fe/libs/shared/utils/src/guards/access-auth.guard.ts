@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { APP_LOGGED_ROUTE_DEFAULT } from '@team-link/config';
-import { AuthenticationService } from '@team-link/data-access-shared';
+import { AuthenticationService } from '@team-link/data-access';
 
 import { firstValueFrom } from 'rxjs';
 

@@ -8,7 +8,7 @@ import {
   IErrorAssociation,
   IFormLayout,
   InputType,
-} from '@team-link/form-controls';
+} from '@team-link/form-generator';
 
 @Component({
   selector: 'tl-play-form',
