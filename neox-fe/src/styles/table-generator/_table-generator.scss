@@ -1,9 +1,6 @@
-//@import "themes/tailwind/tailwind-light/theme";
-//@import "common/colors";
 @import "common/mixins";
-//@import "themes/arya/arya-blue/theme";
-@import "themes/tailwind/tailwind-light/theme";
-
+@import "table-generator-theme/theme";
+//@import "themes/saga/saga-blue/theme";
 
 .p-datatable {
   .p-paginator-top {
