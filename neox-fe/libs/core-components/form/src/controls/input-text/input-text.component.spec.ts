@@ -31,7 +31,7 @@ describe('InputTextComponent', () => {
 
     fixture = TestBed.createComponent(InputTextComponent);
     component = fixture.componentInstance;
-    component.config = {
+    fixture.componentRef.setInput('config', {
       id: '112321310',
       type: DynamicControlTypeEnum.INPUT_TEXT,
       controlConfig: { inputType: 'text' },
@@ -39,7 +39,8 @@ describe('InputTextComponent', () => {
       disabled: false,
       titleAtt: 'titleAtt',
       placeholder: 'placeholder',
-    };
+    });
+
     fixture.detectChanges();
   });
 

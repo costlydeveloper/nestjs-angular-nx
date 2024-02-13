@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { FormGroup, FormGroupDirective } from '@angular/forms';
 import { TranslocoPipe } from '@ngneat/transloco';
 import { DEFAULT_ERROR_MESSAGE } from '../../config/default-error-messages';
@@ -16,10 +16,10 @@ import {
   imports: [CommonModule, TranslocoPipe],
 })
 export class ErrorMessageComponent {
-  @Input() formItem!: IDynamicFormControl;
+  formItem = input.required<IDynamicFormControl>();
   form!: FormGroup;
-
-  constructor(private rootFormGroup: FormGroupDirective) {
+  private rootFormGroup = inject(FormGroupDirective);
+  constructor() {
     this.form = this.rootFormGroup.control;
   }
 
