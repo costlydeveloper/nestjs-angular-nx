@@ -23,6 +23,27 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        colors: {
+          0: '#fdfcfc', // postojeća
+          5: '#f1f3f5', // dodana
+          10: '#e9ecef', // postojeća
+          15: '#e2e6e9', // dodana
+          20: '#dee2e6', // postojeća
+          25: '#d6dbdf', // dodana
+          30: '#ced4da', // postojeća
+          35: '#c2c7cc', // dodana
+          40: '#adb5bd', // postojeća
+          45: '#9aa5af', // dodana
+          50: '#6c757d', // postojeća
+          55: '#5e666e', // dodana
+          60: '#495057', // postojeća
+          65: '#3c4248', // dodana
+          70: '#343a40', // postojeća
+          75: '#2c3236', // dodana
+          80: '#212529', // postojeća
+          85: '#1a1e21', // dodana
+          90: '#121212', // postojeća
+        },
         gray: {
           50: '#f8f9fa',
           100: '#e9ecef',
@@ -78,7 +99,7 @@ module.exports = {
     createThemes(
       {
         light: {
-          primary: {
+          brand: {
             50: '#f0fdfa',
             100: '#ccfbf1',
             200: '#99f6e4',
@@ -89,6 +110,10 @@ module.exports = {
             700: '#0f766e',
             800: '#115e59',
             900: '#134e4a',
+          },
+          primary: {
+            10: '#121212',
+            20: '#212529',
           },
           secondary: {
             50: '#f1e4e4',
@@ -102,9 +127,20 @@ module.exports = {
             800: '#412e2e',
             900: '#2e2323',
           },
+          surface: {
+            10: '#ffffff',
+            20: '#f8f9fa',
+            30: '#e9ecef',
+            40: '#dee2e6',
+            50: '#ced4da',
+            60: '#6c757d',
+            70: '#495057',
+            80: '#343a40',
+          },
         },
         dark: {
-          primary: {
+          primary1: 'blue',
+          brand: {
             50: '#dbe7e5',
             100: '#c6dedb',
             200: '#a0c5c2',
@@ -115,6 +151,10 @@ module.exports = {
             700: '#2d5358',
             800: '#244546',
             900: '#1d383a',
+          },
+          primary: {
+            10: '#ffffff',
+            20: '#adb5bd',
           },
           secondary: {
             50: '#b58a8a',
@@ -127,6 +167,16 @@ module.exports = {
             700: '#291515',
             800: '#150707',
             900: '#0a0000',
+          },
+          surface: {
+            10: '#212529',
+            20: '#2c3236', //
+            30: '#343a40', // koristi se za tablicu za sada
+            40: '#3c4248',
+            50: '#495057',
+            60: '#6c757d',
+            70: '#9aa5af',
+            80: '#adb5bd',
           },
         },
       },
