@@ -1,20 +1,14 @@
 <ng-container [formGroup]="form">
-  @switch (dynamicFormControl.type) { @case (formControlTypeEnum.INPUT_TEXT) {
+  @switch (dynamicFormControl().type) { @case (formControlTypeEnum.INPUT_TEXT) {
   <fc-input-text
-    [config]="dynamicFormControl"
-    [formControlName]="dynamicFormControl.id"
+    [config]="dynamicFormControl()"
+    [formControlName]="dynamicFormControl().id"
   />
-  } @case (1) {
-  <span>Case 1logic and implementation</span>
-  } @case (2) {
-  <span>Case 2logic and implementation</span>
-  } @default {
-  <span>Default case (Not 0 or 1 or 2)</span>
   } }
 </ng-container>
-<fc-error-message [formItem]="dynamicFormControl" />
+<fc-error-message [formItem]="dynamicFormControl()" />
 
-@if (debug) {
+@if (debug()) {
 <div class="p-4 border">
   DEBUG:
   <pre>status: {{ form.status | json }}</pre>
@@ -23,8 +17,8 @@
   <pre>dirty: {{ form.dirty | json }}</pre>
   <pre>value: {{ form.value | json }}</pre>
   <pre>
-errors for {{ dynamicFormControl.id }}: {{
-      form.get(dynamicFormControl.id)?.errors | json
+errors for {{ dynamicFormControl().id }}: {{
+      form.get(dynamicFormControl().id)?.errors | json
     }}</pre
   >
 </div>

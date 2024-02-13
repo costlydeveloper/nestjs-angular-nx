@@ -1,3 +1,5 @@
-<span *ngIf="form.get(formItem.id)!.dirty">{{
-  getValidationErrorMessage(formItem) | transloco
+@if (form.get(formItem().id)!.dirty){
+<span data-qa="wrapper">{{
+  getValidationErrorMessage(formItem()) | transloco
 }}</span>
+}

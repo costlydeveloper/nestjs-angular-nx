@@ -30,9 +30,12 @@ describe('LabelComponent', () => {
     fixture = TestBed.createComponent(LabelComponent);
     fixture.componentRef.setInput('config', inputConfig);
     component = fixture.componentInstance;
-    // component.config = signal(inputConfig) as any;
 
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
   it('should create', () => {

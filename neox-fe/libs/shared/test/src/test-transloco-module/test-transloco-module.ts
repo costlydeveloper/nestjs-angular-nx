@@ -5,8 +5,8 @@ import {
 import { KeyValuePairs } from '@team-link/utils';
 
 export function getTestTranslocoModule(
-  langStrings: KeyValuePairs<string>,
-  options: TranslocoTestingOptions = {},
+  langStrings: KeyValuePairs<string> = {},
+  options: TranslocoTestingOptions = {}
 ) {
   return TranslocoTestingModule.forRoot({
     langs: {

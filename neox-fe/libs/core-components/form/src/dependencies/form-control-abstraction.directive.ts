@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, Input, Output } from '@angular/core';
+import { Directive, EventEmitter, input, Output } from '@angular/core';
 import { generateRandomString, Nullable } from '@team-link/utils';
 import { ILabel, Label } from '../components/label/label.model';
 import { DynamicControlBase } from './dynamic-control-base.model';
@@ -12,29 +12,26 @@ import { ValueAccessorDirective } from './value-accessor.directive';
 })
 export abstract class FormControlAbstractionDirective<ValueType, ConfigType> {
   // region *** Helper ***
-  _config!: IDynamicFormControl<ConfigType>;
-  @Input({ required: true })
-  set config(val: IDynamicFormControl) {
-    this.labelConfig = new Label({
-      ...val.label,
-      id: this.uniqueId,
-      required: !!val.validators?.find(
-        (validatorError) =>
-          validatorError.errorAssociation === IErrorAssociation.REQUIRED,
-      ),
-    });
-    // populate config with default values
-    const baseConfig = new DynamicControlBase(val);
-    if (val.controlConfig) {
-      // get control config from derived class
-      baseConfig.controlConfig = this.getControlConfig(val.controlConfig);
+  config = input.required<IDynamicFormControl<ConfigType>, IDynamicFormControl>(
+    {
+      transform: (value) => {
+        this.labelConfig = new Label({
+          ...value.label,
+          id: this.uniqueId,
+          required: !!value.validators?.find(
+            (validatorError) =>
+              validatorError.errorAssociation === IErrorAssociation.REQUIRED
+          ),
+        });
+        const baseConfig = new DynamicControlBase(value);
+        if (value.controlConfig) {
+          // get control config from derived class
+          baseConfig.controlConfig = this.getControlConfig(value.controlConfig);
+        }
+        return baseConfig;
+      },
     }
-    this._config = baseConfig;
-  }
-
-  get config(): IDynamicFormControl<ConfigType> {
-    return this._config;
-  }
+  );
 
   uniqueId = generateRandomString();
   labelConfig!: ILabel;

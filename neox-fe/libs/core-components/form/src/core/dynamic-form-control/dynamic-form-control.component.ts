@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
 import {
   FormGroup,
   FormGroupDirective,
@@ -26,23 +31,18 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicFormControlComponent {
-  _debug = false;
-  @Input({ required: false })
-  set debug(val: boolean) {
-    if (environmentGlobal.production) {
-      this._debug = false;
-    } else {
-      this._debug = val;
-    }
-  }
-  get debug() {
-    return this._debug;
-  }
-  @Input({ required: true }) dynamicFormControl!: IDynamicFormControl;
+  // region *** Debug ***
+  debug = input<boolean, boolean>(false, {
+    transform: (value: boolean) =>
+      environmentGlobal.production ? false : value,
+  });
+  // endregion
+  dynamicFormControl = input.required<IDynamicFormControl>();
+
   form!: FormGroup;
   formControlTypeEnum = DynamicControlTypeEnum;
-
-  constructor(private rootFormGroup: FormGroupDirective) {
+  private rootFormGroup = inject(FormGroupDirective);
+  constructor() {
     this.form = this.rootFormGroup.control;
   }
 }

@@ -1,4 +1,3 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -22,7 +21,6 @@ describe('InputTextComponent', () => {
           titleAtt: titleAtt,
         }),
       ],
-      schemas: [NO_ERRORS_SCHEMA], // ignore fc-label
       providers: [
         {
           provide: ValueAccessorDirective,
@@ -33,7 +31,7 @@ describe('InputTextComponent', () => {
 
     fixture = TestBed.createComponent(InputTextComponent);
     component = fixture.componentInstance;
-    component.config = {
+    fixture.componentRef.setInput('config', {
       id: '112321310',
       type: DynamicControlTypeEnum.INPUT_TEXT,
       controlConfig: { inputType: 'text' },
@@ -41,7 +39,8 @@ describe('InputTextComponent', () => {
       disabled: false,
       titleAtt: 'titleAtt',
       placeholder: 'placeholder',
-    };
+    });
+
     fixture.detectChanges();
   });
 
@@ -51,7 +50,7 @@ describe('InputTextComponent', () => {
 
   it('should display input with correct attributes', () => {
     const inputElement = fixture.debugElement.query(
-      By.css('input'),
+      By.css('input')
     ).nativeElement;
     expect(inputElement.type).toEqual('text');
     expect(inputElement.readOnly).toBeFalsy();

@@ -8,6 +8,17 @@ module.exports = {
     join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
+  safelist: [
+    {
+      pattern: /gap-./,
+    },
+    {
+      pattern: /col-span-./,
+    },
+    {
+      pattern: /grid-cols-./,
+    },
+  ],
   darkMode: 'class',
   theme: {
     extend: {

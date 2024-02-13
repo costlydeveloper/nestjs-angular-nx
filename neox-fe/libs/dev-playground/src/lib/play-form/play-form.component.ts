@@ -20,31 +20,33 @@ import {
 export class PlayFormComponent {
   formLayout: IFormLayout = {
     girdCols: 12,
-    gap: 5,
-    colSpan: [[`col-span-2`, `col-span-9`]],
+    gap: 4,
+    colSpan: [
+      ['col-span-2', 'empty-1', 'col-span-4'],
+      ['col-span-5', 'empty-2', 'col-span-5'],
+    ],
   };
-  formGeneratorConfig: IDynamicFormControl[] = [
-    {
-      id: 'email',
-      label: {
-        name: 'auth.label.email',
-      },
-      placeholder: 'auth.placeholder.email',
-      titleAtt: 'auth.placeholder.email',
-      type: DynamicControlTypeEnum.INPUT_TEXT,
-      controlConfig: {
-        inputType: InputType.EMAIL,
-      },
-      validators: [
-        {
-          validator: Validators.required,
-          errorAssociation: IErrorAssociation.REQUIRED,
+  formGeneratorConfig: IDynamicFormControl[] = [];
+  constructor() {
+    for (let i = 0; i <= 4; i++) {
+      this.formGeneratorConfig.push({
+        id: 'email' + i,
+        label: {
+          name: 'auth.label.email',
         },
-        {
-          validator: Validators.minLength(3),
-          errorAssociation: IErrorAssociation.MINLENGTH,
+        placeholder: 'auth.placeholder.email',
+        titleAtt: 'auth.placeholder.email',
+        type: DynamicControlTypeEnum.INPUT_TEXT,
+        controlConfig: {
+          inputType: InputType.EMAIL,
         },
-      ],
-    },
-  ];
+        validators: [
+          {
+            validator: Validators.required,
+            errorAssociation: IErrorAssociation.REQUIRED,
+          },
+        ],
+      });
+    }
+  }
 }
