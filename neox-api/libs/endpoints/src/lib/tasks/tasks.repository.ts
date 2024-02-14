@@ -46,7 +46,7 @@ export class TasksRepository extends BaseRepository<Task> {
     } catch (error) {
       this.logger.error(
         `Failed to get tasks for user "${
-          user.username
+          user.email
         }". Filters: ${JSON.stringify(filterDto)}`,
         (error as Error).stack,
       );

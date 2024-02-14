@@ -3,7 +3,7 @@ import { EMAIL_REGEXP } from '@neox-api/shared/utils';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, Matches, MaxLength, MinLength } from 'class-validator';
 
-export class AuthCredentialsDto {
+export class AuthDto {
   @IsString()
   @MinLength(4)
   @MaxLength(30)
@@ -16,7 +16,7 @@ export class AuthCredentialsDto {
     pattern: MESSAGE.VALIDATION.USERNAME_MUST_BE_EMAIL,
     example: 'test@test.com',
   })
-  username!: string;
+  email!: string;
 
   @IsString()
   @MinLength(8)

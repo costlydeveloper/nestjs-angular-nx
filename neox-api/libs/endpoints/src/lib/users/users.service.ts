@@ -3,13 +3,14 @@ import {
   DbErrorHandler,
   MESSAGE,
 } from '@neox-api/shared/common';
-import { encodePassword, Nullable } from '@neox-api/shared/utils';
+import { hashIt, Nullable } from '@neox-api/shared/utils';
 import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
+import { UpdateResult } from 'typeorm';
+import { AuthDto } from '../auth/dto';
 import { IUser, IUserOmitPassword, User } from './user.entity';
 import { UsersRepository } from './users-repository.service';
 
@@ -22,15 +23,15 @@ export class UsersService extends BaseEntityService<IUser> {
     super(usersRepository);
   }
 
-  async create(createUserDto: AuthCredentialsDto): Promise<IUserOmitPassword> {
+  async create(createUserDto: AuthDto): Promise<IUserOmitPassword> {
     const newUser = new User();
-    newUser.username = createUserDto.username;
-    newUser.password = encodePassword(createUserDto.password);
+    newUser.email = createUserDto.email;
+    newUser.hash = hashIt(createUserDto.password);
 
     try {
       const storedUser: User = await this.usersRepository.save(newUser);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...userWithoutPassword } = storedUser;
+      const { hash, ...userWithoutPassword } = storedUser;
       return userWithoutPassword;
     } catch (error: any) {
       if (error.code === this.dbErrHandler.codes.UNIQUE_VIOLATION) {
@@ -41,7 +42,14 @@ export class UsersService extends BaseEntityService<IUser> {
     }
   }
 
-  findByUsername(username: string): Promise<Nullable<IUser>> {
-    return this.usersRepository.findOneBy({ username });
+  async updateRt(
+    userId: string,
+    hashedRt: Nullable<string>,
+  ): Promise<UpdateResult> {
+    return await this.usersRepository.update(userId, { hashedRt });
+  }
+
+  findOneBy(partialUser: Partial<IUser>): Promise<Nullable<IUser>> {
+    return this.usersRepository.findOneBy(partialUser as object);
   }
 }

@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing/test';
 
 import { IUserOmitPassword, User, UsersService } from '../users';
 import { AuthService } from './auth.service';
-import { AuthCredentialsDto } from './dto/auth-credentials.dto';
+import { AuthDto } from './dto/auth.dto';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -12,13 +12,13 @@ describe('AuthService', () => {
   beforeEach(async () => {
     const users: User[] = [];
     fakeUsersService = {
-      create: (createUserDto: AuthCredentialsDto) => {
+      create: (createUserDto: AuthDto) => {
         const user = {
           id: Math.floor(Math.random() * 999999).toString(),
           firstName: 'boris',
           lastName: 'jenicek',
-          username: createUserDto.username,
-          password: createUserDto.password,
+          email: createUserDto.email,
+          hash: createUserDto.password,
           isActive: true,
         } as User;
         users.push(user);
@@ -55,11 +55,11 @@ describe('AuthService', () => {
       id: '123',
       firstName: 'John',
       lastName: 'Doe',
-      username: 'johndoe',
+      email: 'johndoe',
       isActive: true,
     } as IUserOmitPassword;
 
-    const result = await service.signIn(userWithoutPassword);
+    const result = await service.signInLocal(userWithoutPassword);
 
     expect(result).toBeDefined();
     expect(typeof result.accessToken).toBe('string');

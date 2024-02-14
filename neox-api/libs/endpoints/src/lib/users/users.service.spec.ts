@@ -2,7 +2,7 @@ import { DbErrorHandler } from '@neox-api/shared/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
+import { AuthDto } from '../auth/dto/auth.dto';
 import { IUser, User } from './user.entity';
 import { UsersService } from './users.service';
 
@@ -38,15 +38,15 @@ describe('UsersService', () => {
   });
 
   it('should create a new user', async () => {
-    const createUserDto: AuthCredentialsDto = {
-      username: 'testuser',
+    const createUserDto: AuthDto = {
+      email: 'testuser',
       password: 'testpassword',
     };
 
     const createdUser = await service.create(createUserDto);
 
     expect(createdUser).toBeDefined();
-    expect(createdUser.username).toBe(createUserDto.username);
+    expect(createdUser.email).toBe(createUserDto.email);
     expect(createdUser).not.toHaveProperty('password');
   });
 });

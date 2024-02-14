@@ -1,5 +1,5 @@
 import { BaseController } from '@neox-api/shared/common';
-import { CurrentUser } from '@neox-api/shared/utils';
+import { GetCurrentUser } from '@neox-api/shared/utils';
 import {
   Body,
   Controller,
@@ -31,10 +31,10 @@ export class TasksController extends BaseController<ITask> {
   @Get()
   findAll(
     @Query() filterDto: GetTasksFilterDto,
-    @CurrentUser() user: User,
+    @GetCurrentUser() user: User,
   ): Promise<ITask[]> {
     this.logger.verbose(
-      `User "${user.username}" retrieving all tasks. Filters: ${JSON.stringify(
+      `User "${user.email}" retrieving all tasks. Filters: ${JSON.stringify(
         filterDto,
       )}`,
     );
@@ -53,10 +53,10 @@ export class TasksController extends BaseController<ITask> {
   @Post()
   createTask(
     @Body() createTaskDto: CreateTaskDto,
-    @CurrentUser() user: User,
+    @GetCurrentUser() user: User,
   ): Promise<Task> {
     this.logger.verbose(
-      `User "${user.username}" creating a new task. Data: ${JSON.stringify(
+      `User "${user.email}" creating a new task. Data: ${JSON.stringify(
         createTaskDto,
       )}`,
     );
@@ -77,7 +77,7 @@ export class TasksController extends BaseController<ITask> {
   updateTaskStatus(
     @Param('id') id: string,
     @Body() updateTaskStatusDto: UpdateTaskStatusDto,
-    @CurrentUser() user: User,
+    @GetCurrentUser() user: User,
   ): Promise<Task> {
     const { status } = updateTaskStatusDto;
     return this.tasksService.updateTaskStatus(id, status, user);

@@ -1,10 +1,10 @@
-import { IS_PUBLIC_KEY } from '@neox-api/shared/utils';
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
+import { IS_PUBLIC_KEY } from '../decorators';
 
 @Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt') {
+export class AtGuard extends AuthGuard('jwt') {
   constructor(private reflector: Reflector) {
     super();
   }
