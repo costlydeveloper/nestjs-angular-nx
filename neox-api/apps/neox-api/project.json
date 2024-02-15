@@ -22,8 +22,8 @@
         "production": {
           "fileReplacements": [
             {
-              "replace": "libs/shared/platform/src/lib/environment/global/environment.ts",
-              "with": "libs/shared/platform/src/lib/environment/global/environment.prod.ts"
+              "replace": "libs/config/src/environment/environment.ts",
+              "with": "libs/config/src/environment/environment.prod.ts",
             }
           ]
         }
@@ -46,9 +46,8 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/neox-api/**/*.ts"]
+        "lintFilePatterns": ["{projectRoot}/**/*.ts"]
       }
     },
     "test": {

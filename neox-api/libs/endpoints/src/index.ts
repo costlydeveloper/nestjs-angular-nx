@@ -1,2 +1,2 @@
-export * from './lib/exposed-entities';
-export * from './lib/endpoints.module';
+export * from './exposed-entities';
+export * from './endpoints.module';
