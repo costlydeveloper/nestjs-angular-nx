@@ -1,8 +1,12 @@
 import { Route } from '@angular/router';
-import { PLAYGROUND_ROUTE } from '@team-link/config';
-import { PlayFormComponent } from './play-form/play-form.component';
-import { PlayListComponent } from './play-list/play-list.component';
-import { PlaygroundComponent } from './playground/playground.component';
+import { PlayFormComponent } from './components/play-form/play-form.component';
+import { PlayListComponent } from './components/play-list/play-list.component';
+import { PlaygroundComponent } from './components/playground/playground.component';
+
+export const PLAYGROUND_ROUTE = {
+  FORM: 'form',
+  LIST: 'list',
+};
 
 export const playgroundRoutes: Route[] = [
   {

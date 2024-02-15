@@ -72,6 +72,7 @@
   },
   "defaultProject": "team-link",
   "nxCloudAccessToken": "YWNiMmEyNTgtYWY4YS00M2FhLThjYmMtNDYzNGQ4ODNjZGVjfHJlYWQtd3JpdGU=",
+  "neverConnectToCloud": true,
   "plugins": [
     {
       "plugin": "@nx/eslint/plugin",

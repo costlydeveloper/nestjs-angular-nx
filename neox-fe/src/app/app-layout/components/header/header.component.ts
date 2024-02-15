@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, inject, ViewEncapsulation } from '@angular/core';
-import { ThemeService } from '@team-link/helper';
+import { ThemeService } from '@team-link/common';
 import { UserMenuComponent } from '../user-menu/user-menu.component';
 
 @Component({

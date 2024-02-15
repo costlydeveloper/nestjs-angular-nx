@@ -1,5 +1,6 @@
 import { Directive, EventEmitter, input, Output } from '@angular/core';
-import { generateRandomString, Nullable } from '@team-link/utils';
+import { Nullable } from '@team-link/common';
+import { generateRandomString } from '@team-link/utils';
 import { ILabel, Label } from '../components/label/label.model';
 import { DynamicControlBase } from './dynamic-control-base.model';
 import { IErrorAssociation } from './dynamic-form-control.enum';
@@ -20,7 +21,7 @@ export abstract class FormControlAbstractionDirective<ValueType, ConfigType> {
           id: this.uniqueId,
           required: !!value.validators?.find(
             (validatorError) =>
-              validatorError.errorAssociation === IErrorAssociation.REQUIRED
+              validatorError.errorAssociation === IErrorAssociation.REQUIRED,
           ),
         });
         const baseConfig = new DynamicControlBase(value);
@@ -30,7 +31,7 @@ export abstract class FormControlAbstractionDirective<ValueType, ConfigType> {
         }
         return baseConfig;
       },
-    }
+    },
   );
 
   uniqueId = generateRandomString();

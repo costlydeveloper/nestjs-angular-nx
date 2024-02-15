@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
-import { APP_ROUTE } from '@team-link/config';
-import { treeShakablePlaygroundRoutes } from '@team-link/helper';
-import { accessAppLayoutGuard, accessAuthGuard } from '@team-link/utils';
+import { APP_ROUTE } from '@team-link/common';
+import { treeShakablePlaygroundRoutes } from '@team-link/dev-playground';
+import { accessAppLayoutGuard, accessAuthGuard } from '@team-link/security';
 import { AppLayoutComponent } from './app-layout/containers/app-layout/app-layout.component';
 
 export const appRoutes: Route[] = [
