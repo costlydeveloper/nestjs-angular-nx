@@ -18,7 +18,7 @@ export class AuthService {
     const user = await this.usersService.findOneBy({ email: dto.email });
     if (user && comparePasswords(dto.password, user.hash)) {
       const tokens = await this.getTokens(user.id, user.email);
-      await this.updateRtHash(user.id, tokens.refresh_token);
+      await this.updateRtHash(user.id, tokens.refreshToken);
       return tokens;
     } else {
       throw new UnauthorizedException();
@@ -28,7 +28,7 @@ export class AuthService {
   async signUpLocal(dto: AuthDto): Promise<Tokens> {
     const newUser = await this.usersService.create(dto);
     const tokens = await this.getTokens(newUser.id, newUser.email);
-    await this.updateRtHash(newUser.id, tokens.refresh_token);
+    await this.updateRtHash(newUser.id, tokens.refreshToken);
     return tokens;
   }
 
@@ -41,7 +41,7 @@ export class AuthService {
 
     if (user && user.hashedRt && comparePasswords(rt, user.hashedRt)) {
       const tokens = await this.getTokens(user.id, user.email);
-      await this.updateRtHash(user.id, tokens.refresh_token);
+      await this.updateRtHash(user.id, tokens.refreshToken);
       return tokens;
     } else {
       throw new UnauthorizedException();
@@ -78,8 +78,8 @@ export class AuthService {
     ]);
 
     return {
-      access_token: at,
-      refresh_token: rt,
+      accessToken: at,
+      refreshToken: rt,
     };
   }
 }
