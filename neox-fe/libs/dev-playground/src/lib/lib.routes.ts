@@ -1,8 +1,14 @@
 import { Route } from '@angular/router';
-import { PLAYGROUND_ROUTE } from '@team-link/config';
-import { PlayFormComponent } from './play-form/play-form.component';
-import { PlayListComponent } from './play-list/play-list.component';
-import { PlaygroundComponent } from './playground/playground.component';
+import { FetchApiComponent } from './components/play-fetch-api/fetch-api.component';
+import { PlayFormComponent } from './components/play-form/play-form.component';
+import { PlayListComponent } from './components/play-list/play-list.component';
+import { PlaygroundComponent } from './components/playground/playground.component';
+
+export const PLAYGROUND_ROUTE = {
+  FORM: 'form',
+  LIST: 'list',
+  FETCH_API: 'fetch-api',
+};
 
 export const playgroundRoutes: Route[] = [
   {
@@ -16,6 +22,10 @@ export const playgroundRoutes: Route[] = [
       {
         path: PLAYGROUND_ROUTE.LIST,
         component: PlayListComponent,
+      },
+      {
+        path: PLAYGROUND_ROUTE.FETCH_API,
+        component: FetchApiComponent,
       },
     ],
   },

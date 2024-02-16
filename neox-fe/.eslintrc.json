@@ -54,7 +54,8 @@
             "onlyDependOnLibsWithTags": [
               "type:feature",
               "type:config",
-              "scope:shared"
+              "scope:shared",
+              "type:security"
 
             ]
           },
@@ -62,6 +63,12 @@
             "sourceTag": "type:feature",
             "onlyDependOnLibsWithTags": [
               "type:util"
+            ]
+          },
+          {
+            "sourceTag": "type:security",
+            "onlyDependOnLibsWithTags": [
+              "type:config"
             ]
           },
           {

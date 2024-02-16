@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { AUTH_ROUTE } from '@team-link/config';
+import { AUTH_ROUTE } from '@team-link/common';
 import { AuthComponent } from './auth/auth.component';
 import { SmartSignInComponent } from './smart-sign-in/smart-sign-in.component';
 import { SmartSignUpComponent } from './smart-sign-up/smart-sign-up.component';

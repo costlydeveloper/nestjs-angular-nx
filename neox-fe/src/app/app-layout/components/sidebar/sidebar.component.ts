@@ -2,8 +2,8 @@ import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslocoPipe } from '@ngneat/transloco';
-import { APP_ROUTE } from '@team-link/config';
-import { setDevMenuItems } from '@team-link/helper';
+import { APP_ROUTE } from '@team-link/common';
+import { setDevMenuItems } from '@team-link/dev-playground';
 import { IMenuItem, MenuItem, MenuItemComponent } from '@team-link/ui';
 
 @Component({

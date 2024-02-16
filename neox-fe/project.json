@@ -28,12 +28,12 @@
           "sourceMap": false,
           "fileReplacements": [
             {
-              "replace": "libs/shared/config/src/environment/global/environment.ts",
-              "with": "libs/shared/config/src/environment/global/environment.prod.ts"
+              "replace": "libs/config/src/environment/environment.ts",
+              "with": "libs/config/src/environment/environment.prod.ts"
             },
             {
-              "replace": "libs/shared/helper/src/tree-shakable/tree-shakable.ts",
-              "with": "libs/shared/helper/src/tree-shakable/tree-shakable.prod.ts"
+              "replace": "libs/shared/common/src/development/tree-shakable-dev-menu/tree-shakable.ts",
+              "with": "libs/shared/common/src/development/tree-shakable-dev-menu/tree-shakable.prod.ts"
             }
           ],
           "budgets": [

@@ -17,17 +17,16 @@
     "paths": {
       "@team-link/auth": ["libs/features/views/auth/src/index.ts"],
       "@team-link/button": ["libs/core-components/button/src/index.ts"],
-      "@team-link/config": ["libs/shared/config/src/index.ts"],
+      "@team-link/common": ["libs/shared/common/src/index.ts"],
+      "@team-link/config": ["libs/config/src/index.ts"],
       "@team-link/dashboard": ["libs/features/views/dashboard/src/index.ts"],
       "@team-link/data-access": ["libs/data-access/src/index.ts"],
-      "@team-link/data-access-shared": ["libs/data-access/shared/src/index.ts"],
       "@team-link/dev-playground": ["libs/dev-playground/src/index.ts"],
       "@team-link/errors": ["libs/features/views/errors/src/index.ts"],
       "@team-link/form-generator": ["libs/core-components/form/src/index.ts"],
-      "@team-link/helper": ["libs/shared/helper/src/index.ts"],
       "@team-link/playground": ["libs/features/views/playground/src/index.ts"],
+      "@team-link/security": ["libs/security/src/index.ts"],
       "@team-link/table": ["libs/core-components/table/src/index.ts"],
-      "@team-link/test": ["libs/shared/test/src/index.ts"],
       "@team-link/ui": ["libs/shared/ui/src/index.ts"],
       "@team-link/utils": ["libs/shared/utils/src/index.ts"]
     }

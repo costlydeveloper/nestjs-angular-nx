@@ -15,7 +15,7 @@ import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { environmentGlobal } from '@team-link/config';
+import { environment } from '@team-link/config';
 import { Subscription } from 'rxjs';
 import { DEFAULT_FORM_LAYOUT } from '../../config/default-form-layout';
 import {
@@ -41,8 +41,7 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
 
   // region *** Debug ***
   debug = input<boolean, boolean>(false, {
-    transform: (value: boolean) =>
-      environmentGlobal.production ? false : value,
+    transform: (value: boolean) => (environment.production ? false : value),
   });
   // endregion
 
@@ -84,7 +83,7 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
       this.form.valueChanges.subscribe(() => {
         this.formGroupEmitter.emit(this.form);
         this.emmitFormOutput();
-      })
+      }),
     );
   }
 
@@ -100,11 +99,11 @@ export class FormGeneratorComponent implements OnInit, OnDestroy {
   setupFormFields(dynamicFormFields: IDynamicFormControl[]) {
     dynamicFormFields.forEach((formItem: IDynamicFormControl) => {
       const fieldValidators = formItem?.validators?.map(
-        (validatorError) => validatorError.validator
+        (validatorError) => validatorError.validator,
       );
       const formControl = this.fb.control(
         formItem.value || '',
-        fieldValidators
+        fieldValidators,
       );
       this.form.addControl(formItem.id, formControl);
     });

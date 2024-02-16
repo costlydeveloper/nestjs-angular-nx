@@ -3,6 +3,7 @@
   "app.menu.dev": "Dev",
   "app.menu.dev.formGenerator": "Form Generator",
   "app.menu.dev.listGenerator": "List Generator",
+  "app.menu.dev.fetchApi": "Fetch Api",
   "auth.header.signIn": "Sign in to your account",
   "auth.label.email": "Your email",
   "auth.placeholder.email": "Enter valid email address",

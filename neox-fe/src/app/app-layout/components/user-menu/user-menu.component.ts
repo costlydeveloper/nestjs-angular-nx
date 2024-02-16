@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { TranslocoPipe } from '@ngneat/transloco';
-import { AuthenticationService } from '@team-link/data-access';
+import { AuthenticationService } from '@team-link/security';
 
 @Component({
   selector: 'tl-user-menu',

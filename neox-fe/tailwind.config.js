@@ -99,7 +99,7 @@ module.exports = {
     createThemes(
       {
         light: {
-          brand: {
+          primary: {
             50: '#f0fdfa',
             100: '#ccfbf1',
             200: '#99f6e4',
@@ -111,7 +111,7 @@ module.exports = {
             800: '#115e59',
             900: '#134e4a',
           },
-          primary: {
+          text: {
             10: '#121212',
             20: '#212529',
           },
@@ -139,8 +139,7 @@ module.exports = {
           },
         },
         dark: {
-          primary1: 'blue',
-          brand: {
+          primary: {
             50: '#dbe7e5',
             100: '#c6dedb',
             200: '#a0c5c2',
@@ -152,7 +151,7 @@ module.exports = {
             800: '#244546',
             900: '#1d383a',
           },
-          primary: {
+          text: {
             10: '#ffffff',
             20: '#adb5bd',
           },
@@ -194,7 +193,7 @@ module.exports = {
           dark: 'dark',
         },*/
         strict: true,
-      }
+      },
     ),
   ],
 };

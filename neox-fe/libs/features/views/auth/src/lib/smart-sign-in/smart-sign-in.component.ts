@@ -4,13 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@ngneat/transloco';
 import { ButtonComponent } from '@team-link/button';
-import { APP_ROUTE, AUTH_ROUTE } from '@team-link/config';
-import { AuthenticationService } from '@team-link/data-access';
+import { APP_ROUTE, AUTH_ROUTE } from '@team-link/common';
 import {
   FormControlStatus,
   FormGeneratorComponent,
   IFormCompactOutput,
 } from '@team-link/form-generator';
+import { AuthenticationService } from '@team-link/security';
 import { ISignInForm, SignInFormService } from './sign-in-form.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class SmartSignInComponent {
 
   login(data: IFormCompactOutput<ISignInForm>) {
     if (data.status === FormControlStatus.VALID) {
-      this.userService.checkCredentials(data.value.email, data.value.password);
+      this.userService.signIn(data.value.email, data.value.password);
     }
   }
 }

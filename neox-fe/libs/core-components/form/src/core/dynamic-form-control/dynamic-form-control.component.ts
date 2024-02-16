@@ -10,7 +10,7 @@ import {
   FormGroupDirective,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { environmentGlobal } from '@team-link/config';
+import { environment } from '@team-link/config';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
 import { InputTextComponent } from '../../controls/input-text/input-text.component';
 import {
@@ -33,8 +33,7 @@ import {
 export class DynamicFormControlComponent {
   // region *** Debug ***
   debug = input<boolean, boolean>(false, {
-    transform: (value: boolean) =>
-      environmentGlobal.production ? false : value,
+    transform: (value: boolean) => (environment.production ? false : value),
   });
   // endregion
   dynamicFormControl = input.required<IDynamicFormControl>();
