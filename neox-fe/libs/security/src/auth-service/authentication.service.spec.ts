@@ -1,11 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { LocalStorageService } from '@team-link/utils';
 import { throwError } from 'rxjs';
 import { AuthApiService } from '../auth-api';
 import { AuthenticationService } from './authentication.service';
 
 describe('Authentication Service', () => {
   let authService: AuthenticationService;
+  let localStorage: LocalStorageService;
   let authApiServiceMock: jest.Mocked<AuthApiService>;
   let routerMock: jest.Mocked<Router>;
   let alertMock: jest.SpyInstance;
@@ -15,11 +17,21 @@ describe('Authentication Service', () => {
       navigateByUrl: jest.fn(),
     } as any;
 
+    const localStorageServiceMock = {
+      setItem: jest.fn(),
+      getItem: jest.fn(),
+      removeItem: jest.fn(),
+    };
+
     TestBed.configureTestingModule({
       providers: [
-        AuthenticationService,
-        { provide: AuthApiService, useValue: { login: jest.fn() } },
+        {
+          provide: LocalStorageService,
+          useValue: localStorageServiceMock,
+        },
+        { provide: AuthApiService, useValue: { signIn: jest.fn() } },
         { provide: Router, useValue: routerMock },
+        AuthenticationService,
       ],
     });
     authService = TestBed.inject(AuthenticationService);
@@ -56,11 +68,13 @@ describe('Authentication Service', () => {
 
       const errorResponse = { message: 'Login failed' };
 
-      authApiServiceMock.login.mockReturnValue(throwError(() => errorResponse));
+      authApiServiceMock.signIn.mockReturnValue(
+        throwError(() => errorResponse)
+      );
 
       const spyErrorCase = jest.spyOn(authService, 'errorCase');
 
-      authService.checkCredentials('testuser', 'testpassword');
+      authService.signIn('testuser', 'testpassword');
 
       expect(spyErrorCase).toHaveBeenCalledWith(errorResponse.message);
     });

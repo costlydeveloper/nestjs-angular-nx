@@ -18,7 +18,7 @@ $shade300: hsl(var(--twc-surface-40)) !default; //border, divider
 $shade400: hsl(var(--twc-surface-50)) !default; //input border
 $shade500: hsl(var(--twc-surface-60)); //input icon
 $shade600: hsl(var(--twc-surface-70)) !default; //text secondary color
-$shade700: hsl(var(--twc-primary-80)) !default; //text color
+$shade700: hsl(var(--twc-text-80)) !default; //text color
 $shade800: theme('colors.gray.800') !default; //unused
 $shade900: theme('colors.gray.900') !default; //unused
 

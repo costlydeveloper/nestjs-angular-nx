@@ -1,57 +1,85 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { APP_LOGGED_ROUTE_DEFAULT } from '@team-link/common';
-import { BehaviorSubject, catchError } from 'rxjs';
+import {
+  APP_LOGGED_ROUTE_DEFAULT,
+  LocalStorageService,
+  Nullable,
+} from '@team-link/common';
+import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { AuthApiService } from '../auth-api';
+import { Tokens } from '../auth-api/schema';
 
-const TOKEN_KEY = 'loginToken';
+const TOKENS_KEY = 'AuthTokens';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  private isUserLoggedIn = new BehaviorSubject(!!this.getToken());
+  private localStorageService = inject(LocalStorageService);
+  private isUserLoggedIn = new BehaviorSubject(
+    !!this.getAuthTokenFromStorage()
+  );
   isUserLoggedIn$ = this.isUserLoggedIn.asObservable();
   public authApiService = inject(AuthApiService);
   public router = inject(Router);
 
-  checkCredentials(username: string, password: string) {
+  signIn(email: string, password: string): void {
     this.authApiService
-      .login(username, password)
+      .signIn(email, password)
       .pipe(
         catchError((err) => {
           this.errorCase(err.message);
           throw err;
-        }),
+        })
       )
       .subscribe((resp) => {
-        if (resp?.accessToken) {
+        if (resp) {
           this.router.navigateByUrl('/' + APP_LOGGED_ROUTE_DEFAULT);
-          this.setToken(resp.accessToken);
+          this.setTokensToStorage(resp);
           this.isUserLoggedIn.next(true);
         }
       });
   }
 
-  logout() {
+  logout(): void {
     this.removeToken();
     this.isUserLoggedIn.next(false);
     this.router.navigateByUrl('/');
   }
 
-  getToken() {
-    return localStorage.getItem(TOKEN_KEY);
+  refreshToken(refreshToken: string): Observable<Tokens> {
+    return this.authApiService.refreshTokens(refreshToken).pipe(
+      take(1),
+      tap((tokens) => {
+        this.setTokensToStorage(tokens);
+      })
+    );
   }
 
   errorCase(err: string): void {
     alert(err);
   }
 
-  private setToken(token: string) {
-    return localStorage.setItem(TOKEN_KEY, token);
+  private setTokensToStorage(tokens: Tokens): void {
+    return this.localStorageService.setItem(TOKENS_KEY, tokens);
   }
 
-  private removeToken() {
-    return localStorage.removeItem(TOKEN_KEY);
+  getTokensFromStorage(): Nullable<Tokens> {
+    return this.localStorageService.getItem<Tokens>(TOKENS_KEY);
+  }
+
+  getAuthTokenFromStorage(): Nullable<string> {
+    const tokens = this.localStorageService.getItem<Tokens>(TOKENS_KEY);
+    return tokens?.accessToken ?? null;
+  }
+
+  getRefreshTokenFromStorage(): Nullable<string> {
+    const tokens = this.localStorageService.getItem<Tokens>(TOKENS_KEY);
+    return tokens?.refreshToken ?? null;
+  }
+
+  private removeToken(): void {
+    return this.localStorageService.removeItem(TOKENS_KEY);
   }
 }

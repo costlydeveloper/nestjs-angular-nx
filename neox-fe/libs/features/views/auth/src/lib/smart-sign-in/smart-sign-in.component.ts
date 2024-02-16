@@ -36,7 +36,7 @@ export class SmartSignInComponent {
 
   login(data: IFormCompactOutput<ISignInForm>) {
     if (data.status === FormControlStatus.VALID) {
-      this.userService.checkCredentials(data.value.email, data.value.password);
+      this.userService.signIn(data.value.email, data.value.password);
     }
   }
 }

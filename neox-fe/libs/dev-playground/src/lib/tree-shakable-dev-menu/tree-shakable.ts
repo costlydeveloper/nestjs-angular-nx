@@ -14,12 +14,17 @@ export function setDevMenuItems(): IMenuItem {
     new MenuItem(
       'app.menu.dev.formGenerator',
       true,
-      APP_ROUTE.PLAYGROUND + '/form',
+      APP_ROUTE.PLAYGROUND + '/form'
     ),
     new MenuItem(
       'app.menu.dev.listGenerator',
       true,
-      APP_ROUTE.PLAYGROUND + '/list',
+      APP_ROUTE.PLAYGROUND + '/list'
+    ),
+    new MenuItem(
+      'app.menu.dev.fetchApi',
+      true,
+      APP_ROUTE.PLAYGROUND + '/fetch-api'
     ),
   ];
   return item;
