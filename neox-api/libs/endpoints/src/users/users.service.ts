@@ -12,11 +12,17 @@ import {
 } from '@nestjs/common';
 import { UpdateResult } from 'typeorm';
 import { AuthDto } from '../auth/dto';
-import { IUser, IUserOmitPassword, User } from './user.entity';
+import { Person } from '../person';
+import { UpdateUserDto } from './dto';
+import { IUser, User } from './user.entity';
 import { UsersRepository } from './users-repository.service';
 
 @Injectable()
-export class UsersService extends BaseEntityService<IUser> {
+export class UsersService extends BaseEntityService<
+  IUser,
+  AuthDto,
+  UpdateUserDto
+> {
   constructor(
     private readonly usersRepository: UsersRepository,
     private readonly dbErrHandler: DbErrorHandler,
@@ -24,15 +30,18 @@ export class UsersService extends BaseEntityService<IUser> {
     super(usersRepository);
   }
 
-  async create(createUserDto: AuthDto): Promise<IUserOmitPassword> {
+  override async create<IUserOmitPassword>(
+    createUserDto: AuthDto,
+  ): Promise<IUserOmitPassword> {
     const newUser = new User();
     newUser.email = createUserDto.email;
     newUser.hash = hashIt(createUserDto.password);
+    newUser.person = new Person();
 
     try {
       const storedUser: User = await this.usersRepository.save(newUser);
       const { hash, ...userWithoutPassword } = storedUser;
-      return userWithoutPassword;
+      return userWithoutPassword as IUserOmitPassword;
     } catch (error: any) {
       if (error.code === this.dbErrHandler.codes.UNIQUE_VIOLATION) {
         throw new ConflictException(MESSAGE.ERROR.USERNAME_EXIST);
@@ -47,9 +56,5 @@ export class UsersService extends BaseEntityService<IUser> {
     hashedRt: Nullable<string>,
   ): Promise<UpdateResult> {
     return await this.usersRepository.update(userId, { hashedRt });
-  }
-
-  findOneBy(partialUser: Partial<IUser>): Promise<Nullable<IUser>> {
-    return this.usersRepository.findOneBy(partialUser as object);
   }
 }

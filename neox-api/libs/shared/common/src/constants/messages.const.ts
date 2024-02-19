@@ -7,5 +7,8 @@ export const MESSAGE = {
     USERNAME_EXIST: 'Username already exists',
     UNSUPPORTED_DATABASE_TYPE: 'Unsupported database type',
     REFRESH_TOKEN_MALFORMED: 'Refresh token malformed',
+    INVALID_UUID_FORMAT: 'Invalid UUID format',
+    ENTITY_WITH_ID_DOES_NOT_EXIST: (id: string) =>
+      `Entity with ID ${id} does not exist`,
   },
 };

@@ -1,4 +1,4 @@
-import { Task } from './tasks';
+import { Person } from './person';
 import { User } from './users';
 
-export const ExposedEntities = [User, Task];
+export const ExposedEntities = [Person, User];
