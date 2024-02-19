@@ -2,7 +2,7 @@ import { comparePasswords, hashIt } from '@neox-api/shared/utils';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from '../users';
+import { IUserOmitPassword, UsersService } from '../users';
 import { AuthDto } from './dto';
 import { Tokens } from './types';
 
@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   async signUpLocal(dto: AuthDto): Promise<Tokens> {
-    const newUser = await this.usersService.create(dto);
+    const newUser = await this.usersService.create<IUserOmitPassword>(dto);
     const tokens = await this.getTokens(newUser.id, newUser.email);
     await this.updateRtHash(newUser.id, tokens.refreshToken);
     return tokens;

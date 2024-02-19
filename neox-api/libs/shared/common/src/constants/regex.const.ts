@@ -36,3 +36,29 @@ export const PASSWORD_REGEXP =
  */
 export const EMAIL_REGEXP =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+/**
+ * UUID Validation Regex.
+ *
+ * This regular expression checks for a valid UUID format. A UUID is a 36-character string including 4 hyphens,
+ * with 5 sections of characters distributed as 8-4-4-4-12.
+ *
+ * @pattern
+ * ^                     // Start of the string
+ * [0-9a-fA-F]{8}        // 8 hex characters
+ * -                     // Hyphen
+ * [0-9a-fA-F]{4}        // 4 hex characters
+ * -                     // Hyphen
+ * [1-5][0-9a-fA-F]{3}   // 4 hex characters, first character ranges from 1 to 5 to include all UUID versions
+ * -                     // Hyphen
+ * [89abAB][0-9a-fA-F]{3} // 4 hex characters, first character is 8, 9, a, b (case insensitive) for variant
+ * -                     // Hyphen
+ * [0-9a-fA-F]{12}       // 12 hex characters
+ * $                     // End of the string
+ *
+ * @description
+ * This regex pattern validates the format of UUID (Universally Unique Identifier) strings based on the standard UUID formats.
+ * It ensures the UUID contains only hexadecimal characters in the appropriate sections and respects the UUID version and variant restrictions.
+ */
+export const UUID_REGEXP =
+  /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;

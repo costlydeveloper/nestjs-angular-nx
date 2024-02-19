@@ -1,6 +1,6 @@
 import { BaseEntity, IBaseEntity } from '@neox-api/shared/common';
-import { Column, Entity, OneToMany } from 'typeorm';
-import { Task } from '../tasks';
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Person } from '../person';
 
 export interface IUser extends IBaseEntity {
   hash: string;
@@ -30,6 +30,10 @@ export class User extends BaseEntity implements IUser {
   @Column({ default: true })
   isActive!: boolean;
 
-  @OneToMany((_type) => Task, (task) => task.user, { eager: true })
-  tasks!: Task[];
+  @OneToOne(() => Person, {
+    eager: true,
+    cascade: true,
+  })
+  @JoinColumn()
+  person!: Person;
 }
