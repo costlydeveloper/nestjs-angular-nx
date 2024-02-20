@@ -40,11 +40,18 @@ export class FetchApiComponent {
       .read('d58a8e88-4566-4976-af04-57e8848ffbc8')
       .subscribe((res) => console.log(res));
   }
-  personUpdate() {
+  personUpdatePatch() {
     const person = new Person();
     person.id = 'd58a8e88-4566-4976-af04-57e8848ffbc8';
-    person.firstName = 'Marija';
-    person.lastName = 'Juric';
+    person.firstName = 'Marija5';
+    //person.lastName = 'Juric3';
+    this.personApiService.patch(person).subscribe((res) => console.log(res));
+  }
+  personUpdatePut() {
+    const person = new Person();
+    person.id = 'd58a8e88-4566-4976-af04-57e8848ffbc8';
+    person.firstName = 'Marija2';
+    person.lastName = 'Juric3';
     this.personApiService.update(person).subscribe((res) => console.log(res));
   }
 

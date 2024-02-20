@@ -31,9 +31,14 @@ export abstract class BaseApiService<Entity> {
       .pipe(validateWithSchema(this.entitySchema));
   }
 
-  update(data: Entity & IBaseModel<Entity>): Observable<Entity> {
+  patch(data: Entity & IBaseModel<Entity>): Observable<Entity> {
     return this.http
       .patch<Entity>(`${this.baseUrl}/${data.id}`, data)
+      .pipe(validateWithSchema(this.entitySchema));
+  }
+  update(data: Entity & IBaseModel<Entity>): Observable<Entity> {
+    return this.http
+      .put<Entity>(`${this.baseUrl}/${data.id}`, data)
       .pipe(validateWithSchema(this.entitySchema));
   }
 
