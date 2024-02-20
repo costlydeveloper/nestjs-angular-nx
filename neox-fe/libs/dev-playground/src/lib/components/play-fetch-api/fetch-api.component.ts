@@ -30,12 +30,13 @@ export class FetchApiComponent {
   }
   personCreate() {
     const person = new Person();
-    person.firstName = 'Marija';
-    person.lastName = 'Juric';
-    this.personApiService.create(person).subscribe((res) => console.log(res));
+    person.firstName = 'Rocky';
+    person.lastName = 'Balboa';
+    person.create().subscribe((res) => console.log(res));
   }
   personRead() {
-    this.personApiService
+    const person = new Person();
+    person
       .read('d58a8e88-4566-4976-af04-57e8848ffbc8')
       .subscribe((res) => console.log(res));
   }

@@ -6,4 +6,4 @@ export const PersonSchema = BaseSchema.extend({
   lastName: z.string().nullable(),
 });
 
-export type PersonType = z.infer<typeof PersonSchema>;
+export type PersonSchemaType = z.infer<typeof PersonSchema>;
