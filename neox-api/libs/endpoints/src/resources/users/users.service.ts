@@ -1,4 +1,4 @@
-import { DbErrorHandler, MESSAGE, Nullable } from '@neox-api/shared/common';
+import { DB_ERROR_CODE, MESSAGE, Nullable } from '@neox-api/shared/common';
 import { hashIt } from '@neox-api/shared/utils';
 import {
   ConflictException,
@@ -20,10 +20,7 @@ export class UsersService extends BaseEntityService<
   CreateUserDto,
   UpdateUserDto
 > {
-  constructor(
-    private readonly usersRepository: UsersRepository,
-    private readonly dbErrHandler: DbErrorHandler,
-  ) {
+  constructor(private readonly usersRepository: UsersRepository) {
     super(usersRepository);
   }
 
@@ -40,7 +37,7 @@ export class UsersService extends BaseEntityService<
       const { hash, ...userWithoutPassword } = storedUser;
       return userWithoutPassword as IUserOmitPassword;
     } catch (error: any) {
-      if (error.code === this.dbErrHandler.codes.UNIQUE_VIOLATION) {
+      if (error.code === DB_ERROR_CODE.UNIQUE_VIOLATION) {
         throw new ConflictException(MESSAGE.ERROR.USERNAME_EXIST);
       } else {
         throw new InternalServerErrorException();

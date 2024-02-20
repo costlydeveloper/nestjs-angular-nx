@@ -1,5 +1,5 @@
-import { MESSAGE, Nullable } from '@neox-api/shared/common';
-import { NotFoundException } from '@nestjs/common';
+import { DB_ERROR_CODE, MESSAGE, Nullable } from '@neox-api/shared/common';
+import { ConflictException, NotFoundException } from '@nestjs/common';
 import { BaseRepository } from './base.repository';
 
 export abstract class BaseEntityService<EntityInterface, CreateDto, UpdateDto> {
@@ -19,7 +19,6 @@ export abstract class BaseEntityService<EntityInterface, CreateDto, UpdateDto> {
     return entity;
   }
   async create<T = CreateDto>(createDto: CreateDto): Promise<T> {
-    console.log('CreateDto', createDto);
     const entity = this.repository.create(createDto);
     return this.repository.save(entity);
   }
@@ -42,11 +41,18 @@ export abstract class BaseEntityService<EntityInterface, CreateDto, UpdateDto> {
   }
 
   async remove(id: string): Promise<void> {
-    const result = await this.repository.delete(id);
-    if (result.affected === 0) {
-      throw new NotFoundException(
-        MESSAGE.ERROR.ENTITY_WITH_ID_DOES_NOT_EXIST(id),
-      );
+    try {
+      const result = await this.repository.delete(id);
+      if (result.affected === 0) {
+        throw new NotFoundException(
+          MESSAGE.ERROR.ENTITY_WITH_ID_DOES_NOT_EXIST(id),
+        );
+      }
+    } catch (error: any) {
+      if (error.code === DB_ERROR_CODE.FOREIGN_KEY_VIOLATION) {
+        throw new ConflictException(MESSAGE.ERROR.FOREIGN_KEY_VIOLATION);
+      }
+      throw error;
     }
   }
 }
