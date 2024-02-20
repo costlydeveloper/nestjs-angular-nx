@@ -23,7 +23,10 @@ export abstract class BaseEntityService<EntityInterface, CreateDto, UpdateDto> {
     return this.repository.save(entity);
   }
 
-  async update(id: string, updateDto: UpdateDto): Promise<EntityInterface> {
+  async updatePatch(
+    id: string,
+    updateDto: UpdateDto,
+  ): Promise<EntityInterface> {
     const entity = await this.repository.findOneBy({ id: id });
     if (!entity) {
       throw new NotFoundException(
@@ -32,6 +35,18 @@ export abstract class BaseEntityService<EntityInterface, CreateDto, UpdateDto> {
     }
     this.repository.merge(entity, updateDto);
     return this.repository.save(entity);
+  }
+
+  async updatePut(id: string, createDto: CreateDto): Promise<EntityInterface> {
+    const entityExists = await this.repository.findOneBy({ id: id });
+    if (!entityExists) {
+      throw new NotFoundException(
+        MESSAGE.ERROR.ENTITY_WITH_ID_DOES_NOT_EXIST(id),
+      );
+    }
+    const updatedEntity = this.repository.create(createDto);
+    updatedEntity.id = id;
+    return this.repository.save(updatedEntity);
   }
 
   findOneBy(

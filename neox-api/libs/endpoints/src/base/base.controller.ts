@@ -1,5 +1,5 @@
 import { ClassType, UuidValidationPipe } from '@neox-api/shared/common';
-import { Body, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { BaseEntityService } from './base-entity.service';
 
@@ -28,15 +28,20 @@ export abstract class BaseController<EntityInterface, CreateDto, UpdateDto> {
   }
 
   @Patch(':id')
-  update(
+  updatePartial(
     @Param('id', UuidValidationPipe) id: string,
     @Body() updateDto: UpdateDto,
-  ) {
-    console.log('updateDto', updateDto);
+  ): Promise<EntityInterface> {
     const entity = plainToInstance(this.updateDtoClass, updateDto);
-    console.log('entity', entity);
+    return this.service.updatePatch(id, entity);
+  }
 
-    return this.service.update(id, entity);
+  @Put(':id')
+  async update(
+    @Param('id', UuidValidationPipe) id: string,
+    @Body() createDto: CreateDto,
+  ): Promise<EntityInterface> {
+    return await this.service.updatePut(id, createDto);
   }
 
   @Delete(':id')
