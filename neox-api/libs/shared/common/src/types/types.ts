@@ -1,5 +1,5 @@
 export type Nullable<T> = T | null;
 
-export interface IClassType<T = any> {
-	new (...args: never[]): T;
-}
+export type ClassType<T = any> = {
+  new (...args: any[]): T;
+};
