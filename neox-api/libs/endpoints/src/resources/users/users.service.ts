@@ -1,9 +1,4 @@
-import {
-  BaseEntityService,
-  DbErrorHandler,
-  MESSAGE,
-  Nullable,
-} from '@neox-api/shared/common';
+import { DbErrorHandler, MESSAGE, Nullable } from '@neox-api/shared/common';
 import { hashIt } from '@neox-api/shared/utils';
 import {
   ConflictException,
@@ -11,16 +6,18 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { UpdateResult } from 'typeorm';
+import { BaseEntityService } from '../../base';
 import { AuthDto } from '../auth/dto';
 import { Person } from '../person';
-import { UpdateUserDto } from './dto';
+
+import { CreateUserDto, UpdateUserDto } from './dto';
 import { IUser, User } from './user.entity';
 import { UsersRepository } from './users-repository.service';
 
 @Injectable()
 export class UsersService extends BaseEntityService<
   IUser,
-  AuthDto,
+  CreateUserDto,
   UpdateUserDto
 > {
   constructor(

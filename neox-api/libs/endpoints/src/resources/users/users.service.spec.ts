@@ -2,7 +2,7 @@ import { DbErrorHandler } from '@neox-api/shared/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AuthDto } from '../auth/dto/auth.dto';
+import { AuthDto } from '../../auth/dto/auth.dto';
 import { IUser, User } from './user.entity';
 import { UsersService } from './users.service';
 

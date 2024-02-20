@@ -1,5 +1,5 @@
-import { BaseEntity, IBaseEntity } from '@neox-api/shared/common';
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { BaseEntity, IBaseEntity } from '../../base';
 import { Person } from '../person';
 
 export interface IUser extends IBaseEntity {

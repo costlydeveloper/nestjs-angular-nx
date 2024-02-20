@@ -1,7 +1,7 @@
-import { BaseRepository } from '@neox-api/shared/common';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { BaseRepository } from '../../base';
 import { IUser, User } from './user.entity';
 
 @Injectable()

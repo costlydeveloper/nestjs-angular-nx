@@ -1,5 +1,6 @@
-import { BaseEntity, IBaseEntity, Nullable } from '@neox-api/shared/common';
+import { Nullable } from '@neox-api/shared/common';
 import { Column, Entity } from 'typeorm';
+import { BaseEntity, IBaseEntity } from '../../base';
 
 export interface IPerson extends IBaseEntity {
   firstName: Nullable<string>;

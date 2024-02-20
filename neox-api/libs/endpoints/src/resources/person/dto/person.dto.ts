@@ -1,10 +1,9 @@
 import { Nullable } from '@neox-api/shared/common';
 import { Expose } from 'class-transformer';
+import { BaseDto } from '../../../base';
 import { IPerson } from '../../person';
 
-export class PersonDto implements Partial<IPerson> {
-  @Expose()
-  id!: string;
+export class PersonDto extends BaseDto implements Partial<IPerson> {
   @Expose()
   firstName!: Nullable<string>;
   @Expose()

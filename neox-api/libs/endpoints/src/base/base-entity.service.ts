@@ -1,6 +1,5 @@
+import { MESSAGE, Nullable } from '@neox-api/shared/common';
 import { NotFoundException } from '@nestjs/common';
-import { MESSAGE } from '../constants';
-import { Nullable } from '../types';
 import { BaseRepository } from './base.repository';
 
 export abstract class BaseEntityService<EntityInterface, CreateDto, UpdateDto> {
@@ -20,6 +19,7 @@ export abstract class BaseEntityService<EntityInterface, CreateDto, UpdateDto> {
     return entity;
   }
   async create<T = CreateDto>(createDto: CreateDto): Promise<T> {
+    console.log('CreateDto', createDto);
     const entity = this.repository.create(createDto);
     return this.repository.save(entity);
   }

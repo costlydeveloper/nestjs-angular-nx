@@ -1,6 +1,7 @@
-import { BaseController, Serialize } from '@neox-api/shared/common';
+import { Serialize } from '@neox-api/shared/common';
 import { Controller } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { BaseController } from '../../base';
 import { CreatePersonDto, PersonDto, UpdatePersonDto } from './dto';
 import { IPerson } from './person.entity';
 import { PersonService } from './person.service';
@@ -15,6 +16,6 @@ export class PersonController extends BaseController<
   UpdatePersonDto
 > {
   constructor(private readonly personService: PersonService) {
-    super(personService);
+    super(personService, CreatePersonDto, UpdatePersonDto);
   }
 }
