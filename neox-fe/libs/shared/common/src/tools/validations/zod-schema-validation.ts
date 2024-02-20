@@ -1,23 +1,27 @@
 import { catchError, map, pipe, throwError } from 'rxjs';
-import { ZodSchema } from 'zod';
+import { z, ZodSchema } from 'zod';
+import { MESSAGE } from '../../constants';
 
-export function validateSchema<T>(schema: ZodSchema<T>, input: unknown): T {
-  try {
-    const validatedData = schema.parse(input);
-    console.log('Validation successful', validatedData);
-    return validatedData;
-  } catch (error) {
-    console.error('Validation failed', error);
-    throw error;
-  }
-}
-
-// RxJS operator for validation
 export function validateWithSchema<T>(schema: ZodSchema<T>) {
   return pipe(
     map((data: unknown) => schema.parse(data)),
     catchError((error) =>
-      throwError(() => new Error(`Validation failed: ${error.message}`))
+      throwError(
+        () => new Error(`${MESSAGE.ERROR.VALIDATION_FAILED}: ${error.message}`)
+      )
+    )
+  );
+}
+
+export function validateListWithSchema<T>(itemSchema: ZodSchema<T>) {
+  const listSchema = z.array(itemSchema);
+
+  return pipe(
+    map((data: unknown) => listSchema.parse(data)),
+    catchError((error) =>
+      throwError(
+        () => new Error(`${MESSAGE.ERROR.VALIDATION_FAILED}: ${error.message}`)
+      )
     )
   );
 }

@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, input, Output } from '@angular/core';
-import { Nullable } from '@team-link/common';
+import { Nullish } from '@team-link/common';
 import { generateRandomString } from '@team-link/utils';
 import { ILabel, Label } from '../components/label/label.model';
 import { DynamicControlBase } from './dynamic-control-base.model';
@@ -21,7 +21,7 @@ export abstract class FormControlAbstractionDirective<ValueType, ConfigType> {
           id: this.uniqueId,
           required: !!value.validators?.find(
             (validatorError) =>
-              validatorError.errorAssociation === IErrorAssociation.REQUIRED,
+              validatorError.errorAssociation === IErrorAssociation.REQUIRED
           ),
         });
         const baseConfig = new DynamicControlBase(value);
@@ -31,7 +31,7 @@ export abstract class FormControlAbstractionDirective<ValueType, ConfigType> {
         }
         return baseConfig;
       },
-    },
+    }
   );
 
   uniqueId = generateRandomString();
@@ -39,7 +39,7 @@ export abstract class FormControlAbstractionDirective<ValueType, ConfigType> {
   // endregion
 
   // region *** Form ***
-  focused: Nullable<boolean>;
+  focused: Nullish<boolean>;
   value: any;
   @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
   valueAccessor!: ValueAccessorDirective<ValueType>;

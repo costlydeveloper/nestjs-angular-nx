@@ -8,4 +8,7 @@ export class RestApiHelper {
   getApiUrl(): string {
     return environment.apiServer;
   }
+  apiEntityUrlBuilder(endpointName: string): string {
+    return `${environment.apiServer}/${endpointName}`;
+  }
 }
