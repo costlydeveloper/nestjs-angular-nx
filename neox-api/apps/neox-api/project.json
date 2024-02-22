@@ -23,7 +23,7 @@
           "fileReplacements": [
             {
               "replace": "libs/config/src/environment/environment.ts",
-              "with": "libs/config/src/environment/environment.prod.ts",
+              "with": "libs/config/src/environment/environment.prod.ts"
             }
           ]
         }

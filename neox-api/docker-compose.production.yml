@@ -7,28 +7,28 @@ x-logging: &default-logging
     max-file: 100
 
 networks:
-  docker-network:
+  neox-network:
     driver: bridge
 
 services:
 
   # DATABASE
-  postgres_db:
-    container_name: neox-db
+  neox_prod_db:
+    container_name: prod-neox-db
     image: bitnami/postgresql:latest
     platform: linux/amd64
     ports:
-      - ${DB_PORT_DOCKER}:${DB_PORT}
+      - ${DB_PORT}:${DB_PORT}
     restart: always
     volumes:
-      - db-data:/bitnami/postgresql
+      - neox-prod-db-data:/bitnami/postgresql
     environment:
       - POSTGRESQL_DATABASE=${DB_DATABASE}
       - POSTGRESQL_USERNAME=${DB_USERNAME}
       - POSTGRESQL_PASSWORD=${DB_PASSWORD}
     networks:
-      - docker-network
+      - neox-network
     logging: *default-logging
 
 volumes:
-  db-data:
+  neox-prod-db-data:
