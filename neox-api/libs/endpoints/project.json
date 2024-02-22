@@ -23,6 +23,22 @@
           "codeCoverage": true
         }
       }
+    },
+    "test-unit": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/endpoints-unit"],
+      "options": {
+        "jestConfig": "libs/endpoints/jest-unit.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "test-int": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/endpoints-int"],
+      "options": {
+        "jestConfig": "libs/endpoints/jest-int.config.ts",
+        "passWithNoTests": true
+      }
     }
   },
   "tags": ["scope:endpoints", "type:feature"]

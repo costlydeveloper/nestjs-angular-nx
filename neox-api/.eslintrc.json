@@ -4,7 +4,8 @@
     "**/*"
   ],
   "plugins": [
-    "@nx"
+    "@nx",
+    "import"
   ],
   "overrides": [
     {
@@ -15,6 +16,7 @@
         "*.jsx"
       ],
       "rules": {
+        "import/no-cycle": "error",
         "@nx/enforce-module-boundaries": [
           "error",
           {
