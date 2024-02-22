@@ -21,6 +21,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@neox-api/app": ["apps/neox-api/src/index.ts"],
       "@neox-api/config": ["libs/config/src/index.ts"],
       "@neox-api/db": ["db/src/index.ts"],
       "@neox-api/endpoints": ["libs/endpoints/src/index.ts"],

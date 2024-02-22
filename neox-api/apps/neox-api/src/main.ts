@@ -18,7 +18,7 @@ import {
 
 import { Logger as PinoLogger, LoggerErrorInterceptor } from 'nestjs-pino';
 
-import { AppModule } from './app/app.module';
+import { AppModule } from './app';
 
 declare const module: any;
 
@@ -60,10 +60,10 @@ async function bootstrap() {
   });
 
   // This is necessary to make the hot-reload work with Docker
-  if (module.hot) {
+  /*  if (module.hot) {
     module.hot.accept();
     module.hot.dispose(() => app.close());
-  }
+  }*/
 }
 
 bootstrap();

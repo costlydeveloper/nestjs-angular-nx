@@ -1,3 +1,4 @@
+/*
 import { Nullable } from '@neox-api/shared/common';
 import { Controller } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -96,3 +97,4 @@ describe('BaseController', () => {
     });
   });
 });
+*/

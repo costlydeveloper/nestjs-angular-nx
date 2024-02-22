@@ -24,16 +24,6 @@ import { Tokens } from './types';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  /*
-  @UseGuards(LocalAuthGuard)
-  @Public()
-  @Post('signin')
-  @ApiBody({ type: AuthDto })
-  signIn(@Req() req: Request & { user: IUserOmitPassword }): Promise<Tokens> {
-    return this.authService.signIn(req.user);
-  }
-*/
-
   @Public()
   @Post('signup')
   @HttpCode(HttpStatus.CREATED)

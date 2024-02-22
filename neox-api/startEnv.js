@@ -13,7 +13,7 @@ try {
   // Copy the appropriate .env file
   fs.copyFileSync(envFilePath, targetEnvFilePath);
   console.log(`Copied ${envFilePath} to ${targetEnvFilePath}`);
-
+  console.log('env', env);
   execSync(`docker-compose -f docker-compose.${env}.yml down`, {
     stdio: 'inherit',
   });
