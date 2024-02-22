@@ -18,7 +18,7 @@ services:
     image: bitnami/postgresql:latest
     platform: linux/amd64
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - ${DB_PORT}:5432
     restart: always
     volumes:
       - neox-dev-db-data:/bitnami/postgresql

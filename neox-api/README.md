@@ -68,12 +68,24 @@ There are three environments available: **Test**, **Development**, and **Product
 
 ## 🔍 Linting the Project
 
-1. **To lint the entire project,**
+* **To lint the entire project,**
     ensuring code quality and consistency across all files, use the following command:
 
    ```bash
    npm run check:lint-all 
    ```
     This command will run the configured linter across the entire project, identifying and reporting any violations of the predefined coding standards.
+
+---
+
+## 📚 Swagger Documentation
+
+* **Access comprehensive API documentation** via Swagger at the following path:
+
+   ```
+   {{server-url}}/api
+   ```
+
+   This documentation provides detailed insights into the available endpoints, request parameters, and response formats, facilitating easier integration and testing.
 
 ---

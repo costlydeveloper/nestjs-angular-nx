@@ -31,7 +31,19 @@
                   "type:platform",
                   "type:config",
                   "type:util",
-                  "type:db"
+                  "type:db",
+                  "type:e2e"
+                ]
+              },
+              {
+                "sourceTag": "type:e2e",
+                "onlyDependOnLibsWithTags": [
+                  "type:feature",
+                  "type:platform",
+                  "type:config",
+                  "type:util",
+                  "type:db",
+                  "type:app"
                 ]
               },
               {

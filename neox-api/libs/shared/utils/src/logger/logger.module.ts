@@ -9,10 +9,12 @@ import { LoggerModule as PinoLogger } from 'nestjs-pino';
         customProps: () => ({
           context: 'HTTP',
         }),
-        autoLogging: false,
+        autoLogging: true,
         transport: {
-          //target: 'pino-pretty',
-          target: `${__dirname}/../../../pino-pretty-transport.js`,
+          target: 'pino-pretty',
+          //target: transportPath,
+          //target: `${__dirname}/../../../pino-pretty-transport.js`,
+          //target: `${__dirname}/../../../../../pino-pretty-transport.js`,
           options: {
             colorizeObjects: true,
             messageFormat: '{context}{msg} ',

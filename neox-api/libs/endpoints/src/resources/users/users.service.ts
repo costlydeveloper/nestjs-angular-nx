@@ -31,7 +31,6 @@ export class UsersService extends BaseEntityService<
     newUser.email = createUserDto.email;
     newUser.hash = hashIt(createUserDto.password);
     newUser.person = new Person();
-
     try {
       const storedUser: User = await this.usersRepository.save(newUser);
       const { hash, ...userWithoutPassword } = storedUser;
