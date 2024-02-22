@@ -30,5 +30,20 @@ services:
       - docker-network
     logging: *default-logging
 
+  test_db:
+    container_name: neox-test-db
+    image: bitnami/postgresql:latest
+    platform: linux/amd64
+    ports:
+      - ${TEST_DB_PORT_DOCKER}:${DB_PORT}
+    restart: always
+    environment:
+      - POSTGRESQL_DATABASE=${DB_DATABASE}
+      - POSTGRESQL_USERNAME=${DB_USERNAME}
+      - POSTGRESQL_PASSWORD=${DB_PASSWORD}
+    networks:
+      - docker-network
+    logging: *default-logging
+
 volumes:
   db-data:
