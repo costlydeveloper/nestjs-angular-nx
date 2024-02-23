@@ -13,6 +13,9 @@
     "e2e": {
       "cache": true
     },
+    "int": {
+      "cache": true
+    },
     "@nx/eslint:lint": {
       "cache": true,
       "inputs": [
@@ -38,5 +41,21 @@
     "sharedGlobals": []
   },
   "nxCloudAccessToken": "ZjMyNzFmMGEtYmI2My00YTMwLTg4ODgtMzk5Y2MxYjNjNWM1fHJlYWQtd3JpdGU=",
-  "neverConnectToCloud": true
+  "neverConnectToCloud": true,
+  "plugins": [
+    {
+      "plugin": "@nx/webpack/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "serveTargetName": "serve",
+        "previewTargetName": "preview"
+      }
+    },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    }
+  ]
 }

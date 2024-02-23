@@ -1,3 +1,4 @@
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { AppModule } from '@neox-api/app';
 import {
   FastifyAdapter,
