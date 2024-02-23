@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 @Injectable()
-export class DatabaseService implements OnModuleInit, OnModuleDestroy {
+export class TypeormService implements OnModuleInit, OnModuleDestroy {
   public appDataSource: DataSource;
   constructor(private configService: ConfigService) {
     this.appDataSource = new DataSource({

@@ -1,5 +1,6 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { AppModule } from '@neox-api/app';
+import { UsersService } from '@neox-api/endpoints';
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -8,13 +9,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 describe('User Resource (integration)', () => {
   let app: NestFastifyApplication;
+  let userService: UsersService;
 
   beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
+    const moduleRef: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
-
-    app = moduleFixture.createNestApplication<NestFastifyApplication>(
+    userService = moduleRef.get(UsersService);
+    app = moduleRef.createNestApplication<NestFastifyApplication>(
       new FastifyAdapter(),
     );
 
@@ -27,15 +29,12 @@ describe('User Resource (integration)', () => {
   });
 
   describe('Create User', () => {
+    let userId: string;
     it('should create user', async () => {
-      const user = await prisma.user.create({
-        data: {
-          email: 'john@skynet.com',
-          firstName: 'John',
-          lastName: 'Connor',
-        },
+      const user = await userService.create({
+        email: 'john@skynet.com1',
+        password: 'mystrongpassword',
       });
-      userId = user.id;
     });
   });
 });
