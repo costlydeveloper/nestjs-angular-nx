@@ -11,7 +11,7 @@ There are three environments available: **Test**, **Development**, and **Product
    Execute the following command to set the `.env.test` file as your current `.env` configuration and start the test database using `docker-compose.test.yml`:
 
    ```bash
-   npm run start:test-environment
+   npm run start:test-dbstart:
    ```
 
 2. **Running E2E Tests**
@@ -29,7 +29,7 @@ There are three environments available: **Test**, **Development**, and **Product
    To start the development environment, replace the `.env.development` file with `.env` and start the development database using:
 
    ```bash
-   npm run start:dev-environment
+   npm run start:dev-db
    ```
 
 2. **Launching the Development Application**
@@ -37,7 +37,7 @@ There are three environments available: **Test**, **Development**, and **Product
    Now, you can start the API application for development using:
 
    ```bash
-   npm run start:dev-app
+   npm run start:app-dev
    ```
 
 ---
@@ -48,7 +48,7 @@ There are three environments available: **Test**, **Development**, and **Product
    To set up the production environment, replace the `.env.production` file with `.env` and start the production database using:
 
    ```bash
-   npm run start:prod-environment
+   npm run start:prod-db
    ```
 
 2. **Launching the Application for Production**
@@ -56,12 +56,12 @@ There are three environments available: **Test**, **Development**, and **Product
    After setup, you can build and launch your application for production using:
 
    ```bash
-   npm run start:prod
+   npm run start:app-prod
    ```
     Or just build the app using:
 
    ```bash
-   npm run build:prod-app
+   npm run build:app-prod
    ```
 
 ---
