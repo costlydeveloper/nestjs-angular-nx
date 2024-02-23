@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import DatabaseConfig from './database/database.config';
+import { configValidationSchema } from './dotenv';
+import DatabaseConfig from './dotenv/database.config';
 import AppConfig from './dotenv/env.config';
-import { configValidationSchema } from './dotenv/env.config.schema';
 
 @Module({
   imports: [

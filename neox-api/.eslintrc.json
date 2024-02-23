@@ -109,6 +109,34 @@
         "jest": true
       },
       "rules": {}
+    },
+    {
+      "files": [
+        "*.test.ts",
+        "*.spec.ts",
+        "*.test.js",
+        "*.e2e-spec.ts",
+        "*.integration-spec.ts"
+      ],
+      "rules": {
+        "@nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allowCircularSelfDependency": false,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "type:test",
+                "onlyDependOnLibsWithTags": [
+                  "*"
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
+
   ]
 }
