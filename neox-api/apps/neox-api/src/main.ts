@@ -24,6 +24,16 @@ declare const module: any;
 
 async function bootstrap() {
   const globalPrefix = 'api';
+
+  const stage = process.env.STAGE;
+  const nodeEnv = process.env.NODE_ENV;
+  // Checks if STAGE and NODE_ENV match
+  if (stage !== nodeEnv) {
+    throw new Error(
+      `Configuration error: The value of STAGE (${stage}) does not match NODE_ENV (${nodeEnv}), check .env file.`,
+    );
+  }
+
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),

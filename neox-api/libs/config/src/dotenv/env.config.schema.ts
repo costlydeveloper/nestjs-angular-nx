@@ -3,14 +3,9 @@ import { APP_PORT } from '../app';
 import { POSTGRES_PORT } from '../database';
 
 export const configValidationSchema = Joi.object({
-  NODE_ENV: Joi.string().valid(
-    'development',
-    'production',
-    'test',
-    'provision',
-  ),
+  NODE_ENV: Joi.string().valid('development', 'production', 'test', 'staging'),
+  STAGE: Joi.string().valid('development', 'production', 'test', 'staging'),
   PORT: Joi.number().default(APP_PORT),
-  //STAGE: Joi.string().required(),
   DB_HOST: Joi.string().required(),
   DB_PORT: Joi.number().default(POSTGRES_PORT).required(),
   DB_USERNAME: Joi.string().required(),

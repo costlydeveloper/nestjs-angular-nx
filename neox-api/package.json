@@ -3,6 +3,18 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "set:env": "node set-env.js",
+    "docker:ops": "node start-docker-env.js",
+    "check:lint-all": "nx run-many --all --target=lint",
+    "start:test-e2e": "npm run set:env test && NX_NO_CLOUD=true NODE_ENV=test nx e2e neox-api-e2e --watch",
+    "start:app-test": "npm run set:env test && NX_NO_CLOUD=true NODE_ENV=test nx s neox-api",
+    "start:app-dev": "npm run set:env development && NX_NO_CLOUD=true NODE_ENV=development nx s neox-api",
+    "start:app-prod": "npm run set:env production && NX_NO_CLOUD=true NODE_ENV=production nx build neox-api; node dist/apps/neox-api/main.js",
+    "start:test-db": "npm run set:env test && npm run docker:ops test",
+    "start:dev-db": "npm run set:env development && npm run docker:ops development",
+    "start:prod-db": "npm run set:env production && npm run docker:ops production",
+    "build:app-prod": "npm run set:env production && NX_NO_CLOUD=true NODE_ENV=production nx build neox-api",
+
     "start:dev:docker": "nx build neox-api --webpack --webpackPath webpack-hmr.config.js --watch",
     "migration:generate": "NX_NO_CLOUD=true nx run db:migration:generate",
     "migration:run": "NX_NO_CLOUD=true nx run db:migration:run",
@@ -10,16 +22,7 @@
     "migration:show": "NX_NO_CLOUD=true nx run db:migration:show",
     "schema:log": "NX_NO_CLOUD=true nx run db:schema:log",
     "schema:sync": "NX_NO_CLOUD=true nx run db:schema:sync",
-    "test-all": "nx run-many --all --target=test",
-    "check:lint-all": "nx run-many --all --target=lint",
-    "build:prod-app": "NODE_ENV=production NX_NO_CLOUD=true nx build neox-api",
-    "start:prod": "NODE_ENV=production NX_NO_CLOUD=true nx build neox-api; node dist/apps/neox-api/main.js",
-    "start:test-app": "NODE_ENV=test NX_NO_CLOUD=true nx s neox-api",
-    "start:dev-app": "NODE_ENV=development NX_NO_CLOUD=true nx s neox-api",
-    "start:test-e2e": "NODE_ENV=test nx e2e neox-api-e2e --watch",
-    "start:test-environment": "NODE_ENV=test node startEnv.js test",
-    "start:dev-environment": "NODE_ENV=development node startEnv.js development",
-    "start:prod-environment": "NODE_ENV=production node startEnv.js production"
+    "test-all": "nx run-many --all --target=test"
   },
   "dependencies": {
     "@fastify/swagger": "^8.14.0",
