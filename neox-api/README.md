@@ -11,7 +11,7 @@ There are three environments available: **Test**, **Development**, and **Product
    Execute the following command to set the `.env.test` file as your current `.env` configuration and start the test database using `docker-compose.test.yml`:
 
    ```bash
-   npm run start:test-dbstart:
+   npm run start:test-db
    ```
 
 2. **Running E2E Tests**
@@ -21,6 +21,14 @@ There are three environments available: **Test**, **Development**, and **Product
    ```bash
    npm run start:test-e2e
    ```
+3. **Running Integration Tests**
+
+   To execute integration tests, use the following command:
+
+   ```bash
+    npm run start:test-int
+   ```
+
 ---
 ### 2. Development Environment
 
