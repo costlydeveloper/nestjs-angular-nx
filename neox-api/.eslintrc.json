@@ -70,7 +70,8 @@
               {
                 "sourceTag": "type:config",
                 "onlyDependOnLibsWithTags": [
-                  "type:config"
+                  "type:config",
+                  "type:db"
                 ]
               }
             ]
@@ -137,6 +138,5 @@
         ]
       }
     }
-
   ]
 }

@@ -1,7 +1,6 @@
 import { registerAs } from '@nestjs/config';
-import { APP_PORT } from '../app';
 
-export default registerAs('config', () => ({
-  port: parseInt(process.env['PORT']!, 10) || APP_PORT,
+export const dotenvConfig = registerAs('config', () => ({
+  port: parseInt(process.env['APP_PORT']!, 10),
   nodenv: process.env['NODE_ENV'],
 }));
