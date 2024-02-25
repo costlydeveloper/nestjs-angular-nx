@@ -1,4 +1,3 @@
-export * from './app/';
 export * from './dotenv/';
 export * from './environment/';
 export * from './swagger/';

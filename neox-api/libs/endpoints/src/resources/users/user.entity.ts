@@ -1,15 +1,16 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import { BaseEntity, IBaseEntity } from '../../base';
-import { Person } from '../person';
+import { Person, PersonDto } from '../person';
 
 export interface IUser extends IBaseEntity {
   hash: string;
   hashedRt: string | null;
   email: string;
   isActive: boolean;
+  person: PersonDto;
 }
 
-export type IUserOmitPassword = Omit<IUser, 'hash'>;
+export type IUserOmitHash = Omit<IUser, 'hash' | 'hashedRt'>;
 
 export interface IUserIdentifier {
   id: string;

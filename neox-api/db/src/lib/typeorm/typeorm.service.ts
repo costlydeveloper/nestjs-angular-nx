@@ -15,12 +15,10 @@ export class TypeormService implements OnModuleInit, OnModuleDestroy {
   }
   async onModuleInit() {
     await this.appDataSource.initialize();
-    console.log('DataSource has been initialized!');
   }
 
   async onModuleDestroy() {
     await this.appDataSource.destroy();
-    console.log('DataSource has been destroyed!');
   }
 
   async cleanDatabase() {

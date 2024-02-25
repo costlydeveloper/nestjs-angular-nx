@@ -1,16 +1,14 @@
+import { configValidationSchema, databaseConfig } from '@neox-api/db';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { configValidationSchema } from './dotenv';
-import DatabaseConfig from './dotenv/database.config';
-import AppConfig from './dotenv/env.config';
+import { dotenvConfig } from './dotenv';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
-      load: [AppConfig, DatabaseConfig],
-      //envFilePath: [`.env.stage.${process.env['STAGE']}`],
+      load: [dotenvConfig, databaseConfig],
       validationSchema: configValidationSchema,
     }),
   ],

@@ -40,7 +40,7 @@ async function bootstrap() {
     { bufferLogs: true },
   );
   const configService = app.get(ConfigService);
-  const port = configService.get('PORT');
+  const port = configService.get('APP_PORT');
 
   // process.env.abc = configService.get('database');
   app.useGlobalPipes(new ValidationPipe());
@@ -77,49 +77,3 @@ async function bootstrap() {
 }
 
 bootstrap();
-
-/*
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3000;
-  await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
-  );
-}
-
-
-  // region *** Swagger ***
-
-  const config = new DocumentBuilder()
-    .setTitle(' example')
-    .setDescription('The API description')
-    .setVersion('1.0')
-    .addTag('api ---')
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        name: 'JWT',
-        description: 'Enter JWT token',
-        in: 'header',
-      },
-      'access-token',
-    )
-    .build();
-
-  const options: SwaggerDocumentOptions = {
-    operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
-  };
-  const document = SwaggerModule.createDocument(app, config, options);
-
-  SwaggerModule.setup('api', app, document, {
-    swaggerOptions: {
-      persistAuthorization: true, // this
-    },
-  });
-  // endregion
-*/

@@ -24,17 +24,17 @@ export class UsersService extends BaseEntityService<
     super(usersRepository);
   }
 
-  override async create<IUserOmitPassword>(
+  override async create<IUserOmitHash>(
     createUserDto: AuthDto,
-  ): Promise<IUserOmitPassword> {
+  ): Promise<IUserOmitHash> {
     const newUser = new User();
     newUser.email = createUserDto.email;
     newUser.hash = hashIt(createUserDto.password);
     newUser.person = new Person();
     try {
       const storedUser: User = await this.usersRepository.save(newUser);
-      const { hash, ...userWithoutPassword } = storedUser;
-      return userWithoutPassword as IUserOmitPassword;
+      const { hash, hashedRt, ...userWithoutPassword } = storedUser;
+      return userWithoutPassword as IUserOmitHash;
     } catch (error: any) {
       if (error.code === DB_ERROR_CODE.UNIQUE_VIOLATION) {
         throw new ConflictException(MESSAGE.ERROR.USERNAME_EXIST);
