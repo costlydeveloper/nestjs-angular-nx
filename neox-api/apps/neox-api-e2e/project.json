@@ -19,5 +19,5 @@
       }
     }
   },
-  "tags": ["type:e2e, type:test"]
+  "tags": ["type:test"]
 }
