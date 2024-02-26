@@ -36,17 +36,6 @@
                 ]
               },
               {
-                "sourceTag": "type:e2e",
-                "onlyDependOnLibsWithTags": [
-                  "type:feature",
-                  "type:platform",
-                  "type:config",
-                  "type:util",
-                  "type:db",
-                  "type:app"
-                ]
-              },
-              {
                 "sourceTag": "type:feature",
                 "onlyDependOnLibsWithTags": [
                   "type:feature",
@@ -109,16 +98,6 @@
       "env": {
         "jest": true
       },
-      "rules": {}
-    },
-    {
-      "files": [
-        "*.test.ts",
-        "*.spec.ts",
-        "*.test.js",
-        "*.e2e-spec.ts",
-        "*.integration-spec.ts"
-      ],
       "rules": {
         "@nx/enforce-module-boundaries": [
           "error",
@@ -138,5 +117,6 @@
         ]
       }
     }
+
   ]
 }
