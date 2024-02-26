@@ -3,6 +3,7 @@ import {
   GetCurrentUserId,
   Public,
   RtGuard,
+  Serialize,
 } from '@neox-api/shared/common';
 import {
   Body,
@@ -14,10 +15,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { IUserIdentifier } from '../users';
+import { IUser, UserVm } from '../users';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto';
-import { Tokens } from './types';
+import { JwtPayload, Tokens } from './types';
 
 @Controller('auth')
 @ApiTags('Auth')
@@ -55,15 +56,9 @@ export class AuthController {
     return this.authService.refreshTokens(userId, refreshToken);
   }
 
+  @Serialize(UserVm)
   @Get('whoami')
-  whoAmI(@GetCurrentUser() user: IUserIdentifier) {
-    //todo vidjeti sto vratiti sada je ovo, preurediti interface da odgovoara
-    /*{
-    "sub": "a1ad6046-aecc-4a38-90ef-cdb44348dc7d",
-    "email": "test2@gmail.com",
-    "iat": 1707996493,
-    "exp": 1707997393
-}*/
-    return user;
+  whoAmI(@GetCurrentUser() user: JwtPayload): Promise<IUser> {
+    return this.authService.getCurrentUser(user.sub);
   }
 }

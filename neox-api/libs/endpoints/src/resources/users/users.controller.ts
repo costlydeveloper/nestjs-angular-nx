@@ -2,21 +2,22 @@ import { Serialize } from '@neox-api/shared/common';
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { BaseController } from '../../base';
-import { CreateUserDto, UpdateUserDto, UserDto } from './dto';
+import { CreateUserDto, UpdateUserDto, UserVm } from './models';
 import { IUser } from './user.entity';
 import { UsersService } from './users.service';
 
 @Controller('users')
-@Serialize(UserDto)
+@Serialize(UserVm)
 @ApiTags('Users')
 @ApiBearerAuth()
 export class UsersController extends BaseController<
   IUser,
+  UserVm,
   CreateUserDto,
   UpdateUserDto
 > {
   constructor(private readonly usersService: UsersService) {
-    super(usersService, CreateUserDto, UpdateUserDto);
+    super(usersService, UserVm, CreateUserDto, UpdateUserDto);
   }
 
   @Post()

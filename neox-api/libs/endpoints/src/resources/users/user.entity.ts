@@ -1,20 +1,20 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import { BaseEntity, IBaseEntity } from '../../base';
-import { Person, PersonDto } from '../person';
+import { Person, PersonVm } from '../person';
 
 export interface IUser extends IBaseEntity {
   hash: string;
   hashedRt: string | null;
   email: string;
   isActive: boolean;
-  person: PersonDto;
+  person: PersonVm;
 }
 
 export type IUserOmitHash = Omit<IUser, 'hash' | 'hashedRt'>;
 
-export interface IUserIdentifier {
+export interface IWhoAmI {
   id: string;
-  password: string;
+  email: string;
 }
 
 @Entity()

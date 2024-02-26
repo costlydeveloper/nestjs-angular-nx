@@ -18,7 +18,7 @@ export abstract class BaseEntityService<EntityInterface, CreateDto, UpdateDto> {
     }
     return entity;
   }
-  async create<T = CreateDto>(createDto: CreateDto): Promise<T> {
+  async create<T = EntityInterface>(createDto: CreateDto): Promise<T> {
     const entity = this.repository.create(createDto);
     return this.repository.save(entity);
   }
