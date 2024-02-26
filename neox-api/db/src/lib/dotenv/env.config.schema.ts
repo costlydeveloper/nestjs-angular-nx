@@ -1,14 +1,16 @@
-import * as Joi from '@hapi/joi';
+import { z } from 'zod';
 
-export const configValidationSchema = Joi.object({
-  NODE_ENV: Joi.string().valid('development', 'production', 'test', 'staging'),
-  STAGE: Joi.string().valid('development', 'production', 'test', 'staging'),
-  APP_PORT: Joi.number().required(),
-  DB_HOST: Joi.string().required(),
-  DB_PORT: Joi.number().required(),
-  DB_USERNAME: Joi.string().required(),
-  DB_PASSWORD: Joi.string().required(),
-  DB_DATABASE: Joi.string().required(),
-  AT_SECRET: Joi.string().required(),
-  RT_SECRET: Joi.string().required(),
+const envs = ['development', 'production', 'test', 'staging'] as const;
+
+export const configValidationSchema = z.object({
+  NODE_ENV: z.enum(envs),
+  STAGE: z.enum(envs),
+  APP_PORT: z.string(),
+  DB_HOST: z.string(),
+  DB_PORT: z.string(),
+  DB_USERNAME: z.string(),
+  DB_PASSWORD: z.string(),
+  DB_DATABASE: z.string(),
+  AT_SECRET: z.string(),
+  RT_SECRET: z.string(),
 });

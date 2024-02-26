@@ -3,50 +3,73 @@ import { Body, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { BaseEntityService } from './base-entity.service';
 
-export abstract class BaseController<EntityInterface, CreateDto, UpdateDto> {
+export abstract class BaseController<
+  EntityInterface,
+  ViewModel,
+  CreateDto,
+  UpdateDto,
+> {
   protected constructor(
     private readonly service: BaseEntityService<
       EntityInterface,
       CreateDto,
       UpdateDto
     >,
+    private readonly viewModelClass: ClassType<ViewModel>,
     private readonly createDtoClass: ClassType<CreateDto>,
     private readonly updateDtoClass: ClassType<UpdateDto>,
   ) {}
 
   @Post()
-  create(@Body() createDto: CreateDto) {
-    const entity = plainToInstance(this.createDtoClass, createDto);
-    return this.service.create(entity);
+  async create(@Body() createDto: CreateDto): Promise<ViewModel> {
+    // Transforms and validates the input DTO using Class Transformer
+    const dto = plainToInstance(this.createDtoClass, createDto);
+    // Creates an entity in the database
+    const entity = await this.service.create(dto);
+    // Transforms the output entity into ViewModel, ready for sending to the client
+    return plainToInstance(this.viewModelClass, entity);
   }
 
   @Get(':id')
-  getById(
+  async getById(
     @Param('id', UuidValidationPipe) id: string,
-  ): Promise<EntityInterface> {
-    return this.service.findById(id);
+  ): Promise<ViewModel> {
+    // Gets an entity from the database
+    const entity = await this.service.findById(id);
+    // Transforms the output entity into ViewModel, ready for sending to the client
+    return plainToInstance(this.viewModelClass, entity);
   }
 
   @Patch(':id')
-  updatePartial(
+  async updatePartial(
     @Param('id', UuidValidationPipe) id: string,
     @Body() updateDto: UpdateDto,
-  ): Promise<EntityInterface> {
-    const entity = plainToInstance(this.updateDtoClass, updateDto);
-    return this.service.updatePatch(id, entity);
+  ): Promise<ViewModel> {
+    // Transforms and validates the input DTO using Class Transformer
+    const dto = plainToInstance(this.updateDtoClass, updateDto);
+    // Updates the entity in the database
+    const entity = await this.service.updatePatch(id, dto);
+    // Transforms the output entity into ViewModel, ready for sending to the client
+    return plainToInstance(this.viewModelClass, entity);
   }
 
   @Put(':id')
   async update(
     @Param('id', UuidValidationPipe) id: string,
     @Body() createDto: CreateDto,
-  ): Promise<EntityInterface> {
-    return await this.service.updatePut(id, createDto);
+  ): Promise<ViewModel> {
+    // Transforms and validates the input DTO using Class Transformer
+    const dto = plainToInstance(this.createDtoClass, createDto);
+    // Updates the entity in the database
+    const entity = await this.service.updatePut(id, dto);
+    // Transforms the output entity into ViewModel, ready for sending to the client
+    return plainToInstance(this.viewModelClass, entity);
   }
 
   @Delete(':id')
-  remove(@Param('id', UuidValidationPipe) id: string): Promise<void> {
-    return this.service.remove(id);
+  async remove(@Param('id', UuidValidationPipe) id: string): Promise<void> {
+    // Deletes the entity from the database
+    return await this.service.remove(id);
   }
 
   @Get()

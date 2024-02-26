@@ -9,7 +9,16 @@ import { dotenvConfig } from './dotenv';
       isGlobal: true,
       cache: true,
       load: [dotenvConfig, databaseConfig],
-      validationSchema: configValidationSchema,
+      validate: (config) => {
+        const result = configValidationSchema.safeParse(config);
+        if (!result.success) {
+          throw new Error(
+            'configValidationSchema: ' + JSON.stringify(result, null, 2),
+          );
+        }
+
+        return result.data;
+      },
     }),
   ],
 })

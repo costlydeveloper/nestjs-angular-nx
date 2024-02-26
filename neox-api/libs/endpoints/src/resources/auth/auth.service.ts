@@ -2,7 +2,7 @@ import { comparePasswords, hashIt } from '@neox-api/shared/utils';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { IUserOmitHash, UsersService } from '../users';
+import { IUser, IUserOmitHash, UsersService } from '../users';
 import { AuthDto } from './dto';
 import { Tokens } from './types';
 
@@ -13,6 +13,10 @@ export class AuthService {
     private jwtService: JwtService,
     private configService: ConfigService,
   ) {}
+
+  async getCurrentUser(id: string): Promise<IUser> {
+    return this.usersService.findById(id);
+  }
 
   async signInLocal(dto: AuthDto): Promise<Tokens> {
     const user = await this.usersService.findOneBy({ email: dto.email });
@@ -62,7 +66,7 @@ export class AuthService {
         },
         {
           secret: this.configService.get('AT_SECRET'),
-          expiresIn: 60 * 15,
+          expiresIn: 60 * 15, // 15 min
         },
       ),
       this.jwtService.signAsync(
@@ -72,7 +76,7 @@ export class AuthService {
         },
         {
           secret: this.configService.get('RT_SECRET'),
-          expiresIn: 60 * 60 * 24 * 7,
+          expiresIn: 60 * 60 * 24 * 7, // one week
         },
       ),
     ]);
