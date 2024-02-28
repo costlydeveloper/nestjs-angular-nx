@@ -21,7 +21,7 @@ export class AuthApiService {
     password: string,
     path: 'signup' | 'signin'
   ): Observable<Tokens> {
-    // password = this.cryptographyService.encryptWithRandomKey(password);
+    password = this.cryptographyService.encryptWithRandomKey(password);
     return this.http
       .post<Tokens>(environment.apiServer + '/auth/' + path, {
         email,
