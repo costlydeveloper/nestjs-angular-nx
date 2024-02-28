@@ -36,6 +36,9 @@
         "buildTarget": "neox-api:build"
       },
       "configurations": {
+        "test": {
+          "buildTarget": "neox-api:build:test"
+        },
         "development": {
           "buildTarget": "neox-api:build:development"
         },
@@ -55,7 +58,7 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/neox-api/jest.config.ts",
-        "passWithNoTests": true,
+        "passWithNoTests": true
       },
       "configurations": {
         "ci": {

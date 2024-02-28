@@ -26,6 +26,7 @@ async function bootstrap() {
   const globalPrefix = 'api';
 
   const stage = process.env.STAGE;
+  console.warn('stage', stage);
   const nodeEnv = process.env.NODE_ENV;
   // Checks if STAGE and NODE_ENV match
   if (stage !== nodeEnv) {
