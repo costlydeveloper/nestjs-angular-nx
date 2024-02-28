@@ -1,1 +1,23 @@
-<p>sign-up works!</p>
+<h1
+  class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+>
+  {{ 'auth.header.signUp' | transloco }}
+</h1>
+
+<form-generator
+  #formGenerator
+  [dynamicFormControls]="formService.formGeneratorConfig"
+/>
+
+<x-button cssClass="mt-9" (buttonClick)="signUp(formGenerator.formOutput)">{{
+  'auth.signUp' | transloco
+}}</x-button>
+
+<p class="text-sm font-light text-gray-500 dark:text-gray-400">
+  {{ 'auth.alreadyHaveAnAccountYet' | transloco }}
+  <a
+    class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+    [routerLink]="signInRoute"
+    >{{ 'auth.signIn' | transloco }}</a
+  >
+</p>

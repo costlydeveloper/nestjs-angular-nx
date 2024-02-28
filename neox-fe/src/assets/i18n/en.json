@@ -5,6 +5,7 @@
   "app.menu.dev.listGenerator": "List Generator",
   "app.menu.dev.fetchApi": "Fetch Api",
   "auth.header.signIn": "Sign in to your account",
+  "auth.header.signUp": "Sign up",
   "auth.label.email": "Your email",
   "auth.placeholder.email": "Enter valid email address",
   "auth.label.password": "Password",
@@ -12,8 +13,12 @@
   "auth.rememberMe": "Remember me",
   "auth.forgotPassword": "Forgot Password",
   "auth.dontHaveAnAccountYet": "Don’t have an account yet?",
+  "auth.alreadyHaveAnAccountYet": "Already have an account?",
+  "auth.form.error.password.validation": "Password must include at least one digit, one uppercase letter, one lowercase letter, one special character, and cannot contain dots or newlines.",
+  "auth.form.error.email.validation": "Invalid email format.",
   "auth.signIn": "Sign in",
   "auth.signUp": "Sign up",
   "header.userMenu.signOut": "Sign out",
-  "error.form.fieldIsRequired": "Field is required!"
+  "error.form.default.fieldIsRequired": "Field is required!",
+  "error.form.default.patternIsNotValid": "Pattern is not valid!"
 }

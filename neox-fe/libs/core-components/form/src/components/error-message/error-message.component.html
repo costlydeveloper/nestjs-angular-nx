@@ -1,5 +1,14 @@
-@if (form.get(formItem().id)!.dirty){
-<span data-qa="wrapper">{{
-  getValidationErrorMessage(formItem()) | transloco
-}}</span>
+@if (form.get(formItem().id)!.dirty && form.get(formItem().id)?.status ===
+'INVALID'){
+<p
+  [class.expanded]="
+    form.get(formItem().id)!.dirty &&
+    form.get(formItem().id)?.status === 'INVALID'
+  "
+  class="mt-5 text-blue-300 text-xs expandable"
+  data-qa="wrapper"
+>
+  {{ getValidationErrorMessage(formItem()) | transloco }}
+  {{ form.get(formItem().id)?.status }}
+</p>
 }

@@ -14,5 +14,4 @@ export enum IErrorAssociation {
   REQUIREDTRUE = 'requiredtrue',
   NULLVALIDATOR = 'nullvalidator',
   // Custom Validation Error Identifier
-  UPPERCASE = 'uppercaseLetter',
 }

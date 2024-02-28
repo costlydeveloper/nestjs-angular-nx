@@ -24,9 +24,8 @@ export class AuthenticationService {
   public authApiService = inject(AuthApiService);
   public router = inject(Router);
 
-  signIn(email: string, password: string): void {
-    this.authApiService
-      .signIn(email, password)
+  private handleSignInUp(observable: Observable<Tokens>): void {
+    observable
       .pipe(
         catchError((err) => {
           this.errorCase(err.message);
@@ -40,6 +39,13 @@ export class AuthenticationService {
           this.isUserLoggedIn.next(true);
         }
       });
+  }
+
+  signIn(email: string, password: string): void {
+    this.handleSignInUp(this.authApiService.signIn(email, password));
+  }
+  signUp(email: string, password: string): void {
+    this.handleSignInUp(this.authApiService.signUp(email, password));
   }
 
   logout(): void {
@@ -58,7 +64,7 @@ export class AuthenticationService {
   }
 
   errorCase(err: string): void {
-    alert(err);
+    //alert(err);
   }
 
   private setTokensToStorage(tokens: Tokens): void {

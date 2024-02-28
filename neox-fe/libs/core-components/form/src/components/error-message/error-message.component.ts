@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
 import { FormGroup, FormGroupDirective } from '@angular/forms';
 import { TranslocoPipe } from '@ngneat/transloco';
+import { SmoothExpansionComponent } from '@team-link/ui';
 import { DEFAULT_ERROR_MESSAGE } from '../../config/default-error-messages';
 import {
   IControlValidator,
@@ -12,8 +13,9 @@ import {
 @Component({
   selector: 'fc-error-message',
   templateUrl: './error-message.component.html',
+  styleUrl: './error-message.component.scss',
   standalone: true,
-  imports: [CommonModule, TranslocoPipe],
+  imports: [CommonModule, TranslocoPipe, SmoothExpansionComponent],
 })
 export class ErrorMessageComponent {
   formItem = input.required<IDynamicFormControl>();
@@ -50,6 +52,9 @@ export class ErrorMessageComponent {
     switch (errorKey) {
       case IErrorAssociation.REQUIRED:
         defaultMessage = DEFAULT_ERROR_MESSAGE.REQUIRED;
+        break;
+      case IErrorAssociation.PATTERN:
+        defaultMessage = DEFAULT_ERROR_MESSAGE.PATTERN;
         break;
     }
 
