@@ -19,14 +19,10 @@ export class CreateUserDto extends BaseCreateDto {
   email!: string;
 
   @IsString()
-  @MinLength(8)
-  @MaxLength(32)
   /*  @Matches(PASSWORD_REGEXP, {
     message: MESSAGE.VALIDATION.WEAK_PASSWORD,
   })*/
   @ApiProperty({
-    minLength: 8,
-    maxLength: 32,
     //pattern: PASSWORD_REGEXP.source,
     example: 'StrongPassword123',
     format: 'password',

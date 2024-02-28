@@ -7,7 +7,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { Test, TestingModule } from '@nestjs/testing';
-import { loggerPlugin } from '../helper';
+import { loggerPlugin } from '../../support/helper';
 import request = require('supertest');
 
 describe('Auth (e2e) ', () => {

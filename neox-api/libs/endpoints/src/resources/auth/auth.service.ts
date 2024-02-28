@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { IUser, IUserOmitHash, UsersService } from '../users';
 import { AuthDto } from './dto';
+import { passwordHandler } from './helpers';
 import { Tokens } from './types';
 
 @Injectable()
@@ -20,7 +21,8 @@ export class AuthService {
 
   async signInLocal(dto: AuthDto): Promise<Tokens> {
     const user = await this.usersService.findOneBy({ email: dto.email });
-    if (user && comparePasswords(dto.password, user.hash)) {
+    const decryptedPassword = passwordHandler(dto.password, true);
+    if (user && comparePasswords(decryptedPassword, user.hash)) {
       const tokens = await this.getTokens(user.id, user.email);
       await this.updateRtHash(user.id, tokens.refreshToken);
       return tokens;

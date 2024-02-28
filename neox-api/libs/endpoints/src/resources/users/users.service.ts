@@ -8,6 +8,7 @@ import {
 import { UpdateResult } from 'typeorm';
 import { BaseEntityService } from '../../base';
 import { AuthDto } from '../auth/dto';
+import { passwordHandler } from '../auth/helpers';
 import { Person } from '../person';
 
 import { CreateUserDto, UpdateUserDto } from './models';
@@ -27,9 +28,10 @@ export class UsersService extends BaseEntityService<
   override async create<IUserOmitHash>(
     createUserDto: AuthDto,
   ): Promise<IUserOmitHash> {
+    const decryptedPassword = passwordHandler(createUserDto.password);
     const newUser = new User();
     newUser.email = createUserDto.email;
-    newUser.hash = hashIt(createUserDto.password);
+    newUser.hash = hashIt(decryptedPassword);
     newUser.person = new Person();
     try {
       const storedUser: User = await this.usersRepository.save(newUser);
