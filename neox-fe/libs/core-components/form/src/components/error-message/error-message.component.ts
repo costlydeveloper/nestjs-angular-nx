@@ -3,6 +3,7 @@ import { Component, inject, input } from '@angular/core';
 import { FormGroup, FormGroupDirective } from '@angular/forms';
 import { TranslocoPipe } from '@ngneat/transloco';
 import { SmoothExpansionComponent } from '@team-link/ui';
+import { Subscription } from 'rxjs';
 import { DEFAULT_ERROR_MESSAGE } from '../../config/default-error-messages';
 import {
   IControlValidator,
@@ -18,6 +19,9 @@ import {
   imports: [CommonModule, TranslocoPipe, SmoothExpansionComponent],
 })
 export class ErrorMessageComponent {
+  expand = false;
+  private subscription = new Subscription();
+
   formItem = input.required<IDynamicFormControl>();
   form!: FormGroup;
   private rootFormGroup = inject(FormGroupDirective);

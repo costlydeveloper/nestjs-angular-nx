@@ -1,14 +1,11 @@
-@if (form.get(formItem().id)!.dirty && form.get(formItem().id)?.status ===
-'INVALID'){
-<p
-  [class.expanded]="
+<ui-smooth-expansion
+  [expand]="
     form.get(formItem().id)!.dirty &&
     form.get(formItem().id)?.status === 'INVALID'
   "
-  class="mt-5 text-blue-300 text-xs expandable"
-  data-qa="wrapper"
+  [durationCollapse]="'.5'"
 >
-  {{ getValidationErrorMessage(formItem()) | transloco }}
-  {{ form.get(formItem().id)?.status }}
-</p>
-}
+  <p class="mt-2 text-blue-300 text-xs expandable" data-qa="wrapper">
+    {{ getValidationErrorMessage(formItem()) | transloco }}
+  </p>
+</ui-smooth-expansion>
