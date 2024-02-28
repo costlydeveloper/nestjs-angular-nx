@@ -1,13 +1,18 @@
-import { getGreeting } from '../support/app.po';
+describe('SignUp Test', () => {
+  it('successfully signs up a new user', () => {
+    // Posjeti stranicu za registraciju
+    cy.visit('/signup');
 
-describe('e2e', () => {
-  beforeEach(() => cy.visit('/'));
+    // Unesi podatke u formu
+    cy.get('input[name="email"]').type('test@example.com');
+    cy.get('input[name="password"]').type('yourpassword');
 
-  it('should display welcome message', () => {
-    // Custom command example, see `../support/commands.ts` file
-    cy.login('my-email@something.com', 'myPassword');
+    // Klikni na gumb za registraciju
+    cy.get('button').contains('Sign Up').click();
 
-    // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains(/Welcome/);
+    // Provjeri je li registracija uspješna, na primjer provjerom URL-a ili poruke o uspjehu
+    cy.url().should('include', '/dashboard'); // Pretpostavka da korisnik bude preusmjeren na dashboard
+    // Ili provjera poruke o uspjehu
+    // cy.get('.success-message').should('contain', 'You have successfully signed up');
   });
 });

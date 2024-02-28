@@ -8,7 +8,7 @@ export const treeShakablePlaygroundRoutes = {
   loadChildren: () => import('../../index').then((m) => m.playgroundRoutes),
 };
 
-export function setDevMenuItems(): IMenuItem {
+export function setDevMenuItems(): IMenuItem[] {
   const item = new MenuItem('app.menu.dev', true, '');
   item.child = [
     new MenuItem(
@@ -27,5 +27,5 @@ export function setDevMenuItems(): IMenuItem {
       APP_ROUTE.PLAYGROUND + '/fetch-api'
     ),
   ];
-  return item;
+  return [item];
 }

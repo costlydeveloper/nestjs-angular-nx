@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve",
-    "build": "nx build",
-    "test": "nx test",
-    "lint-all": "nx run-many --all --target=lint",
-    "test-all": "nx run-many --all --target=test"
+    "check:lint-all": "nx run-many --all --target=lint",
+    "start:test-e2e": "nx e2e e2e --no-cloud --configuration=production",
+    "start:test-unit": "NX_NO_CLOUD=true nx run-many --target=test --all --passWithNoTests",
+    "start:app-dev": "NX_NO_CLOUD=true nx serve",
+    "build:prod": "NX_NO_CLOUD=true nx build"
   },
   "private": true,
   "dependencies": {
