@@ -11,7 +11,6 @@ describe('SignUp Test', () => {
   it('successfully signs up a new user', () => {
     cy.visit(signUpRoute);
 
-    // Unesi podatke u formu
     getByDataE2eId('email-input').type('test@example.com');
     getByDataE2eId('password-input').type('Password123!');
     getByDataE2eId('signup-button').click();
