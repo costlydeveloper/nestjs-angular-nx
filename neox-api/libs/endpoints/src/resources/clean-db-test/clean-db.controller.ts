@@ -1,5 +1,5 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { MESSAGE, TypeormService } from '@neox-api/shared/common';
+import { MESSAGE, Public, TypeormService } from '@neox-api/shared/common';
 import { Controller, Delete, HttpCode, HttpStatus } from '@nestjs/common';
 
 @Controller('test')
@@ -19,6 +19,7 @@ export class CleanDbController {
    * Usage of this controller outside the test environment is strictly prohibited and
    * should be tightly controlled and monitored. Proceed with caution.
    */
+  @Public()
   @Delete('clean-database')
   @HttpCode(HttpStatus.OK)
   async cleanDatabase(): Promise<string> {

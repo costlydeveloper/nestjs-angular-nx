@@ -4,6 +4,9 @@ export const MESSAGE = {
       'Password must include at least one digit, one uppercase letter, one lowercase letter, one special character, and cannot contain dots or newlines.',
     USERNAME_MUST_BE_EMAIL: 'The username should be email',
   },
+  INFO: {
+    DATABASE_IS_CLEANED: 'Database is cleaned!',
+  },
   ERROR: {
     USERNAME_EXIST: 'Username already exists',
     UNSUPPORTED_DATABASE_TYPE: 'Unsupported database type',

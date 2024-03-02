@@ -1,7 +1,7 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { AppModule } from '@neox-api/app';
-import { TypeormModule, TypeormService } from '@neox-api/db';
 import { CreateUserDto, userVmSchema } from '@neox-api/endpoints';
+import { TypeormModule, TypeormService } from '@neox-api/shared/common';
 import {
   FastifyAdapter,
   NestFastifyApplication,
