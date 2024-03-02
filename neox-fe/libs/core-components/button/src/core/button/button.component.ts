@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslocoPipe } from '@ngneat/transloco';
-import { ButtonType } from '../../dependencies/button.type';
+import { ButtonType } from '../../dependencies';
 
 @Component({
   selector: 'x-button',
@@ -16,6 +16,7 @@ export class ButtonComponent {
 
   @Input() disabled = false;
   @Input() cssClass = '';
+  @Input() e2e = '';
   @Input() textAlign: 'left' | 'right' | 'center' = 'center';
   @Input() buttonType: ButtonType = 'main-btn';
 

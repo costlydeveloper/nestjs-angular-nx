@@ -4,6 +4,7 @@ import { IControlConfigTypes, IDynamicFormControl } from './index';
 
 export class DynamicControlBase implements IDynamicFormControl {
   id = '';
+  e2eId = '';
   type = DYNAMIC_CONTROL_DEFAULT_VALUE.TYPE;
   controlConfig: IControlConfigTypes = {};
   readonly = DYNAMIC_CONTROL_DEFAULT_VALUE.READONLY;

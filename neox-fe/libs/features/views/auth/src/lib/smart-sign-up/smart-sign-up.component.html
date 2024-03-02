@@ -9,9 +9,12 @@
   [dynamicFormControls]="formService.formGeneratorConfig"
 />
 
-<x-button cssClass="mt-9" (buttonClick)="signUp(formGenerator.formOutput)">{{
-  'auth.signUp' | transloco
-}}</x-button>
+<x-button
+  e2e="signup-button"
+  cssClass="mt-9"
+  (buttonClick)="signUp(formGenerator.formOutput)"
+  >{{ 'auth.signUp' | transloco }}</x-button
+>
 
 <p class="text-sm font-light text-gray-500 dark:text-gray-400">
   {{ 'auth.alreadyHaveAnAccountYet' | transloco }}

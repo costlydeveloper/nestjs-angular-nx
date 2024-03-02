@@ -17,6 +17,7 @@ export class SignUpFormService {
   formGeneratorConfig: IDynamicFormControl[] = [
     {
       id: 'email',
+      e2eId: 'email-input',
       label: {
         name: 'auth.label.email',
       },
@@ -40,6 +41,7 @@ export class SignUpFormService {
     },
     {
       id: 'password',
+      e2eId: 'password-input',
       label: {
         name: 'auth.label.password',
       },
