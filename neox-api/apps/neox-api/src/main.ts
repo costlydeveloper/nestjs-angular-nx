@@ -1,9 +1,6 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
 import fastifyHelmet from '@fastify/helmet';
 import { swaggerConfig } from '@neox-api/config';
+import { isProduction } from '@neox-api/shared/common';
 import {
   ClassSerializerInterceptor,
   Logger,
@@ -15,9 +12,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-
 import { Logger as PinoLogger, LoggerErrorInterceptor } from 'nestjs-pino';
-
 import { AppModule } from './app';
 
 declare const module: any;
@@ -26,9 +21,10 @@ async function bootstrap() {
   const globalPrefix = 'api';
 
   const stage = process.env.STAGE;
-  console.warn('stage', stage);
   const nodeEnv = process.env.NODE_ENV;
-  // Checks if STAGE and NODE_ENV match
+  new Logger('Stage').warn(stage.toUpperCase());
+
+  // Checks if STAGE matches NODE_ENV
   if (stage !== nodeEnv) {
     throw new Error(
       `Configuration error: The value of STAGE (${stage}) does not match NODE_ENV (${nodeEnv}), check .env file.`,
@@ -43,14 +39,16 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get('APP_PORT');
 
-  // process.env.abc = configService.get('database');
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.useGlobalInterceptors(new LoggerErrorInterceptor());
   app.setGlobalPrefix(globalPrefix);
   app.useLogger(app.get(PinoLogger));
   app.enableCors();
-  swaggerConfig(app, port);
+
+  if (!isProduction()) {
+    swaggerConfig(app, port, nodeEnv);
+  }
 
   await app.register(fastifyHelmet, {
     contentSecurityPolicy: {

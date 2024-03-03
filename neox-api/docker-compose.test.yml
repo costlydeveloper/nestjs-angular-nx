@@ -13,8 +13,8 @@ networks:
 services:
 
   # DATABASE
-  neox_test_db:
-    container_name: neox-test-db
+  test-db:
+    container_name: test-db
     image: bitnami/postgresql:latest
     platform: linux/amd64
     ports:
@@ -27,3 +27,21 @@ services:
     networks:
       - neox-test-network
     logging: *default-logging
+
+  # API
+  test-api:
+    container_name: test-api
+    build: .
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    environment:
+      - DB_HOST=test-db
+      - DB_PORT=5432
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - START_SCRIPT=${START_SCRIPT}
+    depends_on:
+      - test-db
+    networks:
+      - neox-test-network

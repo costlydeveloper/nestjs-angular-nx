@@ -13,8 +13,8 @@ networks:
 services:
 
   # DATABASE
-  neox_dev_db:
-    container_name: dev-neox-db
+  dev-db:
+    container_name: dev-db
     image: bitnami/postgresql:latest
     platform: linux/amd64
     ports:
@@ -29,6 +29,25 @@ services:
     networks:
       - neox-dev-network
     logging: *default-logging
+
+
+  # API
+  dev-api:
+    container_name: dev-api
+    build: .
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    environment:
+      - DB_HOST=dev-db
+      - DB_PORT=5432
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - START_SCRIPT=${START_SCRIPT}
+    depends_on:
+      - dev-db
+    networks:
+      - neox-dev-network
 
 volumes:
   neox-dev-db-data:

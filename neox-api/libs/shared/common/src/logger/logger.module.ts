@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { LoggerModule as PinoLogger } from 'nestjs-pino';
+import { isProduction } from '../security';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { LoggerModule as PinoLogger } from 'nestjs-pino';
           context: 'HTTP',
         }),
         autoLogging: true,
+        level: isProduction() ? 'warn' : 'info',
         transport: {
           target:
             process.env['NODE_ENV'] === 'test'

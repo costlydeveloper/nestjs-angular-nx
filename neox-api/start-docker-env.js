@@ -20,7 +20,7 @@ try {
     stdio: 'inherit',
   });
 
-  execSync(`docker-compose -f docker-compose.${env}.yml up -d`, {
+  execSync(`docker-compose -f docker-compose.${env}.yml up --build `, {
     stdio: 'inherit',
   });
 } catch (error) {

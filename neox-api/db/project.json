@@ -4,7 +4,7 @@
   "sourceRoot": "db/src",
   "projectType": "library",
   "targets": {
-    "build-migration-config": {
+    "build": {
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
@@ -13,7 +13,7 @@
         "babelUpwardRootMode": true,
         "webpackConfig": "db/webpack.config.js",
         "outputPath": "db/datasource-dist",
-        "main": "db/src/lib/typeorm-datasource.ts",
+        "main": "db/src/lib/migrations-datasource.ts",
         "tsConfig": "db/tsconfig.lib.json"
       }
     },
@@ -26,7 +26,7 @@
           "typeorm -d datasource-dist/main.js migration:generate migrations/migration"
         ]
       },
-      "dependsOn": ["build-migration-config"]
+      "dependsOn": ["build"]
     },
     "migration:run": {
       "executor": "nx:run-commands",
@@ -37,7 +37,7 @@
           "npx typeorm-ts-node-esm -d ./main.js migration:run"
         ]
       },
-      "dependsOn": ["build-migration-config"]
+      "dependsOn": ["build"]
     },
     "migration:revert": {
       "executor": "nx:run-commands",
@@ -48,7 +48,7 @@
           "typeorm -d ./main.js migration:revert"
         ]
       },
-      "dependsOn": ["build-migration-config"]
+      "dependsOn": ["build"]
     },
     "migration:show": {
       "executor": "nx:run-commands",
@@ -59,7 +59,7 @@
           "npx typeorm-ts-node-esm -d ./main.js migration:show"
         ]
       },
-      "dependsOn": ["build-migration-config"]
+      "dependsOn": ["build"]
     },
     "schema:sync": {
       "executor": "nx:run-commands",
@@ -70,7 +70,7 @@
           "npx typeorm-ts-node-esm -d ./main.js schema:sync"
         ]
       },
-      "dependsOn": ["build-migration-config"]
+      "dependsOn": ["build"]
     },
     "schema:log": {
       "executor": "nx:run-commands",
@@ -81,7 +81,7 @@
           "npx typeorm-ts-node-esm -d ./main.js schema:log"
         ]
       },
-      "dependsOn": ["build-migration-config"]
+      "dependsOn": ["build"]
     },
     "lint": {
       "executor": "@nx/eslint:lint",
