@@ -41,6 +41,7 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_DATABASE=${DB_DATABASE}
       - START_SCRIPT=${START_SCRIPT}
+      - RUN_TESTS=${RUN_TESTS}
     depends_on:
       - test-db
     networks:

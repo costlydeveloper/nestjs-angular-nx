@@ -1,12 +1,16 @@
 #!/bin/sh
 
-# Read command from environment variable
+# as defined in the START_SCRIPT environment variable
 command=$START_SCRIPT
 
-# Check if command is empty
-if [ -z "$command" ]; then
-  echo "START_SCRIPT variable is not set."
+# If RUN_TESTS is set, run the tests
+if [ "$RUN_TESTS" = "1" ]; then
+    echo "Running tests..."
+    npm run test:e2e && npm run test:integration
+    exit_code=$?
+    echo "Tests finished with exit code: $exit_code"
+    exit $exit_code
 else
-  echo "Running command defined in START_SCRIPT: $command"
-  eval $command
+    echo "Starting application with command: $command"
+    eval $command
 fi

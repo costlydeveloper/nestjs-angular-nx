@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "check:lint-all": "nx run-many --all --target=lint",
-    "start:test-e2e": "nx run e2e:e2e:test --no-cloud",
+    "test:e2e": "nx run e2e:e2e:test --no-cloud",
     "start:watch:test-e2e": "nx run e2e:e2e:test --no-cloud --watch",
     "start:test-unit": "nx run-many --target=test --all --passWithNoTests --no-cloud",
     "start:watch:test-unit": "nx run-many --target=test --all --passWithNoTests --no-cloud --watch",

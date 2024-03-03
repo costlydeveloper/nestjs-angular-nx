@@ -19,14 +19,14 @@ There are three environments available: **Test**, **Development**, and **Product
    After setting up the test environment, you can run E2E tests using:
 
    ```bash
-   npm run start:test-e2e
+   npm run test:e2e
    ```
 3. **Running Integration Tests**
 
    To execute integration tests, use the following command:
 
    ```bash
-    npm run start:test-int
+    npm run test:integration
    ```
 
 ---
@@ -69,7 +69,7 @@ There are three environments available: **Test**, **Development**, and **Product
     Or just build the app using:
 
    ```bash
-   npm run build:app-prod
+   npm run build:prod:app
    ```
 
 ---
