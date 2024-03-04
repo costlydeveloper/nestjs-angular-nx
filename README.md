@@ -7,15 +7,15 @@ Dive into a world where **Clean Architecture** meets the dynamic duo of **NestJS
 
 Begin by setting up each part of the application with the following instructions:
 
-### 🛠 Backend Setup
+### 🛠 Backend Configuration
 
-Crafted with NestJS and TypeORM, follows Clean Architecture principles for maintainability and scalability. Jumpstart your setup with:
+Our backend is built on NestJS alongside TypeORM, adhering to the principles of Clean Architecture for enhanced maintainability and scalability. Begin your backend setup with:
 
 - [Backend Magic Unleashed](./neox-api/README.md)
 
-### 🌟 Frontend Setup
+### 🌟 Frontend Configuration
 
-The frontend is developed with Angular, designed for a responsive and interactive experience. Get going with:
+Developed with Angular, our frontend is crafted for a dynamic and responsive user experience. Start your frontend journey with:
 
 - [Frontend Wonder World](./neox-fe/README.md)
 

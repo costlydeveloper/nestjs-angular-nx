@@ -37,6 +37,8 @@ services:
     build: .
     ports:
       - ${APP_PORT}:${APP_PORT}
+    volumes:
+      - .:/app
     environment:
       - DB_HOST=dev-db
       - DB_PORT=5432

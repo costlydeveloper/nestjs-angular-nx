@@ -1,5 +1,4 @@
 const { execSync } = require('child_process');
-const { json } = require('node:stream/consumers');
 
 // Allowed values for NODE_ENV
 const allowedEnvs = ['production', 'test', 'staging', 'development'];
