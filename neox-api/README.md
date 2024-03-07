@@ -1,6 +1,19 @@
 # Launching the Application and Environment with Docker
 
-Our application is designed for use with Docker to ensure environmental consistency and smooth operation across different local development settings. Utilizing Docker allows us to accurately replicate three main environments - **Development**, **Test**, and **Production** - each with its own purpose and configuration. This ensures isolation and specificity of the environment for each phase of the development cycle.
+Our application leverages Docker for consistent environment replication across **Development**, **Test**, and **Production** phases. This approach ensures operational smoothness and environment specificity.
+
+## Requirements
+
+Ensure your system meets the following before setup:
+
+- **Docker**: For environment isolation.
+- **Node.js (v18+)**: Needed for application compatibility.
+- **OS**: Designed for **Mac** and **Linux**.
+
+  > **Note for Windows Users**: Windows handles environment variables differently, requiring adjustments for compatibility.
+
+Install Docker and Node.js as specified, and verify OS compatibility for a streamlined experience.
+
 
 ## 🚀 Launching the Application and Environment
 
@@ -9,66 +22,79 @@ Before starting, make sure that Docker is installed on your system as a prerequi
 ---
 ### 1. Development Environment
 
-1. **Setting Up and Launching the Development Environment**
+**Setting Up and Launching the Development Environment**
 
-   To simplify the process, launching the development environment involves a single command that initiates the development database and application within Docker containers. This enhancement streamlines the setup and ensures that the development environment is quickly and efficiently prepared for use. Execute the following command to start:
+   The development environment setup and launch process has been simplified to a single command, which initiates both the development database and application within Docker containers. Execute the following to start:
 
    ```bash
    npm run start:docker:dev:app
    ```
+This command starts container with the development application and database, available at [http://localhost:3002/api/](http://localhost:3002/api/) unless otherwise configured in `.env.development`.
 
 ---
 ### 2. Test Environment
 
-1. **Setting Up the Test Environment**
+**Comprehensive Test Environment Setup and Execution**
 
-   Execute the following command to set the `.env.test` file as your current `.env` configuration and start the test database using `docker-compose.test.yml`:
-
-   ```bash
-   npm run start:test-db
-   ```
-
-2. **Running E2E Tests**
-
-   After setting up the test environment, you can run E2E tests using:
+The testing process has been significantly enhanced to allow for a more integrated and automated testing flow. A single command now initiates Docker containers with a test database and sequentially runs unit, E2E, and integration tests. If any test fails, the process exits with error code 1:
 
    ```bash
-   npm run test:e2e
+   npm run start:docker:test:run-all
    ```
-3. **Running Integration Tests**
 
-   To execute integration tests, use the following command:
+Additionally, individual tests can be run separately:
 
-   ```bash
-    npm run test:integration
-   ```
+- **Unit Tests**:
+  ```bash
+  npm run start:docker:test:unit
+  ```
+- **E2E Tests**:
+  ```bash
+  npm run start:docker:test:e2e
+  ```
+- **Integration Tests**:
+  ```bash
+  npm run start:docker:test:int
+  ```
+
+For E2E testing of the frontend application, the test environment can be launched with:
+
+```bash
+npm run start:docker:test:app
+```
+
+This command starts the same container with the test application and database, available at [http://localhost:3001/api/](http://localhost:3001/api/) unless otherwise configured in `.env.test`. This setup is specifically intended for **frontend** E2E tests.
+
 
 ---
 
+Here's a more concise version of the Production Environment setup instructions:
+
+
 ### 3. Production Environment
 
-1. **Setting Up and Launching the Production Environment**
+**Quick Setup and Launch**
 
-   The production environment setup has been streamlined to ensure a more efficient deployment process. Now, the application is built into a single file and both the application and database are launched in their respective Docker containers, leveraging the configurations specified in `.env.production`. This approach simplifies deployment while maintaining a high level of efficiency and isolation. To initiate the production environment, execute the following command:
+The production setup combines application building and Docker container launching into one streamlined command. This method builds the application into a single file and starts both the app and database in separate Docker containers, as defined in `.env.production`, ensuring an efficient and isolated deployment:
 
-   ```bash
-   npm run start:docker:prod:app
-   ```
+```bash
+npm run start:docker:prod:app
+```
 
-This command builds the application and starts both the production database and the application each in their own Docker container. It automates the process of replacing the `.env.production` file with `.env`, building the application, and ensuring that all components are correctly orchestrated within Docker for a seamless production deployment.
+This simplifies the deployment process, automatically handling `.env.production` adjustments and container orchestration.
 
+Access the production application at [http://localhost:3000/api/](http://localhost:3000/api/) unless a different URL is set in `.env.production`.
 
 ---
 
 ## 🔍 Linting the Project
 
-* **To lint the entire project,**
-    ensuring code quality and consistency across all files, use the following command:
+**To lint the entire project,** ensuring code quality and consistency across all files, use the following command:
 
    ```bash
    npm run check:lint-all 
    ```
-    This command will run the configured linter across the entire project, identifying and reporting any violations of the predefined coding standards.
+This command will run the configured linter across the entire project, identifying and reporting any violations of the predefined coding standards.
 
 ---
 ## 📚 Configuration and Launching
@@ -89,12 +115,12 @@ To launch the application, exclusively use the scripts defined in `package.json`
 
 ## 📚 Swagger Documentation
 
-* **Access comprehensive API documentation** via Swagger at the following path:
+**Access comprehensive API documentation** via Swagger at the following path:
 
    ```
    {{server-url}}/api
    ```
 
-   This documentation provides detailed insights into the available endpoints, request parameters, and response formats, facilitating easier integration and testing.
+This documentation provides detailed insights into the available endpoints, request parameters, and response formats, facilitating easier integration and testing.
 
 ---

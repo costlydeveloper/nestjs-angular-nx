@@ -15,7 +15,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 # Copy 'package.json' and 'package-lock.json' (if exists)
-COPY package*.json ./
+COPY package.json ./
 
 # Install project dependencies
 RUN npm install

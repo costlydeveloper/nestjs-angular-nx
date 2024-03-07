@@ -7,7 +7,7 @@ x-logging: &default-logging
     max-file: 100
 
 networks:
-  neox-prod-network:
+  neox-be-prod-network:
     driver: bridge
 
 services:
@@ -27,7 +27,7 @@ services:
       - POSTGRESQL_USERNAME=${DB_USERNAME}
       - POSTGRESQL_PASSWORD=${DB_PASSWORD}
     networks:
-      - neox-prod-network
+      - neox-be-prod-network
     logging: *default-logging
 
   # API
@@ -43,11 +43,10 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_DATABASE=${DB_DATABASE}
       - START_SCRIPT=${START_SCRIPT}
-      - RUN_TESTS=${RUN_TESTS}
     depends_on:
       - prod-db
     networks:
-      - neox-prod-network
+      - neox-be-prod-network
 
 
 volumes:

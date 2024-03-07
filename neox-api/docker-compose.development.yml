@@ -7,7 +7,7 @@ x-logging: &default-logging
     max-file: 100
 
 networks:
-  neox-dev-network:
+  neox-be-dev-network:
     driver: bridge
 
 services:
@@ -27,7 +27,7 @@ services:
       - POSTGRESQL_USERNAME=${DB_USERNAME}
       - POSTGRESQL_PASSWORD=${DB_PASSWORD}
     networks:
-      - neox-dev-network
+      - neox-be-dev-network
     logging: *default-logging
 
 
@@ -39,6 +39,7 @@ services:
       - ${APP_PORT}:${APP_PORT}
     volumes:
       - .:/app
+      - /app/node_modules
     environment:
       - DB_HOST=dev-db
       - DB_PORT=5432
@@ -46,11 +47,10 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_DATABASE=${DB_DATABASE}
       - START_SCRIPT=${START_SCRIPT}
-      - RUN_TESTS=${RUN_TESTS}
     depends_on:
       - dev-db
     networks:
-      - neox-dev-network
+      - neox-be-dev-network
 
 volumes:
   neox-dev-db-data:
