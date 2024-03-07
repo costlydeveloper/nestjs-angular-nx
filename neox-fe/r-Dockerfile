@@ -1,0 +1,7 @@
+FROM docker.io/node:lts-alpine
+RUN mkdir -p /app
+WORKDIR /app
+COPY ["decorate-angular-cli.js", "package*.json", "/app/"]
+RUN npm ci
+COPY . /app
+RUN npx nx serve

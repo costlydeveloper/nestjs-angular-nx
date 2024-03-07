@@ -1,0 +1,30 @@
+version: "3.8"
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: 100m
+    max-file: 100
+
+networks:
+  neox-fe-dev-network:
+    driver: bridge
+
+
+services:
+
+  # FRONTEND
+  dev-frontend:
+    container_name: dev-frontend
+    restart: unless-stopped
+    build: .
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+      - 4211:4211
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - START_SCRIPT=${START_SCRIPT}
+    networks:
+      - neox-fe-dev-network

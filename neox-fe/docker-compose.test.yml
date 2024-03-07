@@ -1,0 +1,47 @@
+version: "3.8"
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: 100m
+    max-file: 100
+
+networks:
+  neox-test-network:
+    driver: bridge
+
+services:
+
+  # DATABASE
+  test-db:
+    container_name: test-db
+    image: bitnami/postgresql:latest
+    platform: linux/amd64
+    ports:
+      - ${DB_PORT}:5432
+    restart: always
+    environment:
+      - POSTGRESQL_DATABASE=${DB_DATABASE}
+      - POSTGRESQL_USERNAME=${DB_USERNAME}
+      - POSTGRESQL_PASSWORD=${DB_PASSWORD}
+    networks:
+      - neox-test-network
+    logging: *default-logging
+
+  # API
+  test-api:
+    container_name: test-api
+    build: .
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    environment:
+      - DB_HOST=test-db
+      - DB_PORT=5432
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - START_SCRIPT=${START_SCRIPT}
+    depends_on:
+      - test-db
+    networks:
+      - neox-test-network

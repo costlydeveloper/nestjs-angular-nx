@@ -1,0 +1,53 @@
+version: "3.8"
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: 100m
+    max-file: 100
+
+networks:
+  neox-prod-network:
+    driver: bridge
+
+services:
+
+  # DATABASE
+  prod-db:
+    container_name: prod-db
+    image: bitnami/postgresql:latest
+    platform: linux/amd64
+    ports:
+      - ${DB_PORT}:5432
+    restart: always
+    volumes:
+      - neox-prod-db-data:/bitnami/postgresql
+    environment:
+      - POSTGRESQL_DATABASE=${DB_DATABASE}
+      - POSTGRESQL_USERNAME=${DB_USERNAME}
+      - POSTGRESQL_PASSWORD=${DB_PASSWORD}
+    networks:
+      - neox-prod-network
+    logging: *default-logging
+
+  # API
+  prod-api:
+    container_name: prod-api
+    build: .
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    environment:
+      - DB_HOST=prod-db
+      - DB_PORT=5432
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - START_SCRIPT=${START_SCRIPT}
+    depends_on:
+      - prod-db
+    networks:
+      - neox-prod-network
+
+
+volumes:
+  neox-prod-db-data:
