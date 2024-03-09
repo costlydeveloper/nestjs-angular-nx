@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
 # Navigacija do backend direktorija i izvođenje lintinga
 cd backend && npm run lint
