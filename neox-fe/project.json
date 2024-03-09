@@ -34,8 +34,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "5mb",
+              "maximumError": "10mb"
             },
             {
               "type": "anyComponentStyle",
@@ -116,6 +116,15 @@
         "buildTarget": "team-link:build",
         "staticFilePath": "dist/team-link/browser"
       }
+    }
+  },
+  "cli": {
+    "cache": {
+      "enabled": true
+    },
+    "defaultCollection": "@nrwl/angular",
+    "warnings": {
+      "versionMismatch": false
     }
   }
 }

@@ -15,18 +15,19 @@ services:
 
   # FRONTEND
   dev-frontend:
-    container_name: dev-frontendm
+    container_name: neox-dev-fe
     restart: unless-stopped
     build:
       context: .
+      dockerfile: Dockerfile.development
       args:
         START_SCRIPT: ${START_SCRIPT}
     ports:
       - ${APP_PORT}:${APP_PORT}
-      - 4211:4211
+      - "4211:4211"
     volumes:
-      - .:/app
-      #- /app/node_modules
+      - ./src:/app/src
+      - ./libs:/app/libs
     environment:
       - START_SCRIPT=${START_SCRIPT}
     networks:

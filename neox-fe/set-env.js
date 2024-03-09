@@ -33,24 +33,11 @@ if (!allowedEnvs.includes(env)) {
 // Set the .env file path
 const envFilePath = path.join(__dirname, `.env.${env}`);
 const targetEnvFilePath = path.join(__dirname, '.env');
-// Set the docker entrypoint file path
-const dockerEntrypointFilePath = path.join(
-  __dirname,
-  `docker-entrypoint.${env}.sh`,
-);
-const targetDockerEntrypointFilePath = path.join(
-  __dirname,
-  'docker-entrypoint.sh',
-);
 
 try {
   // Copy the appropriate .env file
   fs.copyFileSync(envFilePath, targetEnvFilePath);
-  fs.copyFileSync(dockerEntrypointFilePath, targetDockerEntrypointFilePath);
   console.log(`Copied ${envFilePath} to ${targetEnvFilePath}`);
-  console.log(
-    `Copied ${dockerEntrypointFilePath} to ${targetDockerEntrypointFilePath}`,
-  );
 } catch (error) {
   console.error('Error setting up the environment:', error);
 }

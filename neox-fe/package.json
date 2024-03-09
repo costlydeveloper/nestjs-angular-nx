@@ -5,14 +5,17 @@
   "scripts": {
     "_set:env": "node set-env.js",
     "_docker:ops": "node docker-start-env.js",
+    "_docker:test": "npm run _set:env test && npm run _docker:ops test",
     "check:lint-all": "nx run-many --all --target=lint",
-    "test:e2e": "nx run e2e:e2e:test --no-cloud",
-    "test:watch:e2e": "nx run e2e:e2e:test --no-cloud --watch",
-    "test:unit": "nx run-many --target=test --all --passWithNoTests --no-cloud",
-    "test:watch:unit": "nx run-many --target=test --all --passWithNoTests --no-cloud --watch",
-    "start:dev:app": "nx serve",
-    "build:prod": "NX_NO_CLOUD=true nx build",
-    "start:docker:dev:app": "npm run _set:env development && npm run _docker:ops development"
+    "test:e2e": "npm run _set:env production && nx run e2e:e2e:test --no-cloud",
+    "test:watch:e2e": "npm run _set:env production && nx run e2e:e2e:test --no-cloud --watch",
+    "test:unit": "npm run _set:env production && nx run-many --target=test --all --passWithNoTests --no-cloud",
+    "test:watch:unit": "npm run _set:env production && nx run-many --target=test --all --passWithNoTests --no-cloud --watch",
+    "start:dev:app": "npm run _set:env development && nx serve",
+    "build:prod": "npm run _set:env production && nx build --no-cloud",
+    "start:docker:test:run-all": "npm run _docker:test 'run-all'",
+    "start:docker:dev:app": "npm run _set:env development && npm run _docker:ops development",
+    "start:docker:prod": "npm run _set:env production && npm run _docker:ops production"
   },
   "private": true,
   "dependencies": {
