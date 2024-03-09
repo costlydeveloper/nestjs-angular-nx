@@ -37,7 +37,11 @@ try {
     stdio: 'inherit',
   });
 
-  execSync(`docker-compose -f ${composeFilePath} up --build `, {
+  execSync(`docker-compose -f ${composeFilePath} build --no-cache `, {
+    stdio: 'inherit',
+    env: { ...process.env, START_SCRIPT: startScript },
+  });
+  execSync(`docker-compose -f ${composeFilePath} up `, {
     stdio: 'inherit',
     env: { ...process.env, START_SCRIPT: startScript },
   });
