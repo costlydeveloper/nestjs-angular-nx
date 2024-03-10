@@ -6,4 +6,4 @@ import { TypeormService } from './typeorm.service';
   providers: [TypeormService],
   exports: [TypeormService],
 })
-export class TypeormModule {}
+export class TypeormHelperModule {}

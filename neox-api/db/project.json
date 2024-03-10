@@ -88,5 +88,5 @@
       "outputs": ["{options.outputFile}"]
     }
   },
-  "tags": ["type:db"]
+  "tags": ["name:db","type:db"]
 }

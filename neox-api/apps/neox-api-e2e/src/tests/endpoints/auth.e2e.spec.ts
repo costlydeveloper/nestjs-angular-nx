@@ -1,7 +1,8 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { AppModule } from '@neox-api/app';
 import { CreateUserDto, userVmSchema } from '@neox-api/endpoints';
-import { TypeormModule, TypeormService } from '@neox-api/shared/common';
+import { TypeormHelperModule, TypeormService } from '@neox-api/helper-db';
+
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -20,7 +21,7 @@ describe('Auth (e2e) ', () => {
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
-      imports: [AppModule, TypeormModule],
+      imports: [AppModule, TypeormHelperModule],
     }).compile();
     typeormService = moduleRef.get(TypeormService);
     app = moduleRef.createNestApplication<NestFastifyApplication>(

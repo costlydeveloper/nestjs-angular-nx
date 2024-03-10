@@ -5,6 +5,5 @@ export * from './interceptors';
 export * from './types';
 export * from './pipes';
 export * from './cryptography';
-export * from './typeorm';
 export * from './security';
 export * from './logger';

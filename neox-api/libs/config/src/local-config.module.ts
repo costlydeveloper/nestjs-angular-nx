@@ -1,3 +1,4 @@
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { configValidationSchema, databaseConfig } from '@neox-api/db';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';

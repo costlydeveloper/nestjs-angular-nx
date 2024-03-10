@@ -9,7 +9,7 @@ export function swaggerConfig(
   app: NestFastifyApplication,
   port: string,
   stage: string,
-): any {
+) {
   const swaggerConfig = new DocumentBuilder()
     .setTitle(`Neox API, stage: ${stage.toUpperCase()}`)
     .setDescription('The API description')
