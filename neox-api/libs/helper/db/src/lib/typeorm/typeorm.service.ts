@@ -2,6 +2,7 @@
 import { ExposedEntities } from '@neox-api/endpoints';
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 @Injectable()
