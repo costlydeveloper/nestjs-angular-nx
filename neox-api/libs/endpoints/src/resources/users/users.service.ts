@@ -10,7 +10,6 @@ import { BaseEntityService } from '../../base';
 import { AuthDto } from '../auth/dto';
 import { passwordHandler } from '../auth/helpers';
 import { Person } from '../person';
-
 import { CreateUserDto, UpdateUserDto } from './models';
 import { IUser, User } from './user.entity';
 import { UsersRepository } from './users-repository.service';
