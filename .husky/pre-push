@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+BE_DIRECTORY_NAME="neox-api"
+FE_DIRECTORY_NAME="neox-fe"
+UPSTREAM_BRANCH="$(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))"
+
+# Fetch the latest data from the remote
+git fetch
+
+# Check for any commits that haven't been pushed for backend
+BE_CHANGE_COUNT=$(git log @{u}..HEAD --oneline -- $BE_DIRECTORY_NAME | wc -l | xargs)
+if [ "$BE_CHANGE_COUNT" -gt 0 ]; then
+  echo "Detected unpushed commits in $BE_DIRECTORY_NAME, running tests..."
+  # Add the commands to run your tests here.
+  # For example: docker-compose -f docker-compose.api.test.yml up --exit-code-from test_api
+else
+  echo "No unpushed commits detected in $BE_DIRECTORY_NAME, skipping tests."
+fi
+
+# Check for any commits that haven't been pushed for frontend
+FE_CHANGE_COUNT=$(git log @{u}..HEAD --oneline -- $FE_DIRECTORY_NAME | wc -l | xargs)
+if [ "$FE_CHANGE_COUNT" -gt 0 ]; then
+  echo "Detected unpushed commits in $FE_DIRECTORY_NAME, running tests..."
+  # Add the commands to run your frontend tests here.
+  # First, run the backend in a test environment
+  # For example: docker-compose -f docker-compose.backend.test.yml up -d
+
+  # Then run the frontend tests, including E2E
+  # For example: docker-compose -f docker-compose.fe.test.yml up --exit-code-from test_fe
+else
+  echo "No unpushed commits detected in $FE_DIRECTORY_NAME, skipping tests."
+fi
+
+ exit 1
