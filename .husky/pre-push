@@ -3,33 +3,45 @@
 
 BE_DIRECTORY_NAME="neox-api"
 FE_DIRECTORY_NAME="neox-fe"
+BE_COMPOSE_FILE="$BE_DIRECTORY_NAME/docker-compose.test.yml"
+FE_COMPOSE_FILE="$FE_DIRECTORY_NAME/docker-compose.test.yml"
 UPSTREAM_BRANCH="$(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))"
+
+set -a
+source neox-api/.env.test
+set +a
 
 # Fetch the latest data from the remote
 git fetch
 
-# Check for any commits that haven't been pushed for backend
-BE_CHANGE_COUNT=$(git log @{u}..HEAD --oneline -- $BE_DIRECTORY_NAME | wc -l | xargs)
-if [ "$BE_CHANGE_COUNT" -gt 0 ]; then
-  echo "Detected unpushed commits in $BE_DIRECTORY_NAME, running tests..."
-  # Add the commands to run your tests here.
-  # For example: docker-compose -f docker-compose.api.test.yml up --exit-code-from test_api
-else
-  echo "No unpushed commits detected in $BE_DIRECTORY_NAME, skipping tests."
-fi
 
 # Check for any commits that haven't been pushed for frontend
 FE_CHANGE_COUNT=$(git log @{u}..HEAD --oneline -- $FE_DIRECTORY_NAME | wc -l | xargs)
 if [ "$FE_CHANGE_COUNT" -gt 0 ]; then
   echo "Detected unpushed commits in $FE_DIRECTORY_NAME, running tests..."
-  # Add the commands to run your frontend tests here.
-  # First, run the backend in a test environment
-  # For example: docker-compose -f docker-compose.backend.test.yml up -d
 
-  # Then run the frontend tests, including E2E
-  # For example: docker-compose -f docker-compose.fe.test.yml up --exit-code-from test_fe
+    # Start backend services
+    echo "Starting Backend services..."
+    START_SCRIPT="start:test:app" docker-compose -f "$BE_COMPOSE_FILE" up -d
+
+    # Definiranje URL-a za health check
+    BACKEND_URL="http://localhost:${APP_PORT}/api"
+
+    # Pokušajte dohvatiti backend health check endpoint
+    echo "Čekam da backend postane dostupan na ${BACKEND_URL}..."
+
+    while ! curl --output /dev/null --silent --head --fail $BACKEND_URL; do
+      sleep 5
+      echo "Čekanje na backend..."
+    done
+
+    echo "Backend je dostupan!"
+
+  # Build and start frontend test environment
+  echo "Building and starting Frontend services for testing..."
+  START_SCRIPT="run-all" docker-compose -f "$FE_COMPOSE_FILE" up --build --exit-code-from test-frontend
+  # After running tests, capture the exit code
+  TEST_EXIT_CODE=$?
 else
   echo "No unpushed commits detected in $FE_DIRECTORY_NAME, skipping tests."
 fi
-
- exit 1
