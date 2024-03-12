@@ -7,7 +7,7 @@ set -e
 command=$START_SCRIPT
 
 echo "START_SCRIPT: $START_SCRIPT"
-
+ exit 1
 # If START_SCRIPT is set to "run-all", run the tests
 if [ "$START_SCRIPT" = "run-all" ]; then
     echo "Running all tests..."
