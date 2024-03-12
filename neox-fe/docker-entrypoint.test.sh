@@ -12,7 +12,7 @@ echo "START_SCRIPT: $START_SCRIPT"
 if [ "$START_SCRIPT" = "run-all" ]; then
     echo "Running all tests..."
     # Run unit tests and store the exit code
-      exec sh -c "npm run test:unit"
+      exec "npm run test:unit"
      # exec sh -c "npm run test:unit && npm run test:e2e"
         # Exit code of the last command executed
          exitCode=$?
