@@ -6,7 +6,7 @@
     "_set:env": "node set-env.js",
     "_docker:ops": "node docker-start-env.js",
     "_docker:test": "npm run _set:env test && npm run _docker:ops test",
-    "check:lint-all": "nx run-many --all --target=lint",
+    "check:lint-all": "nx run-many --all --target=lint --no-cloud",
     "test:e2e": "npm run _set:env production && nx run e2e:e2e:test --no-cloud",
     "test:watch:e2e": "npm run _set:env production && nx run e2e:e2e:test --no-cloud --watch",
     "test:unit": "npm run _set:env production && nx run-many --target=test --all --passWithNoTests --no-cloud",
