@@ -12,15 +12,22 @@ echo "START_SCRIPT: $START_SCRIPT"
 if [ "$START_SCRIPT" = "run-all" ]; then
     echo "Running all tests..."
     # Run unit tests and store the exit code
-      npm run test:unit && npm run test:e2e
-        # Exit code of the last command executed
-         exitCode=$?
-         echo "Tests finished with exit code: $exitCode"
-          if [ ${exitCode} -ne 0 ]; then
-            echo "Exiting: $exitCode"
-            exit 1;
+      npm run test:unit
+      unitExitCode=$?
 
-            fi
+      if [ $unitExitCode -ne 0 ]; then
+        echo "Unit tests failed with exit code: $unitExitCode"
+        exit $unitExitCode
+      fi
+
+      npm run test:e2e
+      e2eExitCode=$?
+
+      if [ $e2eExitCode -ne 0 ]; then
+        echo "E2E tests failed with exit code: $e2eExitCode"
+        exit $e2eExitCode
+      fi
+
 else
     echo "Starting application with command: $command"
     # Execute the command, appending necessary Docker-specific arguments
