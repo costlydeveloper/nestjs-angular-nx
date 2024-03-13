@@ -1,5 +1,5 @@
 #!/bin/sh
-
+exit 1
 # Exit script on the first error
 set -e
 
