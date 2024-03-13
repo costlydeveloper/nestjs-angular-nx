@@ -27,7 +27,7 @@ services:
     volumes:
       - ./src:/app/src
       - ./libs:/app/libs
-      - ./2e2:/app/e2e
+      - ./e2e:/app/e2e
     environment:
       - START_SCRIPT=${START_SCRIPT}
     networks:
