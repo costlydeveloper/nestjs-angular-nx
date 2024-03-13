@@ -12,7 +12,6 @@ echo "START_SCRIPT: $START_SCRIPT"
 if [ "$START_SCRIPT" = "run-all" ]; then
 
     echo "Running all tests..."
-
     # Run unit tests and store the exit code
       npm run test:unit
       unitExitCode=$?
