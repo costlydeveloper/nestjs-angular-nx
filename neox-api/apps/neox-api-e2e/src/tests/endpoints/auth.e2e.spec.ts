@@ -2,6 +2,7 @@
 import { AppModule } from '@neox-api/app';
 import { CreateUserDto, userVmSchema } from '@neox-api/endpoints';
 import { TypeormHelperModule, TypeormService } from '@neox-api/helper-db';
+import { encryptWithRandomKey } from '@neox-api/shared/common';
 
 import {
   FastifyAdapter,
@@ -16,7 +17,7 @@ describe('Auth (e2e) ', () => {
   let typeormService: TypeormService;
   const createUserDto: CreateUserDto = {
     email: 'test@example.com',
-    password: 'testPassword',
+    password: 'testPassword!123wqw',
   };
 
   beforeAll(async () => {
@@ -41,6 +42,7 @@ describe('Auth (e2e) ', () => {
 
   describe('Signup', () => {
     it('should register a user', async () => {
+      createUserDto.password = encryptWithRandomKey(createUserDto.password);
       const response = await request(app.getHttpServer())
         .post('/auth/signup')
         .send(createUserDto)

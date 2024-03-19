@@ -1,5 +1,6 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { MESSAGE, Public, TypeormService } from '@neox-api/shared/common';
+import { TypeormService } from '@neox-api/helper-db';
+import { MESSAGE, Public } from '@neox-api/shared/common';
 import { Controller, Delete, HttpCode, HttpStatus } from '@nestjs/common';
 
 @Controller('test')

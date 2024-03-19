@@ -1,11 +1,12 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { AppModule } from '@neox-api/app';
-import { TypeormModule, TypeormService } from '@neox-api/db';
 import {
   CreateUserDto,
   IUserOmitHash,
   UsersService,
 } from '@neox-api/endpoints';
+import { TypeormHelperModule, TypeormService } from '@neox-api/helper-db';
+import { encryptWithRandomKey } from '@neox-api/shared/common';
 import { NotFoundException } from '@nestjs/common';
 import {
   FastifyAdapter,
@@ -21,16 +22,16 @@ describe('Base Entity Service (integration)', () => {
   let createdSecondUser: IUserOmitHash;
   const createFirstUserDto: CreateUserDto = {
     email: 'test@example.com',
-    password: 'testPassword',
+    password: 'testPassword!123wqw',
   };
   const createSecondUserDto: CreateUserDto = {
     email: 'test2@example.com',
-    password: 'testPassword',
+    password: 'testPassword!123wqw',
   };
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
-      imports: [AppModule, TypeormModule],
+      imports: [AppModule, TypeormHelperModule],
     }).compile();
     typeormService = moduleRef.get(TypeormService);
     userService = moduleRef.get(UsersService);
@@ -50,6 +51,12 @@ describe('Base Entity Service (integration)', () => {
 
   describe('create', () => {
     it('should create a new user', async () => {
+      createFirstUserDto.password = encryptWithRandomKey(
+        createFirstUserDto.password,
+      );
+      createSecondUserDto.password = encryptWithRandomKey(
+        createSecondUserDto.password,
+      );
       createdFirstUser = await userService.create(createFirstUserDto);
       createdSecondUser = await userService.create(createSecondUserDto);
       expect(createdFirstUser.email).toEqual(createFirstUserDto.email);
@@ -98,7 +105,6 @@ describe('Base Entity Service (integration)', () => {
         email: createdFirstUser.email,
       });
       expect(user).toBeDefined();
-      console.log('user', user);
       expect(user.email).toEqual(createdFirstUser.email);
     });
   });

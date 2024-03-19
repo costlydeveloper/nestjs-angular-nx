@@ -1,6 +1,6 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { AppModule } from '@neox-api/app';
-import { TypeormModule, TypeormService } from '@neox-api/db';
+
 import {
   CreateUserDto,
   IPerson,
@@ -8,6 +8,8 @@ import {
   PersonService,
   UsersService,
 } from '@neox-api/endpoints';
+import { TypeormHelperModule, TypeormService } from '@neox-api/helper-db';
+import { encryptWithRandomKey } from '@neox-api/shared/common';
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -22,7 +24,7 @@ describe('User Resource (integration)', () => {
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
-      imports: [AppModule, TypeormModule],
+      imports: [AppModule, TypeormHelperModule],
     }).compile();
     typeormService = moduleRef.get(TypeormService);
     userService = moduleRef.get(UsersService);
@@ -44,10 +46,11 @@ describe('User Resource (integration)', () => {
   describe('Create User', () => {
     const dto: CreateUserDto = {
       email: 'john@skynet.com',
-      password: 'mystrongpassword',
+      password: 'Mystrongpassword!123',
     };
     let user: IUserOmitHash;
     it('should successfully create a new user with email validation and without exposing sensitive properties', async () => {
+      dto.password = encryptWithRandomKey(dto.password);
       user = await userService.create(dto);
       expect(user.email).toBe(dto.email);
       expect(user).not.toHaveProperty('hash');
