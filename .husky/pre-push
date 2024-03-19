@@ -1,47 +1,66 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-BE_DIRECTORY_NAME="neox-api"
-FE_DIRECTORY_NAME="neox-fe"
-BE_COMPOSE_FILE="$BE_DIRECTORY_NAME/docker-compose.test.yml"
-FE_COMPOSE_FILE="$FE_DIRECTORY_NAME/docker-compose.test.yml"
+BACKEND_DIR_NAME="neox-api"
+FRONTEND_DIR_NAME="neox-fe"
+BACKEND_COMPOSE_PATH="$BACKEND_DIR_NAME/docker-compose.test.yml"
+FRONTEND_COMPOSE_PATH="$FRONTEND_DIR_NAME/docker-compose.test.yml"
+STOP_DOCKER_CONTAINERS="echo 'Stopping Docker containers...' && docker compose -f \"$BACKEND_COMPOSE_PATH\" down && docker compose -f \"$FRONTEND_COMPOSE_PATH\" down"
 UPSTREAM_BRANCH="$(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))"
 
 set -a
-source neox-api/.env.test
+source $BACKEND_DIR_NAME/.env.test
 set +a
 
 # Fetch the latest data from the remote
 git fetch
 
 
-# Check for any commits that haven't been pushed for frontend
-FE_CHANGE_COUNT=$(git log @{u}..HEAD --oneline -- $FE_DIRECTORY_NAME | wc -l | xargs)
-if [ "$FE_CHANGE_COUNT" -gt 0 ]; then
-  echo "Detected unpushed commits in $FE_DIRECTORY_NAME, running tests..."
+# Check for any commits that haven't been pushed for the frontend
+FRONTEND_CHANGE_COUNT=$(git log @{u}..HEAD --oneline -- $FRONTEND_DIR_NAME | wc -l | xargs)
+if [ "$FRONTEND_CHANGE_COUNT" -gt 0 ]; then
+  echo "Detected unpushed commits in $FRONTEND_DIR_NAME, running tests..."
 
-    # Start backend services
-    echo "Starting Backend services..."
-    START_SCRIPT="start:test:app" docker-compose -f "$BE_COMPOSE_FILE" up -d
+  # Build and start the backend test environment
+  echo "Building Backend services for testing..."
+  docker compose -f "$BACKEND_COMPOSE_PATH" build
 
-    # Definiranje URL-a za health check
-    BACKEND_URL="http://localhost:${APP_PORT}/api"
+  echo "Starting Backend services for testing in detached mode..."
+  START_SCRIPT="npm run start:test:app" docker compose -f "$BACKEND_COMPOSE_PATH" up -d
 
-    # Pokušajte dohvatiti backend health check endpoint
-    echo "Čekam da backend postane dostupan na ${BACKEND_URL}..."
+  # Defining URL for health check
+  BACKEND_URL="http://localhost:${APP_PORT}/api"
 
-    while ! curl --output /dev/null --silent --head --fail $BACKEND_URL; do
-      sleep 5
-      echo "Čekanje na backend..."
-    done
+  # Attempt to fetch the backend health check endpoint
+  echo "Waiting for the backend to become available at ${BACKEND_URL}..."
 
-    echo "Backend je dostupan!"
+  while ! curl --output /dev/null --silent --head --fail $BACKEND_URL; do
+    sleep 5
+    echo "Waiting on backend..."
+  done
 
-  # Build and start frontend test environment
+  echo "Backend is available!"
+
+  set -a
+  source $FRONTEND_DIR_NAME/.env.test
+  set +a
+
+  # Build and start the frontend test environment
   echo "Building and starting Frontend services for testing..."
-  START_SCRIPT="run-all" docker-compose -f "$FE_COMPOSE_FILE" up --build --exit-code-from test-frontend
-  # After running tests, capture the exit code
-  TEST_EXIT_CODE=$?
-else
-  echo "No unpushed commits detected in $FE_DIRECTORY_NAME, skipping tests."
+  START_SCRIPT="run-all" docker compose -f "$FRONTEND_COMPOSE_PATH" up --build --exit-code-from test-frontend
+
+  frontend_logs=$(docker logs neox-test-fe)
+  # Check logs for known words that indicate a test failure
+  if echo "$frontend_logs" | grep -q "Tests failed"; then
+    eval $STOP_DOCKER_CONTAINERS
+    echo "Tests failed based on container logs. Aborting push."
+    exit 1
+  elif echo "$frontend_logs" | grep -q "Tests passed"; then
+    eval $STOP_DOCKER_CONTAINERS
+    echo "Tests passed based on container logs. Proceeding with push."
+  else
+    eval $STOP_DOCKER_CONTAINERS
+    echo "Test results unclear based on container logs. Please check manually."
+    exit 1
+  fi
 fi
