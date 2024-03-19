@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   FormControl,
@@ -7,7 +8,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { getTestTranslocoModule } from '@team-link/test';
+import { getTestTranslocoModule } from '@team-link/common';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
 import { InputTextComponent } from '../../controls/input-text/input-text.component';
 import { DynamicControlTypeEnum } from '../../dependencies';
@@ -22,6 +23,16 @@ class MockFormGroupDirective extends FormGroupDirective {
   }
 }
 
+@Component({
+  selector: 'ui-smooth-expansion',
+  template: '<ng-content></ng-content>',
+})
+class MockSmoothExpansionComponent {
+  @Input() expand: boolean | undefined;
+  @Input() durationExpand = '.5';
+  @Input() durationCollapse = '.2';
+}
+
 describe('DynamicFormControlComponent', () => {
   let component: DynamicFormControlComponent;
   let fixture: ComponentFixture<DynamicFormControlComponent>;
@@ -31,6 +42,7 @@ describe('DynamicFormControlComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [],
       imports: [
+        MockSmoothExpansionComponent,
         CommonModule,
         ReactiveFormsModule,
         DynamicFormControlComponent,
@@ -71,7 +83,7 @@ describe('DynamicFormControlComponent', () => {
     await fixture.whenStable();
 
     const inputTextComponent = fixture.debugElement.query(
-      By.directive(InputTextComponent)
+      By.directive(InputTextComponent),
     );
     expect(inputTextComponent).not.toBeNull();
   });

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { getTestTranslocoModule } from '@team-link/test';
+import { getTestTranslocoModule } from '@team-link/common';
 import { InputType } from '../../controls';
 import {
   DynamicControlTypeEnum,
@@ -97,7 +97,7 @@ describe('FormGeneratorComponent', () => {
     emailControl!.setValue('test@example.com');
 
     expect(component.formGroupEmitter.emit).toHaveBeenCalledWith(
-      component.form
+      component.form,
     );
   });
 
@@ -123,13 +123,13 @@ describe('FormGeneratorComponent', () => {
 
     // Provera za prvi red
     const firstRowCols = rows[0].queryAll(
-      By.css('.col-span-2, .col-span-1, .col-span-9')
+      By.css('.col-span-2, .col-span-1, .col-span-9'),
     );
     expect(firstRowCols.length).toEqual(3);
 
     // Provera za drugi red
     const secondRowCols = rows[1].queryAll(
-      By.css('.col-span-5, .col-span-2, .col-span-5')
+      By.css('.col-span-5, .col-span-2, .col-span-5'),
     );
     expect(secondRowCols.length).toEqual(3);
   });

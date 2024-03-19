@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Renderer2, RendererFactory2 } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { WINDOW } from '@team-link/utils';
+import { WINDOW } from '../tokens';
 import { ThemeService } from './theme.service';
 
 const mockRenderer2 = {
@@ -47,11 +47,11 @@ describe('ThemeService', () => {
     expect(service.getCurrentTheme()).toBe('dark');
     expect(mockRenderer2.addClass).toHaveBeenCalledWith(
       document.documentElement,
-      'dark'
+      'dark',
     );
     expect(mockRenderer2.removeClass).toHaveBeenCalledWith(
       document.documentElement,
-      'light'
+      'light',
     );
   });
 

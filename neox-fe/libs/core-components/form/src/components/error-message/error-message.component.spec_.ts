@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { getTestTranslocoModule } from '@team-link/test';
+import { getTestTranslocoModule } from '@team-link/common';
 import { DEFAULT_ERROR_MESSAGE } from '../../config/default-error-messages';
 import { IErrorAssociation } from '../../dependencies';
 import { ErrorMessageComponent } from './error-message.component';
@@ -68,7 +68,7 @@ describe('ErrorMessageComponent', () => {
     fixture.detectChanges();
 
     const errorMessage = component.getValidationErrorMessage(
-      component.formItem()
+      component.formItem(),
     );
     expect(errorMessage).toEqual(emailIsRequired[0]);
   });
@@ -86,7 +86,7 @@ describe('ErrorMessageComponent', () => {
     fixture.detectChanges();
     const errorMessageElement =
       fixture.debugElement.nativeElement.querySelector(
-        'span[data-qa="wrapper"]'
+        'span[data-qa="wrapper"]',
       );
 
     expect(errorMessageElement.textContent).toContain(emailIsRequired[1]);
@@ -105,7 +105,7 @@ describe('ErrorMessageComponent', () => {
     });
 
     const defaultMessage = component.mapDefaultMessage(
-      IErrorAssociation.REQUIRED
+      IErrorAssociation.REQUIRED,
     );
 
     expect(defaultMessage).toEqual(DEFAULT_ERROR_MESSAGE.REQUIRED);
