@@ -21,13 +21,10 @@ services:
       dockerfile: Dockerfile.test
       args:
         START_SCRIPT: ${START_SCRIPT}
+        API_HOST: ${API_HOST}
     ports:
       - ${APP_PORT}:${APP_PORT}
       - 4211:4211
-    volumes:
-      - ./src:/app/src
-      - ./libs:/app/libs
-      - ./e2e:/app/e2e
     environment:
       - START_SCRIPT=${START_SCRIPT}
     networks:

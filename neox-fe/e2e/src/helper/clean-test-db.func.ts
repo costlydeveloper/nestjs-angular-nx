@@ -1,7 +1,11 @@
 //todo create proxy for relative url
+
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { environment } from '../../../libs/config/src/environment/environment-test';
+
 export const cleanTestDatabase = () => {
   cy.request({
     method: 'DELETE',
-    url: 'http://127.0.0.1:3001/api/test/clean-database',
+    url: `${environment.apiServer}/test/clean-database`,
   });
 };

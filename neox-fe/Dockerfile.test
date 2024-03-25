@@ -1,10 +1,15 @@
-FROM node:lts-alpine
+FROM cypress/included:13.6.6
+
+ARG API_HOST
+ENV API_HOST=$API_HOST
 WORKDIR /app
 RUN npm install -g nx@latest
 
 COPY package*.json ./
 RUN npm ci
 COPY . .
+
+RUN sed -i "s|apiServer: '.*'|apiServer: '${API_HOST}'|g" /app/libs/config/src/environment/environment-test.ts
 
 COPY ["docker-entrypoint.test.sh", "/usr/local/bin/"]
 RUN chmod +x /usr/local/bin/docker-entrypoint.test.sh
