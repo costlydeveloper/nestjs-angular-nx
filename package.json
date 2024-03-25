@@ -10,11 +10,8 @@
     "test:neox-api": "cd neox-api && npm test",
     "test:neox-fe": "cd neox-fe && npm run e2e"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "./run-ci.sh",
-      "pre-push": "./run-ci.sh"
-    }
-  },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "husky": "^9.0.11"
+  }
 }
