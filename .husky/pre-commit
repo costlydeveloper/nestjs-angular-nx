@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+BE_DIRECTORY_NAME="neox-api"
+FE_DIRECTORY_NAME="neox-fe"
+
+# Backend linting
+if ! git diff --cached --quiet -- "${BE_DIRECTORY_NAME}/"; then
+  echo "Changes detected in ${BE_DIRECTORY_NAME}, running lint..."
+  cd "${BE_DIRECTORY_NAME}" && npm run check:lint-all
+  if [ $? -ne 0 ]; then
+    echo "Backend linting failed!"
+    exit 1
+  else
+    echo "Backend linting passed. 🚀"
+  fi
+fi
+
+# Frontend linting
+if ! git diff --cached --quiet -- "${FE_DIRECTORY_NAME}/"; then
+  echo "Changes detected in ${FE_DIRECTORY_NAME}, running lint..."
+  cd "${FE_DIRECTORY_NAME}" && npm run check:lint-all
+  if [ $? -ne 0 ]; then
+    echo "Frontend linting failed!"
+    exit 1
+  else
+    echo "Frontend linting passed. 🚀"
+  fi
+fi
+
+echo "Linting completed successfully. 🚀"

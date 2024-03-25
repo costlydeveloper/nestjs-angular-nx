@@ -1,8 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { validateWithSchema } from '@team-link/common';
+import {
+  CryptographyService,
+  MESSAGE,
+  validateWithSchema,
+} from '@team-link/common';
 import { environment } from '@team-link/config';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Tokens, TokensSchema } from './schema';
 
 @Injectable({
@@ -10,21 +14,36 @@ import { Tokens, TokensSchema } from './schema';
 })
 export class AuthApiService {
   public http = inject(HttpClient);
-  signIn(email: string, password: string): Observable<Tokens> {
+  public cryptographyService = inject(CryptographyService);
+
+  private handleSignInUp(
+    email: string,
+    password: string,
+    path: 'signup' | 'signin'
+  ): Observable<Tokens> {
+    password = this.cryptographyService.encryptWithRandomKey(password);
     return this.http
-      .post<Tokens>(environment.apiServer + '/auth/signin', {
+      .post<Tokens>(environment.apiServer + '/auth/' + path, {
         email,
         password,
       })
-      .pipe(validateWithSchema(TokensSchema));
+      .pipe(
+        catchError((error) => {
+          return throwError(
+            () =>
+              new Error(
+                `${MESSAGE.ERROR.AUTH_NOT_SUCCEED}: ${error.error.message}`
+              )
+          );
+        }),
+        validateWithSchema(TokensSchema)
+      );
+  }
+  signIn(email: string, password: string): Observable<Tokens> {
+    return this.handleSignInUp(email, password, 'signin');
   }
   signUp(email: string, password: string): Observable<Tokens> {
-    return this.http
-      .post<Tokens>(environment.apiServer + '/auth/signup', {
-        email,
-        password,
-      })
-      .pipe(validateWithSchema(TokensSchema));
+    return this.handleSignInUp(email, password, 'signup');
   }
 
   logout(): Observable<boolean> {

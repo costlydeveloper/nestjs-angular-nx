@@ -1,5 +1,11 @@
-@if (form.get(formItem().id)!.dirty){
-<span data-qa="wrapper">{{
-  getValidationErrorMessage(formItem()) | transloco
-}}</span>
-}
+<ui-smooth-expansion
+  [expand]="
+    form.get(formItem().id)!.dirty &&
+    form.get(formItem().id)?.status === 'INVALID'
+  "
+  [durationCollapse]="'.5'"
+>
+  <p class="mt-2 text-blue-300 text-xs expandable" data-qa="wrapper">
+    {{ getValidationErrorMessage(formItem()) | transloco }}
+  </p>
+</ui-smooth-expansion>

@@ -1,4 +1,4 @@
-import { environmentGlobal } from '@team-link/config';
+import { environment } from '@team-link/config';
 import { accessDevOnlyGuard } from './access-dev-only.guard';
 
 describe('accessDevOnlyGuard', () => {
@@ -6,12 +6,12 @@ describe('accessDevOnlyGuard', () => {
   const routeMock: any = {};
 
   it('should allow access in development environment', () => {
-    jest.replaceProperty(environmentGlobal, 'production', false);
+    jest.replaceProperty(environment, 'production', false);
     expect(accessDevOnlyGuard(routeMock, routerStateSnapshotMock)).toBe(true);
   });
 
   it('should not allow access in production environment', () => {
-    jest.replaceProperty(environmentGlobal, 'production', true);
+    jest.replaceProperty(environment, 'production', true);
     expect(accessDevOnlyGuard(routeMock, routerStateSnapshotMock)).toBe(false);
   });
 });

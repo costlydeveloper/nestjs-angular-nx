@@ -11,18 +11,19 @@
     {
       "files": [
         "*.ts",
-        "*.tsx",
-        "*.js",
-        "*.jsx"
+        "*.tsx"
+      ],
+      "extends": [
+        "plugin:@nx/typescript"
       ],
       "rules": {
         "import/no-cycle": "error",
         "@nx/enforce-module-boundaries": [
           "error",
           {
-            "enforceBuildableLibDependency": true,
-            "allowCircularSelfDependency": false,
-            "allow": [],
+            "enforceBuildableLibDependency": false,
+            "allowCircularSelfDependency": true,
+            "allow": ["@neox-api/helper-db"],
             "depConstraints": [
               {
                 "sourceTag": "type:app",
@@ -40,7 +41,8 @@
                 "onlyDependOnLibsWithTags": [
                   "type:feature",
                   "type:platform",
-                  "type:util"
+                  "type:util",
+                  "scope:helper"
                 ]
               },
               {
@@ -53,40 +55,37 @@
                 "sourceTag": "type:db",
                 "onlyDependOnLibsWithTags": [
                   "type:config",
-                  "scope:endpoints"
+                  "name:endpoints"
                 ]
               },
               {
-                "sourceTag": "type:config",
+                "sourceTag": "name:config",
                 "onlyDependOnLibsWithTags": [
-                  "type:config",
-                  "type:db"
+                  "name:db"
+                ]
+              },
+              {
+                "sourceTag": "scope:shared",
+                "onlyDependOnLibsWithTags": []
+              },
+              {
+                "sourceTag": "name:db-helper",
+                "onlyDependOnLibsWithTags": [
+                  "name:endpoints"
+                ]
+              },
+              {
+                "sourceTag": "name:endpoints",
+                "onlyDependOnLibsWithTags": [
+                  "name:db-helper",
+                  "name:shared-common",
+                  "name:shared-utils"
                 ]
               }
             ]
           }
         ]
       }
-    },
-    {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
-      "extends": [
-        "plugin:@nx/typescript"
-      ],
-      "rules": {}
-    },
-    {
-      "files": [
-        "*.js",
-        "*.jsx"
-      ],
-      "extends": [
-        "plugin:@nx/javascript"
-      ],
-      "rules": {}
     },
     {
       "files": [
@@ -117,6 +116,5 @@
         ]
       }
     }
-
   ]
 }

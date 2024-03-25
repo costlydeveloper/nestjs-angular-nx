@@ -1,0 +1,66 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+BACKEND_DIR_NAME="neox-api"
+FRONTEND_DIR_NAME="neox-fe"
+BACKEND_COMPOSE_PATH="$BACKEND_DIR_NAME/docker-compose.test.yml"
+FRONTEND_COMPOSE_PATH="$FRONTEND_DIR_NAME/docker-compose.test.yml"
+STOP_DOCKER_CONTAINERS="echo 'Stopping Docker containers...' && docker compose -f \"$BACKEND_COMPOSE_PATH\" down && docker compose -f \"$FRONTEND_COMPOSE_PATH\" down"
+UPSTREAM_BRANCH="$(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))"
+
+set -a
+source $BACKEND_DIR_NAME/.env.test
+set +a
+
+# Fetch the latest data from the remote
+git fetch
+
+
+# Check for any commits that haven't been pushed for the frontend
+FRONTEND_CHANGE_COUNT=$(git log @{u}..HEAD --oneline -- $FRONTEND_DIR_NAME | wc -l | xargs)
+if [ "$FRONTEND_CHANGE_COUNT" -gt 0 ]; then
+  echo "Detected unpushed commits in $FRONTEND_DIR_NAME, running tests..."
+
+  # Build and start the backend test environment
+  echo "Building Backend services for testing..."
+  docker compose -f "$BACKEND_COMPOSE_PATH" build
+
+  echo "Starting Backend services for testing in detached mode..."
+  START_SCRIPT="npm run start:test:app" docker compose -f "$BACKEND_COMPOSE_PATH" up -d
+
+  # Defining URL for health check
+  BACKEND_URL="http://localhost:${APP_PORT}/api"
+
+  # Attempt to fetch the backend health check endpoint
+  echo "Waiting for the backend to become available at ${BACKEND_URL}..."
+
+  while ! curl --output /dev/null --silent --head --fail $BACKEND_URL; do
+    sleep 5
+    echo "Waiting on backend..."
+  done
+
+  echo "Backend is available!"
+
+  set -a
+  source $FRONTEND_DIR_NAME/.env.test
+  set +a
+
+  # Build and start the frontend test environment
+  echo "Building and starting Frontend services for testing..."
+  START_SCRIPT="run-all" docker compose -f "$FRONTEND_COMPOSE_PATH" up --build --exit-code-from test-frontend
+
+  frontend_logs=$(docker logs neox-test-fe)
+  # Check logs for known words that indicate a test failure
+  if echo "$frontend_logs" | grep -q "Tests failed"; then
+    eval $STOP_DOCKER_CONTAINERS
+    echo "Tests failed based on container logs. Aborting push."
+    exit 1
+  elif echo "$frontend_logs" | grep -q "Tests passed"; then
+    eval $STOP_DOCKER_CONTAINERS
+    echo "Tests passed based on container logs. Proceeding with push."
+  else
+    eval $STOP_DOCKER_CONTAINERS
+    echo "Test results unclear based on container logs. Please check manually."
+    exit 1
+  fi
+fi

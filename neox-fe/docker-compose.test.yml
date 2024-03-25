@@ -1,0 +1,31 @@
+version: "3.8"
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: 100m
+    max-file: 100
+
+networks:
+  neox-fe-test-network:
+    driver: bridge
+
+services:
+
+  # FRONTEND
+  test-frontend:
+    container_name: neox-test-fe
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+      args:
+        START_SCRIPT: ${START_SCRIPT}
+        API_HOST: ${API_HOST}
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+      - 4211:4211
+    environment:
+      - START_SCRIPT=${START_SCRIPT}
+    networks:
+      - neox-fe-test-network

@@ -5,9 +5,13 @@ import {
   SwaggerModule,
 } from '@nestjs/swagger';
 
-export function swaggerConfig(app: NestFastifyApplication, port: string): any {
+export function swaggerConfig(
+  app: NestFastifyApplication,
+  port: string,
+  stage: string,
+) {
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Neox API')
+    .setTitle(`Neox API, stage: ${stage.toUpperCase()}`)
     .setDescription('The API description')
     .setVersion('1.0')
     .addServer(`http://localhost:${port}/`, 'Local environment')

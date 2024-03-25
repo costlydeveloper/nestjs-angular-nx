@@ -10,6 +10,7 @@ export type IControlConfigTypes = any | IInputTextConfig;
 
 export interface IDynamicFormControl<ControlType = IControlConfigTypes> {
   id: string;
+  e2eId?: string;
   label?: Omit<ILabel, 'id'>;
   type: DynamicControlTypeEnum;
   controlConfig?: ControlType;

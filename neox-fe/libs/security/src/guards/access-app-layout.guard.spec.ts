@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '@team-link/data-access';
+import { APP_ROUTE, ROUTE_DATA } from '@team-link/common';
 
 import { of } from 'rxjs';
-import { APP_ROUTE, ROUTE_DATA } from '../constants';
+import { AuthenticationService } from '../auth-service';
+
 import { accessAppLayoutGuard } from './access-app-layout.guard';
 
 describe('accessAppLayoutGuard', () => {

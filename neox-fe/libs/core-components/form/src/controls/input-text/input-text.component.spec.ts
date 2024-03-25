@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { getTestTranslocoModule } from '@team-link/test';
+import { getTestTranslocoModule } from '@team-link/common';
 import { DynamicControlTypeEnum } from '../../dependencies';
 import { ValueAccessorDirective } from '../../dependencies/value-accessor.directive';
 import { InputTextComponent } from './input-text.component';
@@ -50,7 +50,7 @@ describe('InputTextComponent', () => {
 
   it('should display input with correct attributes', () => {
     const inputElement = fixture.debugElement.query(
-      By.css('input')
+      By.css('input'),
     ).nativeElement;
     expect(inputElement.type).toEqual('text');
     expect(inputElement.readOnly).toBeFalsy();

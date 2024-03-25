@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { LocalStorageService } from '@team-link/utils';
+import { LocalStorageService } from '@team-link/common';
 import { throwError } from 'rxjs';
 import { AuthApiService } from '../auth-api';
 import { AuthenticationService } from './authentication.service';
@@ -69,7 +69,7 @@ describe('Authentication Service', () => {
       const errorResponse = { message: 'Login failed' };
 
       authApiServiceMock.signIn.mockReturnValue(
-        throwError(() => errorResponse)
+        throwError(() => errorResponse),
       );
 
       const spyErrorCase = jest.spyOn(authService, 'errorCase');

@@ -1,4 +1,8 @@
-import { EMAIL_REGEXP, MESSAGE } from '@neox-api/shared/common';
+import {
+  EMAIL_REGEXP,
+  MESSAGE,
+  PASSWORD_REGEXP,
+} from '@neox-api/shared/common';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, Matches, MaxLength, MinLength } from 'class-validator';
 
@@ -18,15 +22,8 @@ export class AuthDto {
   email!: string;
 
   @IsString()
-  @MinLength(8)
-  @MaxLength(32)
-  /*  @Matches(PASSWORD_REGEXP, {
-    message: MESSAGE.VALIDATION.WEAK_PASSWORD,
-  })*/
   @ApiProperty({
-    minLength: 8,
-    maxLength: 32,
-    //pattern: PASSWORD_REGEXP.source,
+    pattern: PASSWORD_REGEXP.source,
     example: 'StrongPassword123',
     format: 'password',
   })

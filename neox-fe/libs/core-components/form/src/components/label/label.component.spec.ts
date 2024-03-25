@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { getTestTranslocoModule } from '@team-link/test';
+import { getTestTranslocoModule } from '@team-link/common';
 import { LabelComponent } from './label.component';
 import { ILabel } from './label.model';
 
@@ -48,7 +48,7 @@ describe('LabelComponent', () => {
     expect(labelElement).toBeTruthy();
     expect(labelElement.textContent).toContain(labelName);
     expect(labelElement.innerHTML).toContain(
-      '<span class="text-red-500 text-sm">*</span>'
+      '<span class="text-red-500 text-sm">*</span>',
     );
     expect(labelElement.getAttribute('for')).toEqual(labelId);
   });

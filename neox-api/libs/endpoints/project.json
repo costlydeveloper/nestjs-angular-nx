@@ -25,5 +25,5 @@
       }
     }
   },
-  "tags": ["scope:endpoints", "type:feature"]
+  "tags": ["name:endpoints", "type:feature"]
 }

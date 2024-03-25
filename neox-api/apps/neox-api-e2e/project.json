@@ -17,6 +17,10 @@
       "options": {
         "lintFilePatterns": ["{projectRoot}/**/*.{js,ts}"]
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/neox-api-e2e/Dockerfile . -t neox-api-e2e"
     }
   },
   "tags": ["type:test"]

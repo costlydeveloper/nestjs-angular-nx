@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 })
 export class DashboardComponent {
   constructor(private http: HttpClient) {
-    this.loadUsers();
+    //this.loadUsers();
   }
 
   loadUsers(): any {

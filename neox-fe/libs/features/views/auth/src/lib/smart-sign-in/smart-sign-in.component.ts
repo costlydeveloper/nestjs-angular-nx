@@ -26,17 +26,16 @@ import { ISignInForm, SignInFormService } from './sign-in-form.service';
   ],
   providers: [SignInFormService],
   templateUrl: './smart-sign-in.component.html',
-  styleUrl: './smart-sign-in.component.scss',
 })
 export class SmartSignInComponent {
   signUpRoute = ['/' + APP_ROUTE.AUTHENTICATION, AUTH_ROUTE.SIGN_UP];
 
-  private userService = inject(AuthenticationService);
+  private authenticationService = inject(AuthenticationService);
   public formService = inject(SignInFormService);
 
   login(data: IFormCompactOutput<ISignInForm>) {
     if (data.status === FormControlStatus.VALID) {
-      this.userService.signIn(data.value.email, data.value.password);
+      this.authenticationService.signIn(data.value.email, data.value.password);
     }
   }
 }

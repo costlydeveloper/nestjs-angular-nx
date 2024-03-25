@@ -7,14 +7,14 @@ x-logging: &default-logging
     max-file: 100
 
 networks:
-  neox-network:
+  neox-be-prod-network:
     driver: bridge
 
 services:
 
   # DATABASE
-  neox_prod_db:
-    container_name: prod-neox-db
+  prod-db:
+    container_name: prod-db
     image: bitnami/postgresql:latest
     platform: linux/amd64
     ports:
@@ -27,8 +27,27 @@ services:
       - POSTGRESQL_USERNAME=${DB_USERNAME}
       - POSTGRESQL_PASSWORD=${DB_PASSWORD}
     networks:
-      - neox-network
+      - neox-be-prod-network
     logging: *default-logging
+
+  # API
+  prod-api:
+    container_name: prod-api
+    build: .
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    environment:
+      - DB_HOST=prod-db
+      - DB_PORT=5432
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - START_SCRIPT=${START_SCRIPT}
+    depends_on:
+      - prod-db
+    networks:
+      - neox-be-prod-network
+
 
 volumes:
   neox-prod-db-data:

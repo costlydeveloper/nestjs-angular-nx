@@ -1,0 +1,20 @@
+{
+  "name": "neox",
+  "version": "1.0.0",
+  "description": "CI/CD for Neox project",
+  "scripts": {
+    "install:neox-api": "cd neox-api && npm install",
+    "install:neox-fe": "cd neox-fe && npm install",
+    "lint:neox-api": "cd neox-api && npm run lint",
+    "lint:neox-fe": "cd neox-fe && npm run lint",
+    "test:neox-api": "cd neox-api && npm test",
+    "test:neox-fe": "cd neox-fe && npm run e2e"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "./run-ci.sh",
+      "pre-push": "./run-ci.sh"
+    }
+  },
+  "private": true
+}

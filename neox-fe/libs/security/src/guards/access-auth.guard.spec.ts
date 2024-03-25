@@ -1,8 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { APP_LOGGED_ROUTE_DEFAULT } from '@team-link/config';
-import { AuthenticationService } from '@team-link/data-access-shared';
+import { APP_LOGGED_ROUTE_DEFAULT } from '@team-link/common';
+
 import { of } from 'rxjs';
+import { AuthenticationService } from '../auth-service';
 import { accessAuthGuard } from './access-auth.guard';
 
 describe('accessAuthGuard', () => {
@@ -30,7 +31,7 @@ describe('accessAuthGuard', () => {
 
   it('should redirect to default logged route if user is logged in', async () => {
     const result = await TestBed.runInInjectionContext(() =>
-      accessAuthGuard(routeMock, routerStateSnapshotMock)
+      accessAuthGuard(routeMock, routerStateSnapshotMock),
     );
     expect(result).toBe(false);
     expect(MOCK_ROUTER.navigate).toHaveBeenCalledWith([
@@ -42,7 +43,7 @@ describe('accessAuthGuard', () => {
     MOCK_AUTHENTICATION_SERVICE.isUserLoggedIn$ = of(false);
 
     const result = await TestBed.runInInjectionContext(() =>
-      accessAuthGuard(routeMock, routerStateSnapshotMock)
+      accessAuthGuard(routeMock, routerStateSnapshotMock),
     );
 
     expect(result).toBe(true);

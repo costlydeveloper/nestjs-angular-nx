@@ -12,8 +12,8 @@
         "devServerTarget": "team-link:serve:development"
       },
       "configurations": {
-        "production": {
-          "devServerTarget": "team-link:serve:production"
+        "test": {
+          "devServerTarget": "team-link:serve:test"
         },
         "ci": {
           "devServerTarget": "team-link:serve-static"

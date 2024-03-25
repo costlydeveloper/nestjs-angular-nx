@@ -1,0 +1,15 @@
+FROM node:lts-alpine
+WORKDIR /app
+RUN npm install -g nx@latest
+
+COPY package*.json ./
+RUN npm ci
+COPY . .
+
+# Disable angular cache using jq
+RUN apk add --no-cache jq
+RUN jq '.cli.cache.enabled = false' project.json > tmp.json && mv tmp.json project.json
+
+
+ENTRYPOINT ["sh", "-c"]
+CMD ["exec $START_SCRIPT --host 0.0.0.0 --disable-host-check"]

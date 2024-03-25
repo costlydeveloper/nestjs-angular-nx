@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { APP_ROUTE } from '@team-link/common';
+import { environment } from '@team-link/config';
 import { treeShakablePlaygroundRoutes } from '@team-link/dev-playground';
 import { accessAppLayoutGuard, accessAuthGuard } from '@team-link/security';
 import { AppLayoutComponent } from './app-layout/containers/app-layout/app-layout.component';
@@ -26,7 +27,7 @@ export const appRoutes: Route[] = [
         loadChildren: () =>
           import('@team-link/dashboard').then((m) => m.dashboardRoutes),
       },
-      treeShakablePlaygroundRoutes,
+      ...(environment.production ? [] : [treeShakablePlaygroundRoutes]),
     ],
   },
   {

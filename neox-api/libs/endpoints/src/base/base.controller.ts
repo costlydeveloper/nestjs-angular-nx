@@ -1,4 +1,5 @@
 import { ClassType, UuidValidationPipe } from '@neox-api/shared/common';
+
 import { Body, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { BaseEntityService } from './base-entity.service';
