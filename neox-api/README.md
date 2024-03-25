@@ -19,6 +19,12 @@ Install Docker and Node.js as specified, and verify OS compatibility for a strea
 
 Before starting, make sure that Docker is installed on your system as a prerequisite for running the environments. There are three environments available: Test, Development, and Production.
 
+Make sure you are in neox-api folder and run:
+   ```bash
+   npm install
+   ```
+
+
 ---
 ### 1. Development Environment
 
